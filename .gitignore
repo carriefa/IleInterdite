@@ -5,7 +5,7 @@ test
 *.log
 
 # BlueJ files
-*.ctxt
+*.ctxtd
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
