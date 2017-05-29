@@ -14,7 +14,7 @@ public class Controleur {
 	private ArrayList<Joueur> _joueurs = new ArrayList<Joueur>();
 	public ArrayList<Carte_Inondation> _unnamed_Carte_Inondation_3 = new ArrayList<Carte_Inondation>();
 
-	public void TourJoueur(Aventurier aJoueur) {
+	public void TourJoueur(Aventurier_Abs aJoueur) {
 		throw new UnsupportedOperationException();
 	}
 

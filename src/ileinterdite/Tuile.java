@@ -10,22 +10,6 @@ package ileinterdite;
  * @author carriefa
  */
 public class Tuile {
-    private int numero;
-    private String nom;
-    
-    public Tuile(int numero,String nom){
-        setNumero(numero);
-        setNom(nom);
-        
-        
-    }
 
-    public void setNumero(int numero) {
-        this.numero=numero;
-    }
-
-    public void setNom(String nom) {
-        this.nom=nom;
-    }
     
 }
