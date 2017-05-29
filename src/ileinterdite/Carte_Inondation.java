@@ -1,3 +1,5 @@
+package ileinterdite;
+
 public abstract class Carte_Inondation {
-	public Tuile _tuile;
+	public Tuile tuileassociée;
 }
