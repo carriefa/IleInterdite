@@ -1,11 +1,18 @@
+
+import ileinterdite.Aventurier_Abs_;
+import ileinterdite.Tuile;
+
 public class Joueur {
-	private Aventurier__Abs_ _role;
+	private Aventurier_Abs_ role;
+        
 
 	public Tuile GetPosition() {
-		throw new UnsupportedOperationException();
+		return this.role.getPosition();
 	}
 
-	public Aventurier__Abs_ getRole() {
-		return this._role;
+	public Aventurier_Abs_ getRole() {
+		return this.role;
 	}
+        
+        
 }

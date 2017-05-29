@@ -2,7 +2,8 @@ import java.util.ArrayList;
 
 public enum Etat {
 	asséchée, 
-	inondée, 
-	disparue;
-	public ArrayList<Tuile> _cases = new ArrayList<Tuile>();
+	inondée,
+        disparue,
+        vide;
+	public ArrayList<Tuile> cases = new ArrayList<Tuile>();
 }

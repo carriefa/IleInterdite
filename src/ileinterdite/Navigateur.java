@@ -1,12 +1,11 @@
-package ileinterdite;
-
 
 import ileinterdite.Aventurier_Abs_;
 
-public class Plongeur extends Aventurier_Abs_ {
-    private String role = "plongeur";
+public class Navigateur extends Aventurier_Abs_ {
+        private String role = "navigateur";
 
     
+    @Override
     public String getRole() {
         return role;
     }
@@ -15,4 +14,7 @@ public class Plongeur extends Aventurier_Abs_ {
     public void setRole(String role) {
         this.role = role;
     }
+    
+    
+    
 }
