@@ -24,6 +24,10 @@ public class Tuile {
             
             setNumero(numero);   
         }
+        
+        public Tuile(){
+            
+        }
 
 
         
