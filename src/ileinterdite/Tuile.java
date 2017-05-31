@@ -21,7 +21,7 @@ public class Tuile {
         
         public Tuile(int numero){
             setEtat(numero);
-            setNom(nom);
+            
             setNumero(numero);   
         }
 
@@ -55,17 +55,13 @@ public class Tuile {
         
         
         
-        
-        public void setPionsPrésents(){
+        public ArrayList<Aventurier_Abs_> getPionsPrésents(){
             for (Aventurier_Abs_ aventurier : pions){ //pour chaque aventurier
                 if (aventurier.getPosition().getNumero()==this.getNumero()){ //on regarde le numério de la tuile sur laquelle il est, et on le compare a la tuile actuelle
                     pionsPrésents.add(aventurier); // si le numéro est le même, on ajoute l'aventurier a l'ArrayList pionsPrésents
                 }
                 
             }
-        }
-        
-        public ArrayList<Aventurier_Abs_> getPionsPrésents(){
             return pionsPrésents;
         }
         
