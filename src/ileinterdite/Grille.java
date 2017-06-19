@@ -66,7 +66,7 @@ import java.util.ArrayList;
         for (Tuile tuile : instance_tuile){
             if(tuile.getNumero()==22 || tuile.getNumero()==16 || tuile.getNumero()==10){
                 tuile.SetEtat(Etat.INONDEE);
-            }else if(tuile.getNumero()==3 || tuile.getNumero()==4){
+            }else if(tuile.getNumero()==3){
                 tuile.SetEtat(Etat.DISPARUE);
             }
         }

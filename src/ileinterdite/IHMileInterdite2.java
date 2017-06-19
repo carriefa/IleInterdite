@@ -148,6 +148,7 @@ public class IHMileInterdite2 {
                cases[a].setBackground( Color.MAGENTA);
                a=a+1;
            }
+           System.out.println(a);
        }
    }
     
