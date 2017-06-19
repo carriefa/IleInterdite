@@ -1,10 +1,9 @@
 
 package ileinterdite;
 
-
     public enum Etat {
-	ASSECHEE, 
-	INONDEE,
+        ASSECHEE, 
+        INONDEE,
         DISPARUE,
         VIDE;}
 

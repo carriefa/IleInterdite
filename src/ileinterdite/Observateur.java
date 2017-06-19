@@ -10,5 +10,5 @@ package ileinterdite;
  * @author carriefa
  */
 public interface Observateur {  
-    public void traiterMessage(message msg);
+    public void traiterMessage(Message msg);
 }

@@ -1,18 +1,59 @@
-
-import ileinterdite.Aventurier_Abs_;
+package ileinterdite;
+import ileinterdite.Aventurier;
 import ileinterdite.Tuile;
+import ileinterdite.Utils.Pion;
 
 public class Joueur {
-	private Aventurier_Abs_ role;
-        
+    private Aventurier aventurier;
+    private String nom;
+    private Pion pion;
 
-	public Tuile GetPosition() {
-		return this.role.getPosition();
-	}
+    public Joueur(String nom, Aventurier aventurier,Pion pion){
+        this.nom=nom;
+        this.aventurier=aventurier;
+        this.pion=pion;
+    }
 
-	public Aventurier_Abs_ getRole() {
-		return this.role;
-	}
+    public Aventurier getAventurier() {
+            return this.aventurier;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public Tuile getPosition() {
+         return aventurier.getPosition();
+    }
+    
+    public void setPostition(Tuile tuile){
+        aventurier.setPosition(tuile);
+    }
+
+    /**
+     * @param aventurier the aventurier to set
+     */
+    public void setAventurier(Aventurier aventurier) {
+        this.aventurier = aventurier;
+    }
+
+    /**
+     * @return the pion
+     */
+    public Pion getPion() {
+        return pion;
+    }
+
+    /**
+     * @param pion the pion to set
+     */
+    public void setPion(Pion pion) {
+        this.pion = pion;
+    }
         
         
 }

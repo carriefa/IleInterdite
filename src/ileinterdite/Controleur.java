@@ -1,39 +1,45 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package ileinterdite;
 
-import java.util.ArrayList;
+import static ileinterdite.TypesMessage.DEMARRER_PARTIE;
 
-public class Controleur {
-	private Grille grille;
-	private ArrayList<CarteTrésor_Abs_> cartes_trésor_defausse = new ArrayList<CarteTrésor_Abs_>();
-	private ArrayList<Aventurier_Abs_> roles = new ArrayList<Aventurier_Abs_>();
-	private ArrayList<Trésor> trésors = new ArrayList<Trésor>();
-	private ArrayList<CarteTrésor_Abs_> cartes_trésor_pioche = new ArrayList<CarteTrésor_Abs_>();
-	private ArrayList<Carte_Inondation> cartes_innondation_defausse= new ArrayList<Carte_Inondation>();
-	private ArrayList<Carte_Inondation> cartes_innondation_pioche = new ArrayList<Carte_Inondation>();
-	private ArrayList<Joueur> joueurs = new ArrayList<Joueur>();
-	private ArrayList<Carte_Inondation> cartes_innodation_cimetiere = new ArrayList<Carte_Inondation>();
+/**
+ *
+ * @author carriefa
+ */
+public class Controleur implements Observateur {
 
-	public void TourJoueur(Joueur joueur) {
-		
-	}
-
-	public void Deplacement(Joueur joueur) {
-            String role_joueur_courant;
-            Tuile position_joueur_courant;
+    private JeuIleInterdite jeu ;
+    private IHMileInterdite ihm ;
             
-            role_joueur_courant = joueur.getRole();
-            position_joueur_courant = joueur.getPosition();
+    public Controleur(){
+        jeu = new JeuIleInterdite() ;
+        ihm = new IHMileInterdite() ;
+    }
+    @Override
+    public void traiterMessage(Message msg) {
+        switch(msg.getType()) {
+            case DEMARRER_PARTIE:
+                
+            break ;
+            case MOUVEMENT:
             
-            grille.getCasesAdjacentes(position_joueur_courant);
+            break;
+            case ASSECHER:
+                
+            break;
+            case AUTREACTION :
             
-            
-	}
+            break;
+            case TERMINERTOUR :
+                
+            break;    
+        }
+    }
 
-	public void DeplacementExplorateur(Joueur joueur) {
-		
-	}
-
-	public void AssecherCase(Joueur joueur) {
-		
-	}
+    
 }

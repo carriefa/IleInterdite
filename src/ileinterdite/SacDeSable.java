@@ -1,2 +1,4 @@
-public class SacDeSable extends CarteTrésor_Abs_ {
+package ileinterdite;
+
+public class SacDeSable extends Carte_Tresor_Abs {
 }

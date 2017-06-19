@@ -16,10 +16,12 @@ public class IleInterdite implements Observateur {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        System.out.println();
     }
 
     @Override
-    public void traiterMessage(message msg) {
+    public void traiterMessage(Message msg) {
         if (msg.type==TypesMessage.MOUVEMENT){
             System.out.println("Deplacement ");
         }else if (msg.type==TypesMessage.ASSECHER){

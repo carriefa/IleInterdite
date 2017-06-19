@@ -10,6 +10,7 @@ package ileinterdite;
  * @author carriefa
  */
 public enum TypesMessage {
+DEMARRER_PARTIE,
 MOUVEMENT,
 ASSECHER,
 AUTREACTION,

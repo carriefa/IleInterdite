@@ -7,20 +7,14 @@ package ileinterdite;
 
 import ileinterdite.Utils.Pion;
 
-/**
- *
- * @author carriefa
- */
 public class Appli {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         // TODO code application logic here
-         IleInterdite controleur = new IleInterdite() ; 
-        VueAventurier vueAventurier = new VueAventurier ("Manon", "Explorateur",Pion.ROUGE.getCouleur(),controleur );
-        
+
+        IHMileInterdite ihm = new IHMileInterdite();
+        JeuIleInterdite test = new JeuIleInterdite();
+        test.Jeu();
     }
     
 }
