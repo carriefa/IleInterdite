@@ -1,7 +1,6 @@
 package ileinterdite;
 
-import ileinterdite.Aventurier;
-import ileinterdite.Tuile;
+
 import java.util.ArrayList;
 
 public class Ingenieur extends Aventurier {

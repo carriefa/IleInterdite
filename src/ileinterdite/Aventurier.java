@@ -3,7 +3,7 @@ package ileinterdite;
 import java.util.ArrayList;
 
 public abstract class Aventurier {
-    public ArrayList<Carte_Tresor_Abs_> main = new ArrayList<Carte_Tresor_Abs_>();
+    public ArrayList<Carte_Tresor_Abs> main = new ArrayList<Carte_Tresor_Abs>();
     private Joueur joueur_associé;
     private Tuile position_actuelle;
     
