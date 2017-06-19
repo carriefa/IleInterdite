@@ -50,12 +50,24 @@ import java.util.ArrayList;
             }else{
                instance_tuile[i].setNom(nom_tuiles_init.get(alea));
               // instance_tuile[i].setTresorAssocié();
-              // instance_tuile[i].setPionAssocie();
+               
                nom_tuiles_init.remove(alea);
                a = a-1;
             }
             num= num+1;
             System.out.println(instance_tuile[i].getNom());
+        }
+        for(Tuile tuile : instance_tuile){
+            tuile.setPionAssocie();
+        }
+        
+        //test
+        for (Tuile tuile : instance_tuile){
+            if(tuile.getNumero()==22 || tuile.getNumero()==16 || tuile.getNumero()==10){
+                tuile.SetEtat(Etat.INONDEE);
+            }else if(tuile.getNumero()==3 || tuile.getNumero()==4){
+                tuile.SetEtat(Etat.DISPARUE);
+            }
         }
     }
     
@@ -279,46 +291,49 @@ import java.util.ArrayList;
         return tuiles_adjacentes_diagonales;
     }
     
+    
     public ArrayList<Tuile> getTuilesDeplacement(Joueur joueur){
         Tuile tuile_joueur =joueur.getPosition();
         String role = joueur.getAventurier().getRole();
         ArrayList<Tuile> tuiles_deplacement = new ArrayList<>();
         
-        if (role.equals("explorateur")){
-            for(Tuile tuile : getTuilesAdjacentesDiagonales(tuile_joueur)){
-                if (tuile.getEtat()== Etat.ASSECHEE || tuile.getEtat()==Etat.INONDEE){
-                    tuiles_deplacement.add(tuile);
-                }
+        for(Tuile tuile : getTuilesAdjacentes(tuile_joueur)){
+            if (tuile.getEtat()== Etat.ASSECHEE || tuile.getEtat()==Etat.INONDEE){
+                tuiles_deplacement.add(tuile);
             }
-        /*}else if(role.equals("pilote")) {
-            for(Tuile tuile : getTuiles()){
-                //System.out.println(instance_tuile[i].getNumero()+" "+instance_tuile[i].getNom()+" "+instance_tuile[i].getEtat());
-                if((tuile.getEtat()== Etat.ASSECHEE) || (tuile.getEtat()==Etat.INONDEE)){    
-                    tuiles_deplacement.add(tuile);
-                }
-            }*/
-        }else{
-            for(Tuile tuile : getTuilesAdjacentes(tuile_joueur)){
-                if (tuile.getEtat()== Etat.ASSECHEE || tuile.getEtat()==Etat.INONDEE){
-                    tuiles_deplacement.add(tuile);
-                }
+        }
+       return tuiles_deplacement;
+    }
+    
+    public ArrayList<Tuile> getTuilesDeplacementExplorateur(Joueur joueur){
+        Tuile tuile_joueur =joueur.getPosition();
+        String role = joueur.getAventurier().getRole();
+        ArrayList<Tuile> tuiles_deplacement = new ArrayList<>();
+        
+        for(Tuile tuile : getTuilesAdjacentesDiagonales(tuile_joueur)){
+            if (tuile.getEtat()== Etat.ASSECHEE || tuile.getEtat()==Etat.INONDEE){
+                tuiles_deplacement.add(tuile);
             }
         }
         return tuiles_deplacement;
     }
-    /*
-    public ArrayList<Tuile> getTuilesDeplacementPilote(Joueur joueur){
-        
-    }
-    */
     
     public ArrayList<Tuile> getTuilesDeplacementPlongeur(Joueur joueur){
-        Tuile tuile_joueur = joueur.getPosition();
+        Tuile tuile_joueur = joueur.getAventurier().getPosition();
         ArrayList<Tuile> tuiles_deplacement = new ArrayList<>();
         
         for (Tuile tuile : getTuilesAdjacentes(tuile_joueur)){
-            if (tuile.getEtat()!= Etat.VIDE){
+            if (tuile.getEtat()==Etat.ASSECHEE){
                 tuiles_deplacement.add(tuile);
+            }else if(tuile.getEtat()==Etat.DISPARUE || tuile.getEtat()==Etat.INONDEE){
+                tuiles_deplacement.add(tuile);;
+                for(Tuile tuile_courante : getTuilesAdjacentes(tuile)){
+                    while (tuile_courante.getEtat()!=Etat.ASSECHEE && tuile_courante.getEtat()!=Etat.VIDE) {                    
+                        if (tuiles_deplacement.contains(tuile_courante)==false){
+                            tuiles_deplacement.add(tuile_courante);
+                        }//fin if
+                    }//fin while
+                }//fin for
             }
         }
         return tuiles_deplacement;
@@ -326,25 +341,20 @@ import java.util.ArrayList;
     
     public ArrayList<Tuile> getTuilesAssechables(Joueur joueur){
         Tuile tuile_joueur = joueur.getPosition();
-        String role = joueur.getAventurier().getRole();
         ArrayList<Tuile> tuiles_assechable = new ArrayList<>();
 
         if (tuile_joueur.getEtat()==Etat.INONDEE){
             tuiles_assechable.add(tuile_joueur);
         }
-        if (role.equals("explorateur")){
-            for (Tuile tuile_act : getTuilesAdjacentesDiagonales(tuile_joueur)){
-                if (tuile_act.getEtat()==Etat.INONDEE){
-                    tuiles_assechable.add(tuile_act);
-                }//fin if
-            }//fin if  
-        }else{
-            for (Tuile tuile_act : getTuilesAdjacentes(tuile_joueur)){
-                if (tuile_act.getEtat()==Etat.INONDEE){
-                    tuiles_assechable.add(tuile_act);
-                }//fin if
-            }//fin for
-        }//fin if
+
+        for (Tuile tuile_act : getTuilesAdjacentes(tuile_joueur)){
+            if (tuile_act.getEtat()==Etat.INONDEE){
+                tuiles_assechable.add(tuile_act);
+            }//fin if
+        }//fin for
+        if(tuiles_assechable==null){
+            tuiles_assechable.add(null);
+        }
      return tuiles_assechable;
     }
     
@@ -356,12 +366,12 @@ import java.util.ArrayList;
         if (tuile_joueur.getEtat()==Etat.INONDEE){
             tuiles_assechable.add(tuile_joueur);
         }
-        
-            for (Tuile tuile_act : getTuilesAdjacentesDiagonales(tuile_joueur)){
-                if (tuile_act.getEtat()==Etat.INONDEE){
-                    tuiles_assechable.add(tuile_act);
-                }//fin if
-            }//fin if  
+
+        for (Tuile tuile_act : getTuilesAdjacentesDiagonales(tuile_joueur)){
+            if (tuile_act.getEtat()==Etat.INONDEE){
+                tuiles_assechable.add(tuile_act);
+            }//fin if
+        }//fin if  
         
      return tuiles_assechable;
     }

@@ -90,13 +90,13 @@ public class Tuile {
     }
 
     public void setTresorAssocié() {
-        if (getNOM_TUILES()[this.getNumero()].equals("Le Temple De La Lune") || getNOM_TUILES()[this.getNumero()].equals("Le Temple Du Soleil")){
+        if (this.getNom().equals("Le Temple De La Lune") ||this.getNom().equals("Le Temple Du Soleil")){
             tresor_associe = new Tresor("La Pierre Sacrée");
-        }else if(getNOM_TUILES()[this.getNumero()].equals("Le Jardin Des Murmures") || getNOM_TUILES()[this.getNumero()].equals("Le Jardin Des Hurlements")){
+        }else if(this.getNom().equals("Le Jardin Des Murmures") || this.getNom().equals("Le Jardin Des Hurlements")){
             tresor_associe = new Tresor("La Statue Du Zéphyr");
-        }else if(getNOM_TUILES()[this.getNumero()].equals("La Caverne du Brasier") || getNOM_TUILES()[this.getNumero()].equals("La Caverne Des Ombres")){
+        }else if(this.getNom().equals("La Caverne du Brasier") || this.getNom().equals("La Caverne Des Ombres")){
             tresor_associe = new Tresor("Le Cristal Ardent");
-        }else if(getNOM_TUILES()[this.getNumero()].equals("Le Palais De Corail") || getNOM_TUILES()[this.getNumero()].equals("Le Palais Des Marees")){
+        }else if(this.getNom().equals("Le Palais De Corail") || this.getNom().equals("Le Palais Des Marees")){
             tresor_associe = new Tresor("Le Calice De L’onde");
         }else{
             tresor_associe=null;
@@ -109,21 +109,26 @@ public class Tuile {
     }
 
     public void setPionAssocie() {
-        if (getNOM_TUILES()[this.getNumero()].equals("La Porte De Bronze")){
-            pion_associe = Pion.ROUGE;
-        }else if(getNOM_TUILES()[this.getNumero()].equals("La Porte De Fer")){
-            pion_associe = Pion.VIOLET;
-        }else if(getNOM_TUILES()[this.getNumero()].equals("La Porte d'Or")){
-            pion_associe = Pion.JAUNE;
-        }else if(getNOM_TUILES()[this.getNumero()].equals("La Porte d'Argent")){
-            pion_associe = Pion.ORANGE;
-        }else if(getNOM_TUILES()[this.getNumero()].equals("L'héliport")){
-            pion_associe = Pion.BLEU;
-        }else if(getNOM_TUILES()[this.getNumero()].equals("La Porte De Cuivre")){
-            pion_associe = Pion.VERT;
+        if (this.getNom()!=null){
+            if ((this.getNom()).equals("La Porte De Bronze")){
+                pion_associe = Pion.ROUGE;
+            }else if(this.getNom().equals("La Porte De Fer")){
+                pion_associe = Pion.VIOLET;
+            }else if(this.getNom().equals("La Porte d'Or")){
+                pion_associe = Pion.JAUNE;
+            }else if(this.getNom().equals("La Porte d'Argent")){
+                pion_associe = Pion.ORANGE;
+            }else if(this.getNom().equals("L'héliport")){
+                pion_associe = Pion.BLEU;
+            }else if(this.getNom().equals("La Porte De Cuivre")){
+                pion_associe = Pion.VERT;
+            }else{
+                pion_associe = null;
+            }
         }else{
-            pion_associe = null;
+            pion_associe=null;
         }
+        
             
     }
 

@@ -1,5 +1,6 @@
 package ileinterdite;
 
+import ileinterdite.TypesMessage;
 import java.util.ArrayList;
 
 public abstract class Aventurier {
@@ -13,7 +14,9 @@ public abstract class Aventurier {
     public Tuile getPosition(){
         return position_actuelle;
     }
-    public abstract Joueur getJoueur();
+    public Joueur getJoueur(){
+        return joueur_associé;
+    }
     
     public void setPosition(Tuile tuile){
         this.position_actuelle=tuile;
@@ -21,6 +24,9 @@ public abstract class Aventurier {
     
     public abstract ArrayList<Tuile> getTuilesAssechables(Joueur joueur);
     public abstract void AssecherTuile(Tuile tuile);
+    
+    public abstract ArrayList<Tuile> getTuilesDeplacement(Joueur joueur);
+    public abstract void Deplacement(Tuile tuile);
 
     /**
      * @return the grille

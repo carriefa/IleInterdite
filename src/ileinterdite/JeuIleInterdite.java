@@ -1,5 +1,11 @@
 package ileinterdite;
 
+import Roles.Plongeur;
+import Roles.Pilote;
+import Roles.Navigateur;
+import Roles.Ingenieur;
+import Roles.Explorateur;
+import Roles.Messager;
 import com.sun.glass.ui.SystemClipboard;
 import ileinterdite.Utils.Pion;
 
@@ -52,7 +58,7 @@ public class JeuIleInterdite {
             System.out.println("0- Passer tour");
             System.out.println("1- Deplacement ");
             System.out.println("2- Afficher la grille");
-            if (grille.getTuilesAssechables(joueur).size() > 0 ){
+            if (grille.getTuilesAssechables(joueur)!=null ){
                 System.out.println("3- Assecher "); 
             }
             int action = scanner.nextInt();
@@ -73,23 +79,21 @@ public class JeuIleInterdite {
                     AssecherTuile(joueur);
                     pointsActions = pointsActions - 1 ;
                 }
-                
                 else {
                     System.out.println("Action Impossible .");
                 }
-                
         }
         System.out.println("Fin du tour de "+joueur.getNom());
     }
     
     public void InitJoueur(){
-        System.out.println("Rentrez le nombre de joueurs (de 4 à 6): ");
+        System.out.println("Rentrez le nombre de joueurs (de 1 à 4): ");
         int nb_joueurs = scanner.nextInt();
         scanner.nextLine();
         
-        if (nb_joueurs<4){
+        if (nb_joueurs<1){
             System.out.println("Il n'y a pas assez de joueurs.");
-        }else if(nb_joueurs>6){
+        }else if(nb_joueurs>4){
             System.out.println("Il y a trop de joueurs.");
         }else{
             String nom_joueur;
@@ -161,16 +165,27 @@ public class JeuIleInterdite {
                         System.out.println("Il n'y a aucun pion correspondant à ce chiffre, veuillez en rentrer un autre :");
                         for (int j =1 ; j<=pions_non_utilises.size();j++){
                             System.out.println(j+" "+pions_non_utilises.get(j));
-                            num_pion_choisie=scanner.nextInt();scanner.nextLine();
+                            num_pion_choisie=scanner.nextInt();
+                            scanner.nextLine();
                         }
                     }//fin while
                 }//fin if
                 Joueur joueur = new Joueur(nom_joueur,aventurier,pion);
+                
                 if (grille.getNumTuilePion(joueur.getPion())!=36){
                     joueur.setPostition(grille.getTuile(grille.getNumTuilePion(joueur.getPion())));
+                    
                 }
                 
                 getJoueurs().add(joueur);
+                //tests
+                /*
+                System.out.println(grille.getNumTuilePion(joueur.getPion()));
+                for(Pion pion12 : pions){
+                    System.out.println(grille.getNumTuilePion(pion12));
+                }
+                System.out.println(joueur.getPosition().getNumero()+"beuleubeuleu");
+                */
             }//fin for
             
         }
@@ -178,7 +193,7 @@ public class JeuIleInterdite {
     }
 
     public void Deplacement(Joueur joueur) { // à appeler aussi pour explorateur
-        ArrayList<Tuile> tuiles_deplacement = getGrille().getTuilesDeplacement(joueur);
+        ArrayList<Tuile> tuiles_deplacement = joueur.getAventurier().getTuilesDeplacement(joueur);
         boolean controle_boucle =true;
         
         System.out.println("Voici les cases sur lesquelles vous pouvez vous déplacer:");
@@ -253,7 +268,7 @@ public class JeuIleInterdite {
     }
 
     public void AssecherTuile(Joueur joueur) {
-        ArrayList<Tuile> tuiles_assechables = getGrille().getTuilesAssechables(joueur);
+        ArrayList<Tuile> tuiles_assechables = joueur.getAventurier().getTuilesAssechables(joueur);
         boolean controle_boucle = true;
         
         System.out.println("Voici les tuiles que vous pouvez assécher :");

@@ -1,7 +1,9 @@
-package ileinterdite;
+package Roles;
 
-import ileinterdite.Tuile;
 import ileinterdite.Aventurier;
+import ileinterdite.Etat;
+import ileinterdite.Joueur;
+import ileinterdite.Tuile;
 import java.util.ArrayList;
 
 public class Pilote extends Aventurier {
@@ -17,11 +19,6 @@ public class Pilote extends Aventurier {
     }
 
     @Override
-    public Joueur getJoueur() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public ArrayList<Tuile> getTuilesAssechables(Joueur joueur) {
         return super.getPosition().getGrille().getTuilesAssechables(joueur);
     }
@@ -29,8 +26,16 @@ public class Pilote extends Aventurier {
     @Override
     public void AssecherTuile(Tuile tuile) {
         tuile.SetEtat(Etat.ASSECHEE);
-                
-                
+    }
+
+    @Override
+    public ArrayList<Tuile> getTuilesDeplacement(Joueur joueur) {
+        return super.getPosition().getGrille().getTuilesDeplacement(joueur);
+    }
+
+    @Override
+    public void Deplacement(Tuile tuile) {
+        super.setPosition(tuile);
     }
 
    

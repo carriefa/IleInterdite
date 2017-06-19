@@ -63,11 +63,11 @@ public class IHMileInterdite {
         }
         
         cases = new JButton[35];
-        
+        /*
         for(int i = 0; i<36; i++){
             if ( 
         }
-        
+        */
         
         
         windowJeu.add(commandes, BorderLayout.NORTH);
