@@ -42,14 +42,8 @@ public class IHMileInterdite {
         private JLabel joueurCourant = new JLabel();
         private JLabel actionCourante = new JLabel();
         
-    
-    
-    public IHMileInterdite(Grille grille) {
         
         
-        
-        
-    }
     
     public IHMileInterdite(){
         
@@ -100,7 +94,7 @@ public class IHMileInterdite {
             }
         }
         
-        status.setSize(d);
+        
         actionCourante.setText("Aucune");
         joueurCourant.setText("Joueur 1");
         status.add(new JLabel("C'est à : "));
@@ -116,6 +110,8 @@ public class IHMileInterdite {
         windowJeu.setVisible(true);
         
     }
+    
+    
     
     
     

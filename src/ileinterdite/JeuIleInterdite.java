@@ -18,8 +18,10 @@ public class JeuIleInterdite {
     private ArrayList<Carte_Inondation> cartes_innondation_defausse;
     private ArrayList<Carte_Inondation> cartes_innondation_pioche;
     private ArrayList<Carte_Inondation> cartes_innodation_cimetiere;
+    IHMileInterdite ihm = new IHMileInterdite();
     
     public JeuIleInterdite(){
+        
         scanner = new Scanner(System.in);
         grille = new Grille();
         roles = new ArrayList<>();
@@ -30,6 +32,7 @@ public class JeuIleInterdite {
         cartes_trésor_defausse = new ArrayList<>();
         cartes_trésor_pioche = new ArrayList<>();
         joueurs = new ArrayList<>();
+        ihm.InitFenetrePrincipale(grille);
         
     }
     public void Jeu (){
