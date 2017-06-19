@@ -26,6 +26,7 @@ public class JeuIleInterdite {
     private ArrayList<Carte_Inondation> cartes_innodation_cimetiere;
     
     public JeuIleInterdite(){
+        
         scanner = new Scanner(System.in);
         grille = new Grille();
         roles = new ArrayList<>();

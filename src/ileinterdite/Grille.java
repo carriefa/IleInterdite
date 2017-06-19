@@ -1,3 +1,4 @@
+
 package ileinterdite;
 
 import ileinterdite.Utils.Pion;
@@ -43,7 +44,7 @@ import java.util.ArrayList;
             alea=a; // A MODIFIER!!!!
             instance_tuile[i] = new Tuile(alea);
             instance_tuile[i].setNumero(num);// set le numéro
-            instance_tuile[i].setEtat(num); // set l'état
+            instance_tuile[i].setEtat(num); // set l'état  (num)
 
             if (instance_tuile[i].getEtat()==Etat.VIDE){
                 instance_tuile[i].setNom(null);
