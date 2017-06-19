@@ -7,14 +7,15 @@ package ileinterdite;
 
 import ileinterdite.Utils.Pion;
 
-public class Appli {
+public class Test {
 
     public static void main(String[] args) {
         // TODO code application logic here
-
-        
-        JeuIleInterdite test = new JeuIleInterdite();
-        test.Jeu();
+        Grille grille = new Grille();
+        grille.setEtat(16, Etat.DISPARUE);       
+        IHMileInterdite2 ihm = new IHMileInterdite2();
+        ihm.InitFenetrePrincipale(grille);
+        grille.setEtat(15, Etat.INONDEE);    
     }
     
 }

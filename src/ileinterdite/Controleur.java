@@ -14,11 +14,11 @@ import static ileinterdite.TypesMessage.DEMARRER_PARTIE;
 public class Controleur implements Observateur {
 
     private JeuIleInterdite jeu ;
-    private IHMileInterdite ihm ;
+    private IHMileInterdite2 ihm ;
             
     public Controleur(){
         jeu = new JeuIleInterdite() ;
-        ihm = new IHMileInterdite() ;
+        ihm = new IHMileInterdite2() ;
     }
     @Override
     public void traiterMessage(Message2 msg) {

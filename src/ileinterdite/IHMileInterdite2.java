@@ -6,7 +6,10 @@
 package ileinterdite;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,7 +19,7 @@ import javax.swing.JPanel;
  *
  * @author lucadeslot
  */
-public class IHMileInterdite {
+public class IHMileInterdite2 {
     
     //fenêtre principal
     
@@ -41,17 +44,17 @@ public class IHMileInterdite {
         private JPanel panelOptions = new JPanel(new BorderLayout());
         private JLabel joueurCourant = new JLabel();
         private JLabel actionCourante = new JLabel();
-        
+        Grille grille ;
         
         
     
-    public IHMileInterdite(){
-        
+    public IHMileInterdite2(){
+        System.out.println("Normal");
         
     }
         
     public void InitFenetrePrincipale(Grille grille){
-        
+        this.grille = grille ;
         windowJeu = new JFrame("Ile Interdite");
         windowJeu.setLayout(new BorderLayout());
         
@@ -69,7 +72,13 @@ public class IHMileInterdite {
                 commandes.add(new JLabel(""));
             }
         }
-        
+        Deplacement.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                majGrille(grille);
+            }
+        });
         cases = new JButton[24];
         
         System.out.println(grille.getTuile(0));
@@ -84,7 +93,7 @@ public class IHMileInterdite {
             
               if(grille.getTuile(i).getNom() != null){
                 cases[a] = new JButton(grille.getTuile(i).getNom());
-            
+                  System.out.println(grille.getTuile(i).getNom());
                 
                 panelCentre.add(cases[a]);
                 a = a+1;
@@ -108,10 +117,26 @@ public class IHMileInterdite {
         windowJeu.add(panelOptions, BorderLayout.SOUTH); 
         
         windowJeu.setVisible(true);
-        
-    }
+        majGrille(grille);
+} 
     
-    
+   public void majGrille(Grille grille){
+       int a = 0 ;
+       for (int i = 0;i< grille.getTuiles().length; i++){
+           if (grille.getTuile(i).getEtat() == Etat.DISPARUE){
+               cases[a].setBackground( new Color(0,0,55));
+               a=a+1;
+           } 
+           else if (grille.getTuile(i).getEtat() == Etat.INONDEE){
+               cases[a].setBackground( new Color(0,0,155));
+               a=a+1;
+           }
+           else if (grille.getTuile(i).getEtat() == Etat.ASSECHEE){
+               cases[a].setBackground( Color.MAGENTA);
+               a=a+1;
+           }
+       }
+   }
     
     
     
