@@ -52,6 +52,8 @@ public class IHMileInterdite2 {
         private JLabel actionCourante = new JLabel();
         Grille grille ;
         
+        private JLabel joueur = new JLabel();
+        
         
         
     
@@ -105,7 +107,7 @@ public class IHMileInterdite2 {
             
             
               if(grille.getTuile(i).getNom() != null){
-                cases[a] = new JButton(grille.getTuile(i).getNom());
+                cases[a] = new JButton("<html>"+grille.getTuile(i).getNom());
                   System.out.println(grille.getTuile(i).getNom());
                 
                 panelCentre.add(cases[a]);
@@ -118,7 +120,7 @@ public class IHMileInterdite2 {
         
         
         actionCourante.setText("Aucune");
-        joueurCourant.setText("Joueur 1");
+        joueurCourant.setText("Joueur 1    ");
         status.add(new JLabel("C'est à : "));
         status.add(joueurCourant);
         status.add(new JLabel("Action courante : "));
@@ -146,7 +148,11 @@ public class IHMileInterdite2 {
            }
            else if (grille.getTuile(i).getEtat() == Etat.ASSECHEE){
                cases[a].setBackground( Color.MAGENTA);
+               
+               if (joueur != null){
+               cases[a].setText(cases[a].getText()+"<br />");
                a=a+1;
+               }
            }
            System.out.println(a);
        }
