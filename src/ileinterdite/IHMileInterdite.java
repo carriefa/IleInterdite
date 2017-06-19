@@ -22,6 +22,7 @@ public class IHMileInterdite {
     
     private JFrame windowJeu;
     private JPanel commandes;
+    private Controleur controleur;
        
         //boutons
         
@@ -31,21 +32,34 @@ public class IHMileInterdite {
         
         //grille
         
+        private JPanel panelCentre = new JPanel(new GridLayout(6,6));
         private JButton[] cases;
         
-    
-    
-    public IHMileInterdite() {
+        //Options
         
-        windowJeu = new JFrame("Ile Interdite");
-        windowJeu.setLayout(new BorderLayout());
-        InitFenetrePrincipale();
+        private JPanel status = new JPanel();
+        private JPanel panelOptions = new JPanel(new BorderLayout());
+        private JLabel joueurCourant = new JLabel();
+        private JLabel actionCourante = new JLabel();
+        
+    
+    
+    public IHMileInterdite(Grille grille) {
+        
+        
         
         
     }
     
+    public IHMileInterdite(){
         
-    public void InitFenetrePrincipale(){
+        
+    }
+        
+    public void InitFenetrePrincipale(Grille grille){
+        
+        windowJeu = new JFrame("Ile Interdite");
+        windowJeu.setLayout(new BorderLayout());
         
         //initialisation commandes
         commandes = new JPanel(new GridLayout(2, 6));
@@ -62,18 +76,43 @@ public class IHMileInterdite {
             }
         }
         
-        cases = new JButton[35];
+        cases = new JButton[24];
         
-        for(int i = 0; i<36; i++){
-            if ( 
+        System.out.println(grille.getTuile(0));
+        
+        int a = 0;
+        
+        
+        
+        for(int i = 0; i< grille.getTuiles().length; i++){
+            
+            
+            
+              if(grille.getTuile(i).getNom() != null){
+                cases[a] = new JButton(grille.getTuile(i).getNom());
+            
+                
+                panelCentre.add(cases[a]);
+                a = a+1;
+            } else {            
+                panelCentre.add(new JLabel(""));
+               
+            }
         }
         
-        
-        
-        windowJeu.add(commandes, BorderLayout.NORTH);
-        
-        
+        status.setSize(d);
+        actionCourante.setText("Aucune");
+        joueurCourant.setText("Joueur 1");
+        status.add(new JLabel("C'est à : "));
+        status.add(joueurCourant);
+        status.add(new JLabel("Action courante : "));
+        status.add(actionCourante); 
+        panelOptions.add(status, BorderLayout.WEST);
         windowJeu.setSize(1000,1000);
+        windowJeu.add(commandes, BorderLayout.NORTH);
+        windowJeu.add(panelCentre, BorderLayout.CENTER);
+        windowJeu.add(panelOptions, BorderLayout.SOUTH); 
+        
         windowJeu.setVisible(true);
         
     }
