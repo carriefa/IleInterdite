@@ -6,6 +6,7 @@
 package ileinterdite;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -47,6 +48,7 @@ public class IHMileInterdite {
     
     public IHMileInterdite(){
         
+        cases = new JButton[24];
         
     }
         
@@ -70,29 +72,27 @@ public class IHMileInterdite {
             }
         }
         
-        cases = new JButton[24];
         
-        System.out.println(grille.getTuile(0));
+        
         
         int a = 0;
-        
-        
-        
+           
         for(int i = 0; i< grille.getTuiles().length; i++){
-            
-            
             
               if(grille.getTuile(i).getNom() != null){
                 cases[a] = new JButton(grille.getTuile(i).getNom());
-            
-                
+                cases[a].setName(Integer.toString(a));
                 panelCentre.add(cases[a]);
-                a = a+1;
+                
+                a = a + 1;
             } else {            
                 panelCentre.add(new JLabel(""));
                
             }
         }
+        
+        
+        
         
         
         actionCourante.setText("Aucune");
@@ -111,6 +111,25 @@ public class IHMileInterdite {
         
     }
     
+    public void majGrille(Grille grille){
+     
+        int a = 0;
+        for(int i = 0; i< grille.getTuiles().length; i++){
+            
+              if(grille.getTuile(i).getNom() != null){
+                  if(grille.getTuile(i).getEtat() == Etat.DISPARUE){
+                      cases[a].setBackground(new Color(000036));
+                      
+                  }
+                
+                a = a+1;
+            } else {            
+                panelCentre.add(new JLabel(""));
+               
+            }
+        }
+        
+    }
     
     
     
