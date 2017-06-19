@@ -21,7 +21,7 @@ public class Controleur implements Observateur {
         ihm = new IHMileInterdite() ;
     }
     @Override
-    public void traiterMessage(Message msg) {
+    public void traiterMessage(Message2 msg) {
         switch(msg.getType()) {
             case DEMARRER_PARTIE:
                 

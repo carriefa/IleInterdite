@@ -21,7 +21,7 @@ public class IleInterdite implements Observateur {
     }
 
     @Override
-    public void traiterMessage(Message msg) {
+    public void traiterMessage(Message2 msg) {
         if (msg.type==TypesMessage.MOUVEMENT){
             System.out.println("Deplacement ");
         }else if (msg.type==TypesMessage.ASSECHER){

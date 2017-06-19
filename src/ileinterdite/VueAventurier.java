@@ -79,7 +79,7 @@ public class VueAventurier  {
         btnAller.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              Message m = new Message(); 
+              Message2 m = new Message2(); 
               m.type = TypesMessage.MOUVEMENT;
               observateur.traiterMessage(m); 
             }
@@ -89,7 +89,7 @@ public class VueAventurier  {
         btnAssecher.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              Message m = new Message(); 
+              Message2 m = new Message2(); 
               m.type = TypesMessage.ASSECHER;
               observateur.traiterMessage(m);
             }
@@ -99,7 +99,7 @@ public class VueAventurier  {
         btnAutreAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              Message m = new Message(); 
+              Message2 m = new Message2(); 
               m.type = TypesMessage.AUTREACTION;
               observateur.traiterMessage(m);
             }
@@ -109,7 +109,7 @@ public class VueAventurier  {
         btnTerminerTour.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              Message m = new Message(); 
+              Message2 m = new Message2(); 
               m.type = TypesMessage.TERMINERTOUR;
               observateur.traiterMessage(m);
             }

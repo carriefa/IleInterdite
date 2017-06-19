@@ -9,7 +9,7 @@ package ileinterdite;
  *
  * @author carriefa
  */
-public class Message {
+public class Message2 {
    public TypesMessage type ;
 
     
