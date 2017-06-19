@@ -10,10 +10,16 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.metal.MetalLookAndFeel;
+
 
 /**
  *
@@ -47,13 +53,20 @@ public class IHMileInterdite2 {
         Grille grille ;
         
         
+        
     
     public IHMileInterdite2(){
         System.out.println("Normal");
+        try {
+            UIManager.setLookAndFeel(new MetalLookAndFeel());
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(IHMileInterdite2.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
         
     public void InitFenetrePrincipale(Grille grille){
+        
         this.grille = grille ;
         windowJeu = new JFrame("Ile Interdite");
         windowJeu.setLayout(new BorderLayout());
