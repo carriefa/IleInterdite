@@ -49,7 +49,7 @@ public class JeuIleInterdite {
         cartesInondation = new ArrayList<>();
         cartestrésors = new ArrayList<>();
         scanner = new Scanner(System.in);
-        grille = new Grille(trésors);
+        grille = new Grille(getTrésors());
         roles = new ArrayList<>();
         trésors = new ArrayList<>();
         cartes_innondation_defausse = new ArrayList<>();
@@ -435,5 +435,12 @@ public class JeuIleInterdite {
      */
     public ArrayList<Joueur> getJoueurs() {
         return joueurs;
+    }
+
+    /**
+     * @return the trésors
+     */
+    public ArrayList<Tresor> getTrésors() {
+        return trésors;
     }
 }
