@@ -38,6 +38,7 @@ import java.util.ArrayList;
         int alea;
         int a = tuile_type.getNOM_TUILES().length-1;
         int num = 0;
+        
              
         for(int i = 0; i < getTuiles().length; i++){ // boucle qui parcoute les nom des tuiles
             //alea = (int) (Math.random() * (a - 0)); // alea un nombre netre 0 et 35
@@ -53,6 +54,7 @@ import java.util.ArrayList;
               // instance_tuile[i].setTresorAssocié();
                
                nom_tuiles_init.remove(alea);
+               
                a = a-1;
             }
             num= num+1;

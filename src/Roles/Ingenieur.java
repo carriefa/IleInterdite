@@ -2,9 +2,12 @@ package Roles;
 
 
 import ileinterdite.Aventurier;
+import ileinterdite.Controleur;
 import ileinterdite.Etat;
 import ileinterdite.Joueur;
+import ileinterdite.Message2;
 import ileinterdite.Tuile;
+import ileinterdite.TypesMessage;
 import ileinterdite.Utils;
 import java.util.ArrayList;
 
