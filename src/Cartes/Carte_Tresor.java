@@ -1,4 +1,6 @@
-package ileinterdite; 
+package Cartes; 
+
+import ileinterdite.Tresor;
 
 public class Carte_Tresor extends Carte_Tresor_Abs {
 	private Tresor tresorAssocié;

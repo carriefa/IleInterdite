@@ -1,5 +1,6 @@
 package ileinterdite;
 
+import Cartes.Carte_Inondation;
 import java.util.ArrayList;
 import ileinterdite.Etat;
 import ileinterdite.Utils.Pion;

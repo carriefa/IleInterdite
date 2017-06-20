@@ -1,4 +1,6 @@
-package ileinterdite;
+package Cartes;
+
+import ileinterdite.Tuile;
 
 public class Carte_Inondation {
 	public Tuile tuileassociée;

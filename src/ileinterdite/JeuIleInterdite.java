@@ -1,5 +1,10 @@
 package ileinterdite;
 
+import Cartes.Carte_Tresor;
+import Cartes.SacDeSable;
+import Cartes.Helicoptere;
+import Cartes.Carte_Inondation;
+import Cartes.Carte_Tresor_Abs;
 import Roles.Plongeur;
 import Roles.Pilote;
 import Roles.Navigateur;

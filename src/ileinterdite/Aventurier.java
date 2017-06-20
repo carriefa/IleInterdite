@@ -1,5 +1,6 @@
 package ileinterdite;
 
+import Cartes.Carte_Tresor_Abs;
 import ileinterdite.TypesMessage;
 import ileinterdite.Utils.Pion;
 import java.util.ArrayList;
