@@ -1,5 +1,10 @@
 package ileinterdite;
 
+import Cartes.Carte_Tresor;
+import Cartes.SacDeSable;
+import Cartes.Helicoptere;
+import Cartes.Carte_Inondation;
+import Cartes.Carte_Tresor_Abs;
 import Roles.Plongeur;
 import Roles.Pilote;
 import Roles.Navigateur;
@@ -24,11 +29,25 @@ public class JeuIleInterdite {
     private ArrayList<Carte_Inondation> cartes_innondation_defausse;
     private ArrayList<Carte_Inondation> cartes_innondation_pioche;
     private ArrayList<Carte_Inondation> cartes_innodation_cimetiere;
-    
+    private Carte_Tresor_Abs[] cartestrésors;
+    private Carte_Inondation[] cartesInondation;
     public JeuIleInterdite(){
+        // init des tresors 
+        Tresor tresor1 = new Tresor("La Pierre Sacrée");
+        Tresor tresor2 = new Tresor("La Statue Du Zéphyr");
+        Tresor tresor3 = new Tresor("Le Cristal Ardent");
+        Tresor tresor4 = new Tresor("Le Calice De L’onde");
+        trésors.add(tresor1);
+        trésors.add(tresor2);
+        trésors.add(tresor3);
+        trésors.add(tresor4);
         
+        
+        
+        cartesInondation = new Carte_Inondation[24];
+        cartestrésors = new  Carte_Tresor_Abs[28];
         scanner = new Scanner(System.in);
-        grille = new Grille();
+        grille = new Grille(trésors);
         roles = new ArrayList<>();
         trésors = new ArrayList<>();
         cartes_innondation_defausse = new ArrayList<>();
@@ -38,7 +57,41 @@ public class JeuIleInterdite {
         cartes_trésor_pioche = new ArrayList<>();
         joueurs = new ArrayList<>();
         
-    }
+        
+        
+        // init des cartes trésors 
+        for (int i = 0 ; i < 27 ; i++){
+            if (i <=4){
+                cartestrésors[i]=new Carte_Tresor(tresor1);
+            }
+            if (4 < i && i<=9 ){
+                cartestrésors[i]=new Carte_Tresor(tresor2);
+            }
+             if (9 < i && i<=14 ){
+                cartestrésors[i]=new Carte_Tresor(tresor3);
+            }
+              if (14 < i && i<=19 ){
+                cartestrésors[i]=new Carte_Tresor(tresor4);
+            }
+             if (19 < i && i<=22){
+                 cartestrésors[i]=new Montee_Des_Eaux();
+             }
+             if (22< i && i<=25){
+                 cartestrésors[i]=new Helicoptere();
+             }
+             if (25 < i && i<=27){
+                 cartestrésors[i]=new SacDeSable();
+             }
+        }
+        
+        int a = 0 ;
+             for(int i = 0; i < grille.getTuiles().length; i++){
+              if(grille.getTuile(i).getNom() != null){
+                      cartesInondation[a] = new Carte_Inondation(grille.getTuile(i));
+                a = a+1;
+              }}
+        
+    } 
     public void Jeu (){
         boolean partiecontinue = true ;
         
@@ -59,7 +112,7 @@ public class JeuIleInterdite {
             System.out.println("0- Passer tour");
             System.out.println("1- Deplacement ");
             System.out.println("2- Afficher la grille");
-            if (grille.getTuilesAssechables(joueur)!=null ){
+            if (joueur.getAventurier().getTuilesAssechables(joueur).size()>0 ){
                 System.out.println("3- Assecher "); 
             }
             int action = scanner.nextInt();
@@ -174,8 +227,8 @@ public class JeuIleInterdite {
                 Joueur joueur = new Joueur(nom_joueur,aventurier,pion);
                 
                 if (grille.getNumTuilePion(joueur.getPion())!=36){
-                    joueur.setPostition(grille.getTuile(grille.getNumTuilePion(joueur.getPion())));
-                    
+                    //joueur.setPostition(grille.getTuile(grille.getNumTuilePion(joueur.getPion())));
+                    joueur.setPostition(grille.getTuile(32));
                 }
                 
                 getJoueurs().add(joueur);
@@ -193,7 +246,7 @@ public class JeuIleInterdite {
         
     }
 
-    public void Deplacement(Joueur joueur) { // à appeler aussi pour explorateur
+    public void Deplacement(Joueur joueur) {
         ArrayList<Tuile> tuiles_deplacement = joueur.getAventurier().getTuilesDeplacement(joueur);
         boolean controle_boucle =true;
         
@@ -210,6 +263,7 @@ public class JeuIleInterdite {
             for (int i =0;i<tuiles_deplacement.size();i++){
                 if (tuile_choisie==tuiles_deplacement.get(i).getNumero()){
                     joueur.setPostition(getGrille().getTuile(tuile_choisie)); // on modifie la position du joueur
+                    
                     controle_boucle = false;
                     System.out.println("Vous vous êtes bien déplacé sur la tuile :"+tuile_choisie+" "+grille.getTuile(tuile_choisie).getNom()+" "+grille.getTuile(tuile_choisie).getEtat());    
                 }else if(i==tuiles_deplacement.size()-1 && tuile_choisie != tuiles_deplacement.get(i).getNumero() && controle_boucle){
@@ -217,17 +271,16 @@ public class JeuIleInterdite {
                 }
             } //fin for
         } //fin while
-        //partie test
-        System.out.println(joueur.getPosition().getNumero());
     }
     
     public void DeplacementPlongeur(Joueur joueur){
-        
+        ArrayList<Tuile> tuiles_deplacements = joueur.getAventurier().getTuilesDeplacement(joueur);
         boolean controle_boucle = true;
         
         System.out.println("Voici les cases sur lesquelles vous pouvez vous déplacer:");
-        for(Tuile tuile_deplacement : getGrille().getTuilesDeplacementPlongeur(joueur)){
-            System.out.println(tuile_deplacement.getNumero()+" "+tuile_deplacement.getNom()+" "+tuile_deplacement.getEtat());
+        System.out.println(getGrille().getTuilesDeplacementPlongeur(joueur).size()+" hswlkdfhlskdjfhlkjsdwh");
+        for(Tuile tuiles : getGrille().getTuilesDeplacementPlongeur(joueur)){
+            System.out.println(tuiles.getNumero()+" "+tuiles.getNom()+" "+tuiles.getEtat());
         }
         
         while(controle_boucle){

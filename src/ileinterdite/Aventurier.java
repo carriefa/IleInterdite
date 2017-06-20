@@ -1,5 +1,6 @@
 package ileinterdite;
 
+import Cartes.Carte_Tresor_Abs;
 import ileinterdite.TypesMessage;
 import ileinterdite.Utils.Pion;
 import java.util.ArrayList;
@@ -33,8 +34,12 @@ public abstract class Aventurier {
     public abstract void AssecherTuile(Tuile tuile);
     
     public abstract ArrayList<Tuile> getTuilesDeplacement(Joueur joueur);
+    
     public abstract void Deplacement(Tuile tuile);
-
+    
+    public Grille getGrille(){
+        return this.getPosition().getGrille();
+    }
     /**
      * @param joueur_associé the joueur_associé to set
      */
