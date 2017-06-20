@@ -15,24 +15,31 @@ public class Controleur implements Observateur {
 
     private JeuIleInterdite jeu ;
     private IHMileInterdite2 ihm ;
+    private Grille grille; 
             
     public Controleur(){
-        jeu = new JeuIleInterdite() ;
-        ihm = new IHMileInterdite2() ;
+        
+        
+        
+
     }
     @Override
     public void traiterMessage(Message2 msg) {
         switch(msg.getType()) {
             case DEMARRER_PARTIE:
                 
+                grille = new Grille();
+                ihm = new IHMileInterdite2();
+                ihm.setObservateur(this);
+                ihm.InitFenetrePrincipale(grille);
+                
             break ;
             case MOUVEMENT:
-                
+                ihm.setActionCourante("Bopnjour");
             
             break;
-            case ASSECHER:
-                ihm.majGrille(jeu.getGrille());
-                
+            case ASSECHER: 
+                ihm.setActionCourante("essecher");
             break;
             case AUTREACTION :
             
