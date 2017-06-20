@@ -6,10 +6,12 @@ import ileinterdite.Aventurier;
 import ileinterdite.Etat;
 import ileinterdite.Joueur;
 import ileinterdite.Tuile;
+import ileinterdite.Utils;
 import java.util.ArrayList;
 
 public class Navigateur extends Aventurier {
         private String role = "navigateur";
+
 
     
     @Override

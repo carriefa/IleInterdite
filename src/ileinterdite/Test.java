@@ -12,13 +12,15 @@ public class Test {
 
     public static void main(String[] args) {
         // TODO code application logic here
-        
+         Explorateur av1 = new Explorateur();
+        Joueur j1 = new Joueur("John",av1, Pion.VERT);
+        av1.setJoueur_associé(j1);
         Grille grille = new Grille();
+         j1.setPostition(grille.getTuile(15));
         grille.setEtat(16, Etat.DISPARUE);       
         IHMileInterdite2 ihm = new IHMileInterdite2();
         JeuIleInterdite jeu = new JeuIleInterdite();
         ihm.InitFenetrePrincipale(grille);
-        jeu.Jeu();
         grille.setEtat(15, Etat.INONDEE);
     }
     

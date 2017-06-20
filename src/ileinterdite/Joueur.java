@@ -32,6 +32,7 @@ public class Joueur {
     
     public void setPostition(Tuile tuile){
         aventurier.setPosition(tuile);
+        tuile.addPion(this.getAventurier());
     }
 
     /**

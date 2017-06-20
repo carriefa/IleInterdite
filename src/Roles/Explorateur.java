@@ -5,10 +5,12 @@ import ileinterdite.Aventurier;
 import ileinterdite.Etat;
 import ileinterdite.Joueur;
 import ileinterdite.Tuile;
+import ileinterdite.Utils;
 import java.util.ArrayList;
 
 public class Explorateur extends Aventurier {
         private String role = "explorateur";
+
 
     
     @Override
@@ -44,5 +46,7 @@ public class Explorateur extends Aventurier {
     public void Deplacement(Tuile tuile) {
         super.setPosition(tuile);
     }
+    
+
 
 }
