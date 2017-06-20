@@ -9,10 +9,12 @@ import ileinterdite.Joueur;
 import ileinterdite.Message2;
 import ileinterdite.Tuile;
 import ileinterdite.TypesMessage;
+import ileinterdite.Utils;
 import java.util.ArrayList;
 
 public class Navigateur extends Aventurier {
         private String role = "navigateur";
+
 
     
     @Override
