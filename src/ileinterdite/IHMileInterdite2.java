@@ -39,10 +39,8 @@ public class IHMileInterdite2 {
     private JFrame windowRules;
     private JFrame windowRoles;
     private JPanel commandes;
-     private Controleur controleur;
-
-     // fenêtre principale
-
+    private Observateur observateur;
+       
         //boutons
 
         private JButton Assechement = new JButton("Assechement");
@@ -60,8 +58,8 @@ public class IHMileInterdite2 {
         private JPanel panelOptions = new JPanel(new BorderLayout());
         private JLabel joueurCourant = new JLabel();
         private JLabel actionCourante = new JLabel();
-        Grille grille ;
-
+        
+        
         private JLabel joueur = new JLabel();
 
 
@@ -104,12 +102,16 @@ public class IHMileInterdite2 {
         windowJeu = new JFrame("Ile Interdite");
         windowJeu.setLayout(new BorderLayout());
        // InitFenetrePrincipale();
-
     }
 
     public void InitFenetrePrincipale(Grille grille){
-
-        this.grille = grille ;
+        
+        
+        
+    }
+    
+    public void setObservateur(Observateur observateur){
+        this.observateur = observateur;
         windowJeu = new JFrame("Ile Interdite");
         windowJeu.setLayout(new BorderLayout());
 
@@ -127,26 +129,17 @@ public class IHMileInterdite2 {
                 commandes.add(new JLabel(""));
             }
         }
-        Deplacement.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                majGrille(grille);
-            }
-        });
+        
         cases = new JButton[24];
 
         System.out.println(grille.getTuile(0));
 
         int a = 0;
-
-
-
-        for(int i = 0; i< grille.getTuiles().length; i++){
-
+        
+        
               if(grille.getTuile(i).getNom() != null){
                 cases[a] = new JButton(grille.getTuile(i).getNom());
-                System.out.println(grille.getTuile(i).getNom());
+  
                 panelCentre.add(cases[a]);
                 a = a+1;
             } else {
@@ -175,9 +168,11 @@ public class IHMileInterdite2 {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Message2 m = new Message2();
+                
                 m.type = TypesMessage.ASSECHER;
-                controleur.traiterMessage(m);
-                majGrille(grille);
+                observateur.traiterMessage(m);
+                
+                
             }
         });
 
@@ -185,15 +180,21 @@ public class IHMileInterdite2 {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Message2 m = new Message2();
+               
                 m.type = TypesMessage.MOUVEMENT;
-                controleur.traiterMessage(m);
-                majGrille(grille);
+                observateur.traiterMessage(m);
+                
+               
             }
         });
-}
-
+        
+        
+        
+        for(int i = 0; i < grille.getTuiles().length; i++){
+                      
    public void majGrille(Grille grille){
        int a = 0 ;
+       
        for (int i = 0;i< grille.getTuiles().length; i++){
            if (grille.getTuile(i).getEtat() == Etat.DISPARUE){
                cases[a].setBackground( new Color(0,0,55));
@@ -209,7 +210,7 @@ public class IHMileInterdite2 {
                a=a+1;
 
            }
-           System.out.println(a);
+           System.out.println("alllo");
        }
    }
 
@@ -657,3 +658,7 @@ int a = 0;
   }
 
 }
+        
+        
+} 
+    
