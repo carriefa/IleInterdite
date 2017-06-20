@@ -2,9 +2,12 @@ package Roles;
 
 
 import ileinterdite.Aventurier;
+import ileinterdite.Controleur;
 import ileinterdite.Etat;
 import ileinterdite.Joueur;
+import ileinterdite.Message2;
 import ileinterdite.Tuile;
+import ileinterdite.TypesMessage;
 import java.util.ArrayList;
 
 public class Plongeur extends Aventurier {
@@ -27,6 +30,7 @@ public class Plongeur extends Aventurier {
     @Override
     public void AssecherTuile(Tuile tuile) {
         tuile.SetEtat(Etat.ASSECHEE);
+      
     }
 
     @Override

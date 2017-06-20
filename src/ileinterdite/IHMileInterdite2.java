@@ -74,14 +74,14 @@ public class IHMileInterdite2 {
         windowJeu.setLayout(new BorderLayout());
         
         //initialisation commandes
-        commandes = new JPanel(new GridLayout(2, 6));
+        commandes = new JPanel(new GridLayout(5, 1));
         
-        for(int i = 0; i<12; i++){
+        for(int i = 0; i<5; i++){
             if (i == 0){
                 commandes.add(Deplacement);
             } else if (i == 1){
                 commandes.add(Assechement);
-            } else if (i == 6){
+            } else if (i == 2){
                 commandes.add(Recuparation);
             } else {
                 commandes.add(new JLabel(""));
@@ -103,13 +103,10 @@ public class IHMileInterdite2 {
         
         
         for(int i = 0; i< grille.getTuiles().length; i++){
-            
-            
-            
+                      
               if(grille.getTuile(i).getNom() != null){
                 cases[a] = new JButton(grille.getTuile(i).getNom());
                 System.out.println(grille.getTuile(i).getNom());
-                
                 panelCentre.add(cases[a]);
                 a = a+1;
             } else {            
@@ -127,12 +124,32 @@ public class IHMileInterdite2 {
         status.add(actionCourante); 
         panelOptions.add(status, BorderLayout.WEST);
         windowJeu.setSize(1000,1000);
-        windowJeu.add(commandes, BorderLayout.NORTH);
+        windowJeu.add(commandes, BorderLayout.EAST);
         windowJeu.add(panelCentre, BorderLayout.CENTER);
         windowJeu.add(panelOptions, BorderLayout.SOUTH); 
         
         windowJeu.setVisible(true);
         majGrille(grille);
+        
+        Assechement.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message2 m = new Message2();
+                m.type = TypesMessage.ASSECHER;
+                controleur.traiterMessage(m);
+                majGrille(grille);
+            }
+        });
+        
+        Deplacement.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message2 m = new Message2();
+                m.type = TypesMessage.MOUVEMENT;
+                controleur.traiterMessage(m);
+                majGrille(grille);
+            }
+        });
 } 
     
    public void majGrille(Grille grille){
@@ -147,15 +164,17 @@ public class IHMileInterdite2 {
                a=a+1;
            }
            else if (grille.getTuile(i).getEtat() == Etat.ASSECHEE){
-               cases[a].setBackground( Color.MAGENTA);
-               
-               
+               cases[a].setBackground( Color.MAGENTA);                             
                cases[a].setText("<html>"+grille.getTuile(i).getNom()+"<br>"+grille.getTuile(i).getPionsPrésentsAffichage()+"<html />");
                a=a+1;
                
            }
            System.out.println(a);
        }
+   }
+   
+   public void setActionCourante(String action){
+       actionCourante.setText(action);
    }
     
     

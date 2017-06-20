@@ -27,9 +27,11 @@ public class Controleur implements Observateur {
                 
             break ;
             case MOUVEMENT:
+                
             
             break;
             case ASSECHER:
+                ihm.majGrille(jeu.getGrille());
                 
             break;
             case AUTREACTION :

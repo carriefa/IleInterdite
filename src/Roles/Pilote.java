@@ -1,9 +1,12 @@
 package Roles;
 
 import ileinterdite.Aventurier;
+import ileinterdite.Controleur;
 import ileinterdite.Etat;
 import ileinterdite.Joueur;
+import ileinterdite.Message2;
 import ileinterdite.Tuile;
+import ileinterdite.TypesMessage;
 import java.util.ArrayList;
 
 public class Pilote extends Aventurier {
@@ -14,6 +17,7 @@ public class Pilote extends Aventurier {
         return role;
     }
     
+    @Override
     public Tuile getPosition(){
         return super.getPosition();
     }
@@ -26,6 +30,7 @@ public class Pilote extends Aventurier {
     @Override
     public void AssecherTuile(Tuile tuile) {
         tuile.SetEtat(Etat.ASSECHEE);
+   
     }
 
     @Override

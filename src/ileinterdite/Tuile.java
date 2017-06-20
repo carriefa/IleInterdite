@@ -13,11 +13,11 @@ public class Tuile {
     private int numero;
     private String nom;
     private Grille grille;
-    private final String [] NOM_TUILES ={"La Caverne Des Ombres", "Le Val Du Crépuscule", "La Porte De Cuivre", "Le Marais Brumeux", 
-                                   "Le Jardin Des Murmures", "La Caverne du Brasier", "La Porte d'Or","La Porte De Fer", "Le Temple Du Soleil", 
-                                   "Le Pont Des Abîmes", "La Porte d'Argent", "Le Jardin Des Hurlements", 
-                                   "Les Dunes De L'illusion","Les Falaises De l'Oubli","L'Observatoire","Le Palais Des Marees","L'héliport","Le Rocher Fantôme",
-                                   "Le Temple De La Lune","La forêt Pourpre","Le Lagon Perdu","La Porte De Bronze","Le Palais De Corail","La Tour De Guet"};
+    private final String [] NOM_TUILES ={"Le Jardin Des Murumues", "La Tour Du Guet", "Le Val Du Crépuscule", "Le Palais Des Marees", 
+                                   "Le Temple de La Lune", "Le Temple Du Soleil", "La Caverne Du Brasier","Le Rocher Fantôme", "Observatoire", 
+                                   "Le Marais Brumeux", "Le Lagon Perdu", "La Forêt Pourpre", 
+                                   "Le Jardin Des Hurlements","La Porte De Cuivre","Heliport","Les Dunes De l'Illusion","La Porte d'Argent","Le Palais De Corail",
+                                   "Les Falaises De l'Oubli","La Porte d'Or","La Porte De Fer","La Caverne Des Ombres","La Porte De Bronze","Le Pont Des Abîmes"};
     private final int [] NUM_TUILES_VIDE ={0,1,6,4,5,11,24,29,30,31,34,35};
 
     public Tuile(int numero){
