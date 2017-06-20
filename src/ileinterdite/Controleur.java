@@ -27,11 +27,10 @@ public class Controleur implements Observateur {
     public void traiterMessage(Message2 msg) {
         switch(msg.getType()) {
             case DEMARRER_PARTIE:
-                
                 grille = new Grille();
                 ihm = new IHMileInterdite2();
                 ihm.setObservateur(this);
-                ihm.InitFenetrePrincipale(grille);
+                ihm.InitFenetreDepart();
                 
             break ;
             case MOUVEMENT:
@@ -42,7 +41,14 @@ public class Controleur implements Observateur {
                 ihm.setActionCourante("essecher");
             break;
             case AUTREACTION :
-            
+                System.out.println("aaaaaaaaaaaaaaaaaaaaaa");
+                System.out.println(ihm.getJoueurs().length);
+                for(Joueur j : ihm.getJoueurs()){
+                    System.out.println(j.getNom());
+                    System.out.println(j.getAventurier());
+                    System.out.println(j.getPion());
+                }
+             
             break;
             case TERMINERTOUR :
                 

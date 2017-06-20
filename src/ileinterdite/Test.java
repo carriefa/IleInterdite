@@ -13,15 +13,10 @@ public class Test {
     public static void main(String[] args) {
         // TODO code application logic here
         
-       
-          
         Controleur controleur = new Controleur();
         Message2 m = new Message2(); 
         m.type = TypesMessage.DEMARRER_PARTIE;
         controleur.traiterMessage(m);
       
     }
-    
-    
-    
 }

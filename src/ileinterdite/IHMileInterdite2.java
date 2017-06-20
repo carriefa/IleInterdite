@@ -5,6 +5,12 @@
  */
 package ileinterdite;
 
+import Roles.Explorateur;
+import Roles.Ingenieur;
+import Roles.Messager;
+import Roles.Navigateur;
+import Roles.Pilote;
+import Roles.Plongeur;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -15,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -34,7 +41,7 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
 public class IHMileInterdite2 {
 
 
-     private JFrame windowStart;
+    private JFrame windowStart;
     private JFrame windowJeu;
     private JFrame windowRules;
     private JFrame windowRoles;
@@ -62,22 +69,26 @@ public class IHMileInterdite2 {
         
         private JLabel joueur = new JLabel();
 
-
-
 // joueurs generés
 
 
-    private Joueur[] joueurs;
+    private Joueur[] joueurs ;
     private String NomJoueur1="Joueur 1";
     private String NomJoueur2="Joueur 2";
     private String NomJoueur3="Joueur 3";
     private String NomJoueur4="Joueur 4";
     private String nbJoueursString;
+    private ArrayList<String> nomsjoueurs = new ArrayList<>();
+        
     private Integer nbJoueursChoisis;
 
     
-    private String pionChoisi; 
-    private String roleChoisi;
+    private Utils.Pion pionChoisi; 
+    private Aventurier roleChoisi;
+    private Aventurier[] roles = new Aventurier[6];
+    private Utils.Pion[] pions = new Utils.Pion[6];
+    private int controle_boucle_role =1;
+    
 
 
     public IHMileInterdite2(){
@@ -88,20 +99,8 @@ public class IHMileInterdite2 {
             Logger.getLogger(IHMileInterdite2.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-            //Fenetre de depart
-        windowStart = new JFrame("Ile Interdite");
-        windowStart.setLayout(new BorderLayout());
-
-        //Fenetre choix roles
-        windowRoles = new JFrame("Choix des rôles");
-        windowRoles.setLayout(new BorderLayout());
-        //Fenetre regles
-        windowRules = new JFrame("Règles du jeu");
-        windowRules.setLayout(new BorderLayout());
-        // Fenetre jeu
-        windowJeu = new JFrame("Ile Interdite");
-        windowJeu.setLayout(new BorderLayout());
-       // InitFenetrePrincipale();
+        System.out.println("bebelelebl");
+        
     }
     
      public void setObservateur(Observateur observateur){
@@ -109,6 +108,10 @@ public class IHMileInterdite2 {
      }
 
     public void InitFenetrePrincipale(Grille grille){
+        
+        // Fenetre jeu
+        windowJeu = new JFrame("Ile Interdite");
+        windowJeu.setLayout(new BorderLayout());
 
         //initialisation commandes
         commandes = new JPanel(new GridLayout(5, 1));
@@ -210,26 +213,20 @@ public class IHMileInterdite2 {
        actionCourante.setText(action);
    }
 
-
-
-
-
-
-
-
-
-
-
-
     public void InitFenetreRegles() {
-        windowStart.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        //Fenetre regles
+        windowRules = new JFrame("Règles du jeu");
+        windowRules.setLayout(new BorderLayout());
     }
-
-
-
-
+    
     public void InitFenetreDepart() {
+        
+       
+            //Fenetre de depart
+        windowStart = new JFrame("Ile Interdite");
+        windowStart.setLayout(new BorderLayout());
+        
+       // InitFenetrePrincipale();
 
           windowStart.setResizable(false);
           JLabel labelCombo = new JLabel("Nombre de joueurs :");
@@ -250,52 +247,62 @@ public class IHMileInterdite2 {
           panelPrincipal.add(panelBas, BorderLayout.SOUTH);
           windowStart.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-          JTextField joueur1 = new JTextField("Joueur 1");
-          joueur1.setColumns(10);
-          JTextField joueur2 = new JTextField("Joueur 2");
-          joueur2.setColumns(10);
-          JTextField joueur3 = new JTextField("Joueur 3");
-          joueur3.setColumns(10);
-          JTextField joueur4 = new JTextField("Joueur 4");
-          joueur4.setColumns(10);
+          
+          JTextField TextField_joueur1 = new JTextField("Joueur 1");
+          TextField_joueur1.setColumns(10);
+          JTextField TextField_joueur2 = new JTextField("Joueur 2");
+          TextField_joueur2.setColumns(10);
+          JTextField TextField_joueur3 = new JTextField("Joueur 3");
+          TextField_joueur3.setColumns(10);
+          JTextField TextField_joueur4 = new JTextField("Joueur 4");
+          TextField_joueur4.setColumns(10);
 
+          
+          
+          
           CaretListener caretupdate1 = new CaretListener() {
             @Override
             public void caretUpdate(javax.swing.event.CaretEvent e) {
                 JTextField text = (JTextField)e.getSource();
-                NomJoueur1=joueur1.getText();
+                NomJoueur1=TextField_joueur1.getText();
+                nomsjoueurs.add(NomJoueur1);
             }
         };
 
-        joueur1.addCaretListener(caretupdate1);
+        TextField_joueur1.addCaretListener(caretupdate1);
 
          CaretListener caretupdate2 = new CaretListener() {
             @Override
             public void caretUpdate(javax.swing.event.CaretEvent e) {
                 JTextField text = (JTextField)e.getSource();
-                NomJoueur2=joueur2.getText();
+                NomJoueur2=TextField_joueur2.getText();
+                nomsjoueurs.add(NomJoueur2);
             }
         };
-        joueur2.addCaretListener(caretupdate2);
+        TextField_joueur2.addCaretListener(caretupdate2);
 
 
          CaretListener caretupdate3 = new CaretListener() {
             @Override
             public void caretUpdate(javax.swing.event.CaretEvent e) {
                 JTextField text = (JTextField)e.getSource();
-                NomJoueur3=joueur3.getText();
+                NomJoueur3=TextField_joueur3.getText();
+                nomsjoueurs.add(NomJoueur3);
             }
         };
-        joueur3.addCaretListener(caretupdate3);
+        TextField_joueur3.addCaretListener(caretupdate3);
 
          CaretListener caretupdate4 = new CaretListener() {
             @Override
             public void caretUpdate(javax.swing.event.CaretEvent e) {
                 JTextField text = (JTextField)e.getSource();
-                NomJoueur4=joueur4.getText();
+                NomJoueur4=TextField_joueur4.getText();
+                nomsjoueurs.add(NomJoueur4);
             }
         };
-        joueur4.addCaretListener(caretupdate4);
+        TextField_joueur4.addCaretListener(caretupdate4);
+        
+        
 
 
 
@@ -321,10 +328,10 @@ public class IHMileInterdite2 {
           panelCentre.add(new JLabel());
           panelCentre.add(new JLabel("Saisissez les nom des joueurs"));
           panelCentre.add(new JLabel());
-          panelCentre.add(joueur1);
-          panelCentre.add(joueur2);
-          panelCentre.add(joueur3);joueur3.setEnabled(false);
-          panelCentre.add(joueur4);joueur4.setEnabled(false);
+          panelCentre.add(TextField_joueur1);
+          panelCentre.add(TextField_joueur2);
+          panelCentre.add(TextField_joueur3);TextField_joueur3.setEnabled(false);
+          panelCentre.add(TextField_joueur4);TextField_joueur4.setEnabled(false);
 
 
           // Partie inferieure de la fenetre
@@ -355,10 +362,9 @@ public class IHMileInterdite2 {
                    System.exit(0);
                     }
               }
-
-
-          // listener du bouton valider
           });
+          
+          // listener bouton valider
           valider.addActionListener(new ActionListener() {
 
               @Override
@@ -366,27 +372,14 @@ public class IHMileInterdite2 {
                   windowStart.setVisible(false);
                   nbJoueursString = choixNBJoueur.getSelectedItem().toString();
                   nbJoueursChoisis = Integer.parseUnsignedInt(nbJoueursString);
+                  joueurs = new Joueur[nbJoueursChoisis];
                   if (nbJoueursChoisis==2){
-                      joueurs= new Joueur[2];
-                      CreeJoueur(joueur1.getSelectedText(),1);
-                      CreeJoueur(joueur2.getText(),2);
-
-
-                  } else if (nbJoueursChoisis==3) {
-                      joueurs= new Joueur[3];
-                      CreeJoueur(joueur1.getText(),1);
-                      CreeJoueur(joueur2.getText(),2);
-                      CreeJoueur(joueur3.getText(),3);
-
-                  } else {
-                      joueurs= new Joueur[4];
-                      CreeJoueur(joueur1.getText(),1);
-                      CreeJoueur(joueur2.getText(),2);
-                      CreeJoueur(joueur3.getText(),3);
-                      CreeJoueur(joueur4.getText(),4);
+                      Message2 m = new Message2();
+                      m.type=TypesMessage.CHOIXJ1;
+                      m.type=TypesMessage.CHOIXJ2; 
                   }
+                      
                   InitFenetreRoles();
-
               }
 
           });
@@ -409,20 +402,20 @@ public class IHMileInterdite2 {
               @Override
               public void actionPerformed(ActionEvent e) {
                   if (choixNBJoueur.getSelectedItem()=="2") {
-               joueur1.setEnabled(true);
-               joueur2.setEnabled(true);
-               joueur3.setEnabled(false);
-               joueur4.setEnabled(false);
+               TextField_joueur1.setEnabled(true);
+               TextField_joueur2.setEnabled(true);
+               TextField_joueur3.setEnabled(false);
+               TextField_joueur4.setEnabled(false);
            } else if (choixNBJoueur.getSelectedItem()=="3") {
-               joueur1.setEnabled(true);
-               joueur2.setEnabled(true);
-               joueur3.setEnabled(true);
-               joueur4.setEnabled(false);
+               TextField_joueur1.setEnabled(true);
+               TextField_joueur2.setEnabled(true);
+               TextField_joueur3.setEnabled(true);
+               TextField_joueur4.setEnabled(false);
            } else {
-               joueur1.setEnabled(true);
-               joueur2.setEnabled(true);
-               joueur3.setEnabled(true);
-               joueur4.setEnabled(true);
+               TextField_joueur1.setEnabled(true);
+               TextField_joueur2.setEnabled(true);
+               TextField_joueur3.setEnabled(true);
+               TextField_joueur4.setEnabled(true);
             }
               }
           });
@@ -442,10 +435,33 @@ public class IHMileInterdite2 {
 
     public void InitFenetreRoles() {
         
+
+        //Fenetre choix roles
+        windowRoles = new JFrame("Choix Role");
+        windowRoles.setLayout(new BorderLayout());
+        
+        
+        
+        
         windowRoles.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         windowRoles.setVisible(true);
         windowRoles.setSize(400, 500);
         windowRoles.setResizable(false);
+        roles[0]= new Ingenieur();
+        roles[1]= new Explorateur();
+        roles[2]= new Messager();
+        roles[3]= new Plongeur();
+        roles[4]= new Pilote();
+        roles[5]= new Navigateur();
+        
+        pions[0] = Utils.Pion.VERT;
+        pions[1] = Utils.Pion.BLEU;
+        pions[2] = Utils.Pion.ROUGE;
+        pions[3] = Utils.Pion.JAUNE;
+        pions[4] = Utils.Pion.ORANGE;
+        pions[5] = Utils.Pion.VIOLET;
+        
+        
         
         JButton aleatoire = new JButton("Aléatoire");
         JButton choix = new JButton("Choix");
@@ -457,14 +473,15 @@ public class IHMileInterdite2 {
         JLabel LabelJoueur3 = new JLabel();
         JLabel LabelJoueur4 = new JLabel();
         
-        JComboBox choixRole = new JComboBox();
+        
+        JComboBox choixRole = new JComboBox(roles);
         choixRole.setPreferredSize(new Dimension(100, 20));
-           choixRole.addItem("Ingénieur");
+           choixRole.addItem( roles[0]);
            choixRole.addItem("Messager");
            choixRole.addItem("Navigateur");
            choixRole.addItem("Pilote");
            choixRole.addItem("Plongeur");
-        JComboBox choixPion = new JComboBox();
+        JComboBox choixPion = new JComboBox(pions);
         choixPion.setPreferredSize(new Dimension(100, 20));
            choixPion.addItem("Rouge");
            choixPion.addItem("Vert");
@@ -481,6 +498,8 @@ public class IHMileInterdite2 {
         panelPrincipal.add(panelHaut, BorderLayout.NORTH);
         panelPrincipal.add(panelCentre, BorderLayout.CENTER);
         panelPrincipal.add(panelBas, BorderLayout.SOUTH);
+        windowRoles.add(panelPrincipal);
+        
         
        for (int i = 0; i <10; i++){
            if(i ==6){
@@ -490,7 +509,6 @@ public class IHMileInterdite2 {
            } else {
                panelHaut.add(new JLabel());
            }
-               
        }
        
        for (int i = 0; i<8; i++){
@@ -516,51 +534,131 @@ public class IHMileInterdite2 {
            } else {
                panelBas.add(new JLabel());
            }
-               
        }
+        for(String nom : nomsjoueurs){
+            System.out.println(nom);
+        }
+            boolean bool = true;
+          while (controle_boucle_role<=nbJoueursChoisis && bool){//controle_boucle_role = 1
+                windowRoles = new JFrame ("Choix du rôle & pion du joueur "+nomsjoueurs.get(controle_boucle_role-1));
+                
+                valider.addActionListener(new ActionListener(){
 
+                    @Override
+                      public void actionPerformed(ActionEvent e) {
+                          pionChoisi = (Utils.Pion) choixPion.getSelectedItem();
+                          roleChoisi = (Aventurier) choixRole.getSelectedItem();
+                          joueurs[controle_boucle_role-1] = new Joueur(nomsjoueurs.get(controle_boucle_role-1), roleChoisi, pionChoisi);
+                          Message2 m = new Message2();
+                          m.type = TypesMessage.AUTREACTION;
+                          observateur.traiterMessage(m);
+                          System.out.println(pionChoisi);
+                          System.out.println(roleChoisi);
+                          controle_boucle_role=controle_boucle_role+1;
+                      }
+                });
+                
 
-int a = 0; 
-          while (a<joueurs.length){
-              windowRoles = new JFrame ("Choix du rôle & pion du joueur "+joueurs[a].getNom());
-              pionChoisi = choixPion.getSelectedItem().toString();
-              roleChoisi = choixRole.getSelectedItem().toString();
-              valider.addActionListener(new ActionListener() {
-                  
-                  @Override
-                  public void actionPerformed(ActionEvent e) {
-                      switch(pionChoisi){
-                          case "Rouge":
-                              joueurs[a].setPion(Utils.Pion.ROUGE);
-                              break;
-                          case "Orange":
-                              joueurs[a].setPion(Utils.Pion.ORANGE);
-                              break;
-                          case "Jaune":
-                              joueurs[a].setPion(Utils.Pion.JAUNE);
-                              break;
-                          case "Violet":
-                              joueurs[a].setPion(Utils.Pion.VIOLET);
-                              break;
-                          case "Bleu":
-                              joueurs[a].setPion(Utils.Pion.BLEU);
-                              break;
-                          case "Vert":
-                              joueurs[a].setPion(Utils.Pion.VERT);
-                              break;
-                      }
-                      
-                      switch(roleChoisi){
-                          case "Ingénieur":
-                              joueurs[a].setAventurier(null);
-                      }
-                      }
-                    
-                  
-              });
           }
         
+                
+        }
+        public void fenetreChoixJoueur(int numJoueur){
+            windowRoles = new JFrame("Choix Role");
+        windowRoles.setLayout(new BorderLayout());
         
+        
+        
+        
+        windowRoles.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        windowRoles.setVisible(true);
+        windowRoles.setSize(400, 500);
+        windowRoles.setResizable(false);
+        roles[0]= new Ingenieur();
+        roles[1]= new Explorateur();
+        roles[2]= new Messager();
+        roles[3]= new Plongeur();
+        roles[4]= new Pilote();
+        roles[5]= new Navigateur();
+        
+        pions[0] = Utils.Pion.VERT;
+        pions[1] = Utils.Pion.BLEU;
+        pions[2] = Utils.Pion.ROUGE;
+        pions[3] = Utils.Pion.JAUNE;
+        pions[4] = Utils.Pion.ORANGE;
+        pions[5] = Utils.Pion.VIOLET;
+        
+        JButton aleatoire = new JButton("Aléatoire");
+        JButton choix = new JButton("Choix");
+        JButton valider = new JButton("Valider");
+        JButton annuler = new JButton("Annuler");
+        
+        JLabel LabelJoueur1 = new JLabel();
+        JLabel LabelJoueur2 = new JLabel();
+        JLabel LabelJoueur3 = new JLabel();
+        JLabel LabelJoueur4 = new JLabel();
+        
+        
+        JComboBox choixRole = new JComboBox(roles);
+        choixRole.setPreferredSize(new Dimension(100, 20));
+           choixRole.addItem( roles[0].getRole());
+           choixRole.addItem("Messager");
+           choixRole.addItem("Navigateur");
+           choixRole.addItem("Pilote");
+           choixRole.addItem("Plongeur");
+        JComboBox choixPion = new JComboBox(pions);
+        choixPion.setPreferredSize(new Dimension(100, 20));
+           choixPion.addItem("Rouge");
+           choixPion.addItem("Vert");
+           choixPion.addItem("Bleu");
+           choixPion.addItem("Orange");
+           choixPion.addItem("Violet");
+
+        JPanel panelPrincipal = new JPanel(new BorderLayout());
+        JPanel panelCentre = new JPanel (new GridLayout(4,2));
+        JPanel panelHaut = new JPanel(new GridLayout(2,5));
+        JPanel panelBas = new JPanel(new GridLayout(2,5));
+        panelPrincipal.add(panelHaut, BorderLayout.NORTH);
+        panelPrincipal.add(panelCentre, BorderLayout.CENTER);
+        panelPrincipal.add(panelBas, BorderLayout.SOUTH);
+        windowRoles.add(panelPrincipal);
+        
+        
+       for (int i = 0; i <10; i++){
+           if(i ==6){
+               panelHaut.add(aleatoire);
+           } else if(i == 8){
+               panelHaut.add(choix);
+           } else {
+               panelHaut.add(new JLabel());
+           }
+       }
+       
+       for (int i = 0; i<8; i++){
+            if(i == 2){
+               panelCentre.add(new JLabel("Role Joueur : "));
+           }else if (i == 4){
+               panelCentre.add(new JLabel("Pion : "));
+           }
+            else if(i == 3){
+               panelCentre.add(choixRole);
+           }else if(i == 5){
+               panelCentre.add(choixPion);
+           }
+           else {
+               panelCentre.add(new JLabel());
+           }
+       }
+        for (int i = 0; i <10; i++){
+           if(i == 1){
+               panelBas.add(valider);
+           } else if(i == 3){
+               panelBas.add(annuler);
+           } else {
+               panelBas.add(new JLabel());
+           }
+       }
+        }
         //Parametrage comboBox
         
 
@@ -573,30 +671,32 @@ int a = 0;
 //
 //
 
-              @Override
-              public void actionPerformed(ActionEvent e) {
-                  
-                    }
-              });
+         
           
         
         
         
         
-        windowRoles.add(panelPrincipal);
         
     
        
-    } 
+     
     
     
-  public void CreeJoueur(String nom, int num) {
+ // public void CreeJoueur(String nom, int num) {
 
-      joueurs[num-1] = new Joueur(nom,null,null);
-  }
+   //   joueurs[num-1] = new Joueur(nom,null,null);
+  //}
 
-}
-        
+    /**
+     * @return the joueurs
+     */
+    public Joueur[] getJoueurs() {
+        return joueurs;
+    }
+
+
+}    
         
  
     
