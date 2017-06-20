@@ -107,8 +107,8 @@ public class IHMileInterdite2 {
             
             
               if(grille.getTuile(i).getNom() != null){
-                cases[a] = new JButton("<html>"+grille.getTuile(i).getNom());
-                  System.out.println(grille.getTuile(i).getNom());
+                cases[a] = new JButton(grille.getTuile(i).getNom());
+                System.out.println(grille.getTuile(i).getNom());
                 
                 panelCentre.add(cases[a]);
                 a = a+1;
@@ -149,10 +149,10 @@ public class IHMileInterdite2 {
            else if (grille.getTuile(i).getEtat() == Etat.ASSECHEE){
                cases[a].setBackground( Color.MAGENTA);
                
-               if (joueur != null){
-               cases[a].setText(cases[a].getText()+"<br />");
+               
+               cases[a].setText("<html>"+grille.getTuile(i).getNom()+"<br>"+grille.getTuile(i).getPionsPrésentsAffichage()+"<html />");
                a=a+1;
-               }
+               
            }
            System.out.println(a);
        }

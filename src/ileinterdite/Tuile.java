@@ -143,14 +143,14 @@ public class Tuile {
      * @return the pionsPrésents
      */
     public String getPionsPrésentsAffichage() {
-         String constantation ="" ;
+        String constantation ="abdel" ;
         ArrayList<String> papa = new ArrayList();
         pionsPrésents.stream().forEach((a) -> {
             papa.add(a.getJoueur().getNom());
         });
         if (!papa.isEmpty()){
              {   for (String papa1 : papa) {
-                 constantation = constantation +"<br />" + papa1;
+                 constantation = constantation + papa1;
                  }
 }}
     return constantation;
