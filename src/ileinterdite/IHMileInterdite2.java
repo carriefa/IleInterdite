@@ -31,7 +31,7 @@ public class IHMileInterdite2 {
     
     private JFrame windowJeu;
     private JPanel commandes;
-    private Controleur controleur;
+    private Observateur observateur;
        
         //boutons
         
@@ -50,7 +50,7 @@ public class IHMileInterdite2 {
         private JPanel panelOptions = new JPanel(new BorderLayout());
         private JLabel joueurCourant = new JLabel();
         private JLabel actionCourante = new JLabel();
-        Grille grille ;
+        
         
         private JLabel joueur = new JLabel();
         
@@ -58,18 +58,24 @@ public class IHMileInterdite2 {
         
     
     public IHMileInterdite2(){
-        System.out.println("Normal");
+        
         try {
             UIManager.setLookAndFeel(new MetalLookAndFeel());
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(IHMileInterdite2.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        
+        
+    }
+    
+    public void setObservateur(Observateur observateur){
+        this.observateur = observateur;
     }
         
     public void InitFenetrePrincipale(Grille grille){
         
-        this.grille = grille ;
+        
         windowJeu = new JFrame("Ile Interdite");
         windowJeu.setLayout(new BorderLayout());
         
@@ -87,13 +93,7 @@ public class IHMileInterdite2 {
                 commandes.add(new JLabel(""));
             }
         }
-        Deplacement.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                majGrille(grille);
-            }
-        });
+        
         cases = new JButton[24];
         
         System.out.println(grille.getTuile(0));
@@ -102,11 +102,11 @@ public class IHMileInterdite2 {
         
         
         
-        for(int i = 0; i< grille.getTuiles().length; i++){
+        for(int i = 0; i < grille.getTuiles().length; i++){
                       
               if(grille.getTuile(i).getNom() != null){
                 cases[a] = new JButton(grille.getTuile(i).getNom());
-                System.out.println(grille.getTuile(i).getNom());
+  
                 panelCentre.add(cases[a]);
                 a = a+1;
             } else {            
@@ -135,9 +135,11 @@ public class IHMileInterdite2 {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Message2 m = new Message2();
+                
                 m.type = TypesMessage.ASSECHER;
-                controleur.traiterMessage(m);
-                majGrille(grille);
+                observateur.traiterMessage(m);
+                
+                
             }
         });
         
@@ -145,15 +147,20 @@ public class IHMileInterdite2 {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Message2 m = new Message2();
+               
                 m.type = TypesMessage.MOUVEMENT;
-                controleur.traiterMessage(m);
-                majGrille(grille);
+                observateur.traiterMessage(m);
+                
+               
             }
         });
+        
+        
 } 
     
    public void majGrille(Grille grille){
        int a = 0 ;
+       
        for (int i = 0;i< grille.getTuiles().length; i++){
            if (grille.getTuile(i).getEtat() == Etat.DISPARUE){
                cases[a].setBackground( new Color(0,0,55));
@@ -164,12 +171,12 @@ public class IHMileInterdite2 {
                a=a+1;
            }
            else if (grille.getTuile(i).getEtat() == Etat.ASSECHEE){
-               cases[a].setBackground( Color.MAGENTA);                             
+               cases[a].setBackground( Color.MAGENTA);
                cases[a].setText("<html>"+grille.getTuile(i).getNom()+"<br>"+grille.getTuile(i).getPionsPrésentsAffichage()+"<html />");
                a=a+1;
                
            }
-           System.out.println(a);
+           System.out.println("alllo");
        }
    }
    

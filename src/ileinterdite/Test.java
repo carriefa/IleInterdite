@@ -13,13 +13,15 @@ public class Test {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        Grille grille = new Grille();
-        grille.setEtat(16, Etat.DISPARUE);       
-        IHMileInterdite2 ihm = new IHMileInterdite2();
-        JeuIleInterdite jeu = new JeuIleInterdite();
-        ihm.InitFenetrePrincipale(grille);
-        jeu.Jeu();
-        grille.setEtat(15, Etat.INONDEE);
+       
+          
+        Controleur controleur = new Controleur();
+        Message2 m = new Message2(); 
+        m.type = TypesMessage.DEMARRER_PARTIE;
+        controleur.traiterMessage(m);
+      
     }
+    
+    
     
 }
