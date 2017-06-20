@@ -573,77 +573,23 @@ int a = 0;
 //
 //
 
-//
-//
-//
-//
-//        //Partie inferieure de la fenetre
-//
-//
-//
-//
-//
-//         // listener du bouton aleatoire
-//          aleatoire.addActionListener(new ActionListener() {
-//
-//              @Override
-//              public void actionPerformed(ActionEvent e) {
-//
-//                    }
-//              });
-//
-//           // listener du bouton choix
-//          choix.addActionListener(new ActionListener() {
-//
-//              @Override
-//              public void actionPerformed(ActionEvent e) {
-//
-//                    }
-//              });
-//
-//
-//
-//
-//
-    windowRoles.add(panelPrincipal);
-//
-
-
-
-
-
-    }
-    public void InitFenetrePrincipale(){
-
-        //initialisation commandes
-        commandes = new JPanel(new GridLayout(2, 6));
-
-        for(int i = 0; i<12; i++){
-            if (i == 0){
-                commandes.add(Deplacement);
-            } else if (i == 1){
-                commandes.add(Assechement);
-            } else if (i == 6){
-                commandes.add(Recuparation);
-            } else {
-                commandes.add(new JLabel(""));
-            }
-        }
-
-        cases = new JButton[35];
-
-        for(int i = 0; i<36; i++){
-
-        }
-
-        windowJeu.add(commandes, BorderLayout.NORTH);
-
-
-        windowJeu.setSize(1000,1000);
-        windowJeu.setVisible(true);
-
-    }
-
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                  
+                    }
+              });
+          
+        
+        
+        
+        
+        windowRoles.add(panelPrincipal);
+        
+    
+       
+    } 
+    
+    
   public void CreeJoueur(String nom, int num) {
 
       joueurs[num-1] = new Joueur(nom,null,null);
