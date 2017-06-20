@@ -26,8 +26,12 @@ public abstract class Aventurier {
     public abstract void AssecherTuile(Tuile tuile);
     
     public abstract ArrayList<Tuile> getTuilesDeplacement(Joueur joueur);
+    
     public abstract void Deplacement(Tuile tuile);
-
+    
+    public Grille getGrille(){
+        return this.getPosition().getGrille();
+    }
     /**
      * @return the grille
      */

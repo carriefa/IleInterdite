@@ -128,8 +128,10 @@ public class Tuile {
         }else{
             pion_associe=null;
         }
-        
-            
+    }
+    
+    public void setGrille(Grille grille){
+        this.grille=grille;
     }
 
     public Grille getGrille() {

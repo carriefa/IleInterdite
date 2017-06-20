@@ -14,12 +14,21 @@ public class Test {
         // TODO code application logic here
         
         Grille grille = new Grille();
-        grille.setEtat(16, Etat.DISPARUE);       
+        
+        grille.setEtat(14, Etat.DISPARUE);
+        grille.setEtat(20, Etat.DISPARUE);
+        grille.setEtat(26, Etat.DISPARUE);
+        grille.setEtat(22, Etat.DISPARUE);
+        grille.setEtat( 3, Etat.INONDEE);
+        grille.setEtat(19, Etat.INONDEE);
+        grille.setEtat(21, Etat.INONDEE);
+        grille.setEtat(23, Etat.INONDEE);
+        grille.setEtat(33, Etat.INONDEE);
         IHMileInterdite2 ihm = new IHMileInterdite2();
         JeuIleInterdite jeu = new JeuIleInterdite();
         ihm.InitFenetrePrincipale(grille);
         jeu.Jeu();
-        grille.setEtat(15, Etat.INONDEE);
+
     }
     
 }
