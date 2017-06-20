@@ -24,9 +24,23 @@ public class JeuIleInterdite {
     private ArrayList<Carte_Inondation> cartes_innondation_defausse;
     private ArrayList<Carte_Inondation> cartes_innondation_pioche;
     private ArrayList<Carte_Inondation> cartes_innodation_cimetiere;
-    
+    private Carte_Tresor_Abs[] cartestrésors;
+    private Carte_Inondation[] cartesInondation;
     public JeuIleInterdite(){
+        // init des tresors 
+        Tresor tresor1 = new Tresor("La Pierre Sacrée");
+        Tresor tresor2 = new Tresor("La Statue Du Zéphyr");
+        Tresor tresor3 = new Tresor("Le Cristal Ardent");
+        Tresor tresor4 = new Tresor("Le Calice De L’onde");
+        trésors.add(tresor1);
+        trésors.add(tresor2);
+        trésors.add(tresor3);
+        trésors.add(tresor4);
         
+        
+        
+        cartesInondation = new Carte_Inondation[24];
+        cartestrésors = new  Carte_Tresor_Abs[28];
         scanner = new Scanner(System.in);
         grille = new Grille(trésors);
         roles = new ArrayList<>();
@@ -38,16 +52,41 @@ public class JeuIleInterdite {
         cartes_trésor_pioche = new ArrayList<>();
         joueurs = new ArrayList<>();
         
-         Tresor tresor1 = new Tresor("La Pierre Sacrée");
-        Tresor tresor2 = new Tresor("La Statue Du Zéphyr");
-        Tresor tresor3 = new Tresor("Le Cristal Ardent");
-        Tresor tresor4 = new Tresor("Le Calice De L’onde");
-        trésors.add(tresor1);
-        trésors.add(tresor2);
-        trésors.add(tresor3);
-        trésors.add(tresor4);
         
-    }
+        
+        // init des cartes trésors 
+        for (int i = 0 ; i < 27 ; i++){
+            if (i <=4){
+                cartestrésors[i]=new Carte_Tresor(tresor1);
+            }
+            if (4 < i && i<=9 ){
+                cartestrésors[i]=new Carte_Tresor(tresor2);
+            }
+             if (9 < i && i<=14 ){
+                cartestrésors[i]=new Carte_Tresor(tresor3);
+            }
+              if (14 < i && i<=19 ){
+                cartestrésors[i]=new Carte_Tresor(tresor4);
+            }
+             if (19 < i && i<=22){
+                 cartestrésors[i]=new Montee_Des_Eaux();
+             }
+             if (22< i && i<=25){
+                 cartestrésors[i]=new Helicoptere();
+             }
+             if (25 < i && i<=27){
+                 cartestrésors[i]=new SacDeSable();
+             }
+        }
+        
+        int a = 0 ;
+             for(int i = 0; i < grille.getTuiles().length; i++){
+              if(grille.getTuile(i).getNom() != null){
+                      cartesInondation[a] = new Carte_Inondation(grille.getTuile(i));
+                a = a+1;
+              }}
+        
+    } 
     public void Jeu (){
         boolean partiecontinue = true ;
         
