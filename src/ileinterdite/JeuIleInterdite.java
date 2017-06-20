@@ -114,9 +114,17 @@ public class JeuIleInterdite {
     public void initCartesJoueurs(){
         
         for(int i = 0; i<joueurs.size(); i++){
-            for(int j = 0; j<cartestrésors.size(); i++){
-                joueurs.get(i);
+            for(int j = 0; j<2; i++){              
+                while(cartestrésors.get(j).getType()=="Montee_Des_Eaux"){
+                    melangeCartes(cartestrésors); 
+                    
+                    }
+                    
+                joueurs.get(i).addCarteMain(cartestrésors.get(i));
+                cartestrésors.remove(i);
+            
             }
+            
             
         }
     }
