@@ -8,10 +8,17 @@ import ileinterdite.Joueur;
 import ileinterdite.Message2;
 import ileinterdite.Tuile;
 import ileinterdite.TypesMessage;
+import ileinterdite.Utils;
 import java.util.ArrayList;
 
 public class Explorateur extends Aventurier {
-        private String role = "explorateur";
+        private String role;
+
+    public Explorateur() {
+        super();
+        role = "explorateur";
+    }
+
 
     
     @Override
@@ -24,6 +31,7 @@ public class Explorateur extends Aventurier {
         this.role = role;
     }
 
+        @Override
     public Tuile getPosition() {
          return super.getPosition();
     }
@@ -47,5 +55,11 @@ public class Explorateur extends Aventurier {
     public void Deplacement(Tuile tuile) {
         super.setPosition(tuile);
     }
+    
+//    @Override
+//    public Joueur getJoueur(){
+//            return super.getJoueur();
+//    }
+
 
 }

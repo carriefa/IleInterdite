@@ -12,6 +12,8 @@ public class Joueur {
         this.nom=nom;
         this.aventurier=aventurier;
         this.pion=pion;
+        aventurier.setJoueur_associé(this);
+        aventurier.setPion(pion);
     }
 
     public Aventurier getAventurier() {
@@ -32,6 +34,7 @@ public class Joueur {
     
     public void setPostition(Tuile tuile){
         aventurier.setPosition(tuile);
+       
     }
 
     /**
