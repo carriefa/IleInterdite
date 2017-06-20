@@ -174,8 +174,8 @@ public class JeuIleInterdite {
                 Joueur joueur = new Joueur(nom_joueur,aventurier,pion);
                 
                 if (grille.getNumTuilePion(joueur.getPion())!=36){
-                    joueur.setPostition(grille.getTuile(grille.getNumTuilePion(joueur.getPion())));
-                    
+                    //joueur.setPostition(grille.getTuile(grille.getNumTuilePion(joueur.getPion())));
+                    joueur.setPostition(grille.getTuile(32));
                 }
                 
                 getJoueurs().add(joueur);
@@ -225,6 +225,7 @@ public class JeuIleInterdite {
         boolean controle_boucle = true;
         
         System.out.println("Voici les cases sur lesquelles vous pouvez vous déplacer:");
+        System.out.println(getGrille().getTuilesDeplacementPlongeur(joueur).size()+" hswlkdfhlskdjfhlkjsdwh");
         for(Tuile tuiles : getGrille().getTuilesDeplacementPlongeur(joueur)){
             System.out.println(tuiles.getNumero()+" "+tuiles.getNom()+" "+tuiles.getEtat());
         }

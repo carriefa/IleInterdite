@@ -8,12 +8,17 @@ import ileinterdite.Joueur;
 import ileinterdite.Message2;
 import ileinterdite.Tuile;
 import ileinterdite.TypesMessage;
+import ileinterdite.Utils;
 import java.util.ArrayList;
 
 public class Ingenieur extends Aventurier {
     private String role = "ingénieur";
 
+
+
+
     
+    @Override
     public String getRole() {
         return role;
     }

@@ -7,11 +7,13 @@ import ileinterdite.Joueur;
 import ileinterdite.Message2;
 import ileinterdite.Tuile;
 import ileinterdite.TypesMessage;
+import ileinterdite.Utils;
 import java.util.ArrayList;
 
 public class Pilote extends Aventurier {
     private String role = "pilote";
-    
+
+
     @Override
     public String getRole() {
         return role;

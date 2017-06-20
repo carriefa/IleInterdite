@@ -12,23 +12,26 @@ public class Test {
 
     public static void main(String[] args) {
         // TODO code application logic here
-        
+        Plongeur av1 = new Plongeur();
+        Joueur j1 = new Joueur("John",av1, Pion.VERT);
+        //System.out.println(j1.getNom());
+        av1.setJoueur_associé(j1);
+        //System.out.println(av1.getJoueur().getNom());
         Grille grille = new Grille();
-        
+        j1.setPostition(grille.getTuile(27));
         grille.setEtat(14, Etat.DISPARUE);
         grille.setEtat(20, Etat.DISPARUE);
         grille.setEtat(26, Etat.DISPARUE);
-        grille.setEtat(22, Etat.DISPARUE);
-        grille.setEtat( 3, Etat.INONDEE);
         grille.setEtat(19, Etat.INONDEE);
         grille.setEtat(21, Etat.INONDEE);
-        grille.setEtat(23, Etat.INONDEE);
-        grille.setEtat(33, Etat.INONDEE);
         IHMileInterdite2 ihm = new IHMileInterdite2();
-        JeuIleInterdite jeu = new JeuIleInterdite();
         ihm.InitFenetrePrincipale(grille);
-        jeu.Jeu();
-
+        for (Tuile tuile : j1.getAventurier().getTuilesDeplacement(j1)){
+            System.out.println(tuile.getNumero()+tuile.getNom());
+        }  
+        
+        
+        
     }
     
 }

@@ -6,7 +6,7 @@ import ileinterdite.Utils.Pion;
 
 public class Tuile {
     private Pion pion_associe;
-    private ArrayList<Aventurier> pionsPrésents = new ArrayList<Aventurier>();
+    private ArrayList<Aventurier> joueurspresents = new ArrayList<Aventurier>();
     public Carte_Inondation carte;
     private Etat etat;
     private Tresor tresor_associe;
@@ -22,7 +22,8 @@ public class Tuile {
 
     public Tuile(int numero){
         setEtat(numero);
-        setNumero(numero);   
+        setNumero(numero);
+        joueurspresents = new ArrayList();
     }
 
     public Tuile(){
@@ -141,20 +142,27 @@ public class Tuile {
     /**
      * @return the pionsPrésents
      */
+
     public String getPionsPrésentsAffichage() {
-        String constantation ="abdel" ;
-        ArrayList<String> papa = new ArrayList();
-        pionsPrésents.stream().forEach((a) -> {
-            papa.add(a.getJoueur().getNom());
-        });
-        if (!papa.isEmpty()){
-             {   for (String papa1 : papa) {
-                 constantation = constantation + papa1;
+        String nomspresents ="" ;
+        ArrayList<String> noms = new ArrayList();
+      
+        for (Aventurier joueurspresent : joueurspresents) {
+           noms.add(joueurspresent.getJoueur().getNom());
+        };
+        if (!noms.isEmpty()){
+             {   for (String nom : noms) {
+                 nomspresents = nomspresents + nom +" <br>";
                  }
 }}
-    return constantation;
+    return nomspresents;
     
     
 
 
-}}
+}
+
+    void addPion(Aventurier pion) {
+       joueurspresents.add(pion); 
+    }
+}
