@@ -93,7 +93,7 @@ public class IHMileInterdite2 {
         windowStart.setLayout(new BorderLayout());
 
         //Fenetre choix roles
-        
+        windowRoles = new JFrame("Choix des rôles");
         windowRoles.setLayout(new BorderLayout());
         //Fenetre regles
         windowRules = new JFrame("Règles du jeu");
@@ -103,17 +103,12 @@ public class IHMileInterdite2 {
         windowJeu.setLayout(new BorderLayout());
        // InitFenetrePrincipale();
     }
+    
+     public void setObservateur(Observateur observateur){
+        this.observateur = observateur;  
+     }
 
     public void InitFenetrePrincipale(Grille grille){
-        
-        
-        
-    }
-    
-    public void setObservateur(Observateur observateur){
-        this.observateur = observateur;
-        windowJeu = new JFrame("Ile Interdite");
-        windowJeu.setLayout(new BorderLayout());
 
         //initialisation commandes
         commandes = new JPanel(new GridLayout(5, 1));
@@ -132,11 +127,9 @@ public class IHMileInterdite2 {
         
         cases = new JButton[24];
 
-        System.out.println(grille.getTuile(0));
-
         int a = 0;
         
-        
+            for(int i = 0; i<grille.getTuiles().length; i++){
               if(grille.getTuile(i).getNom() != null){
                 cases[a] = new JButton(grille.getTuile(i).getNom());
   
@@ -148,7 +141,7 @@ public class IHMileInterdite2 {
             }
         }
 
-
+            
         actionCourante.setText("Aucune");
         joueurCourant.setText("Joueur 1    ");
         status.add(new JLabel("C'est à : "));
@@ -189,8 +182,7 @@ public class IHMileInterdite2 {
         });
         
         
-        
-        for(int i = 0; i < grille.getTuiles().length; i++){
+    }
                       
    public void majGrille(Grille grille){
        int a = 0 ;
@@ -660,5 +652,5 @@ int a = 0;
 }
         
         
-} 
+ 
     
