@@ -5,12 +5,13 @@ import ileinterdite.Utils.Pion;
 import java.util.ArrayList;
 
 public abstract class Aventurier {
-    public ArrayList<Carte_Tresor_Abs> main = new ArrayList<Carte_Tresor_Abs>();
+    public ArrayList<Carte_Tresor_Abs> main;
     private Joueur joueur_associé;
     private Tuile position_actuelle;
     private Pion pion;
     
     public Aventurier (){
+            main = new ArrayList<>();
     }
     
     public abstract String getRole();
@@ -18,10 +19,8 @@ public abstract class Aventurier {
     public Tuile getPosition(){
         return position_actuelle;
     }
-    
-    
-    
-    public  Joueur getJoueur(){
+
+    public Joueur getJoueur() {
         return joueur_associé;
     }
     

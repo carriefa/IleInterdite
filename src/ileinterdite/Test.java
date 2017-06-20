@@ -14,9 +14,11 @@ public class Test {
         // TODO code application logic here
          Explorateur av1 = new Explorateur();
         Joueur j1 = new Joueur("John",av1, Pion.VERT);
+        System.out.println(j1.getNom());
         av1.setJoueur_associé(j1);
+        System.out.println(av1.getJoueur().getNom());
         Grille grille = new Grille();
-         j1.setPostition(grille.getTuile(15));
+        j1.setPostition(grille.getTuile(15));
         grille.setEtat(16, Etat.DISPARUE);       
         IHMileInterdite2 ihm = new IHMileInterdite2();
         JeuIleInterdite jeu = new JeuIleInterdite();
