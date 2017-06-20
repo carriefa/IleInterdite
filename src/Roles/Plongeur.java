@@ -31,10 +31,11 @@ public class Plongeur extends Aventurier {
 
     @Override
     public ArrayList<Tuile> getTuilesDeplacement(Joueur joueur) {
-        if(super.getPosition()== null){
-            System.out.println("suce mon énorme queue");
+        if (super.getPosition()==null){
+            System.out.println("la position est nulle");
+        }else if (super.getPosition().getGrille()==null){
+            System.out.println("la grille est nulle");
         }
-        System.out.println(super.getPosition().getNom());
         return super.getPosition().getGrille().getTuilesDeplacementPlongeur(joueur);
     }
 
