@@ -424,6 +424,54 @@ public class JeuIleInterdite {
     public Grille getGrille() {
         return grille;
     }
+    
+    public Carte_Tresor_Abs[] melangeCarteTresor(Carte_Tresor_Abs[] cartes){
+        
+        Carte_Tresor_Abs[] c = new Carte_Tresor_Abs[28];
+        ArrayList<Carte_Tresor_Abs> ca = new ArrayList<>();
+        for(int i = 0; i<cartes.length; i++){
+            ca.add(cartes[i]); 
+        }
+        int alea; 
+        int a = 27;
+        
+        
+        for(int i = 0; i < c.length; i++){ // boucle qui parcoute les nom des tuiles
+            alea = (int) (Math.random() * (a - 0)); // alea un nombre entre 0 et 27
+            //alea=a; // A MODIFIER!!!!
+            c[i] = ca.get(alea);
+            ca.remove(alea);
+            a = a-1;
+
+         
+        }
+        
+        return c;
+    }
+    
+    public Carte_Inondation[] melangeCarteInondation(Carte_Inondation[] cartes){
+        
+        Carte_Inondation[] c = new Carte_Inondation[24];
+        ArrayList<Carte_Inondation> ca = new ArrayList<>();
+        for(int i = 0; i<cartes.length; i++){
+            ca.add(cartes[i]); 
+        }
+        int alea; 
+        int a = 27;
+        
+        
+        for(int i = 0; i < c.length; i++){ // boucle qui parcoute les nom des tuiles
+            alea = (int) (Math.random() * (a - 0)); // alea un nombre entre 0 et 27
+            //alea=a; // A MODIFIER!!!!
+            c[i] = ca.get(alea);
+            ca.remove(alea);
+            a = a-1;
+
+         
+        }
+        
+        return c;
+    }
 
     /**
      * @return the joueurs
