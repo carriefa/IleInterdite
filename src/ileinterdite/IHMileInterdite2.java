@@ -107,8 +107,7 @@ public class IHMileInterdite2 {
     public void InitFenetrePrincipale(Grille grille){
         
         
-        windowJeu = new JFrame("Ile Interdite");
-        windowJeu.setLayout(new BorderLayout());
+        
         
         //initialisation commandes
         commandes = new JPanel(new GridLayout(5, 1));
