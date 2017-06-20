@@ -13,8 +13,7 @@ public class Test {
             private ArrayList<Tresor> trésors;
             
     public static void main(String[] args) {
-        Tresor tresor = new Tresor();
-        trésors = tresor.getTresors();
+        
         // TODO code application logic here
         Plongeur av1 = new Plongeur();
 
