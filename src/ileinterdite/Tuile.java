@@ -132,9 +132,6 @@ public class Tuile {
             
     }
 
-    /**
-     * @return the grille
-     */
     public Grille getGrille() {
         return grille;
     }
