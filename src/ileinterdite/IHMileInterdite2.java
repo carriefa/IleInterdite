@@ -135,8 +135,8 @@ public class IHMileInterdite2 {
         for(int i = 0; i < grille.getTuiles().length; i++){
                       
               if(grille.getTuile(i).getNom() != null){
-                cases[a] = new JButton(grille.getTuile(i).getNom());
-  
+                cases[a] = new JButton((grille.getTuile(i).getNom())+(grille.getTuile(i).getNumero()));
+                
                 panelCentre.add(cases[a]);
                 a = a+1;
             } else {            
