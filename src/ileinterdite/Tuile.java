@@ -90,15 +90,36 @@ public class Tuile {
         return tresor_associe;
     }
 
-    public void setTresorAssocié() {
+    public void setTresorAssocié(ArrayList<Tresor> tresors) {
         if (this.getNom().equals("Le Temple De La Lune") ||this.getNom().equals("Le Temple Du Soleil")){
-            tresor_associe = new Tresor("La Pierre Sacrée");
+            for (Tresor tresor : tresors){
+                if (tresor.getNom_tresor() == ("La Pierre Sacrée")) {
+                 tresor_associe = tresor;
+                 tresor.addTuile(this);
+                }  
+            }
         }else if(this.getNom().equals("Le Jardin Des Murmures") || this.getNom().equals("Le Jardin Des Hurlements")){
-            tresor_associe = new Tresor("La Statue Du Zéphyr");
+               for (Tresor tresor : tresors){
+                if (tresor.getNom_tresor() == ("La Statue Du Zéphyr")) {
+                 tresor_associe = tresor;
+                 tresor.addTuile(this);
+                }
+            }
         }else if(this.getNom().equals("La Caverne du Brasier") || this.getNom().equals("La Caverne Des Ombres")){
-            tresor_associe = new Tresor("Le Cristal Ardent");
+               for (Tresor tresor : tresors){
+                if (tresor.getNom_tresor() == ("Le Cristal Ardent")) {
+                 tresor_associe = tresor;
+                 tresor.addTuile(this);
+                }
+            }
         }else if(this.getNom().equals("Le Palais De Corail") || this.getNom().equals("Le Palais Des Marees")){
-            tresor_associe = new Tresor("Le Calice De L’onde");
+               for (Tresor tresor : tresors){
+                if (tresor.getNom_tresor() == ("Le Calice De L’onde")) {
+                 tresor_associe = tresor;
+                 tresor.addTuile(this);
+                }
+                
+            }
         }else{
             tresor_associe=null;
         }

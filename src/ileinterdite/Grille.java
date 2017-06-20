@@ -12,7 +12,7 @@ import java.util.ArrayList;
         private final Integer [] num_tuile_colonne_droite = {05,11,17,23,29,35};
         
          
-     public Grille(){
+     public Grille(ArrayList<Tresor> tresors){
          /* |00|01|02|03|04|05|
             |06|07|08|09|10|11|
             |12|13|14|15|16|17|
@@ -29,11 +29,11 @@ import java.util.ArrayList;
         }
         
         instance_tuile = new Tuile [36];
-        initTuiles();
+        initTuiles(tresors);
      }
      
 
-    public void initTuiles(){
+    public void initTuiles(ArrayList<Tresor> tresors){
         
         int alea;
         int a = tuile_type.getNOM_TUILES().length-1;
@@ -51,7 +51,7 @@ import java.util.ArrayList;
                 instance_tuile[i].setNom(null);
             }else{
                instance_tuile[i].setNom(nom_tuiles_init.get(alea));
-              // instance_tuile[i].setTresorAssocié();
+               instance_tuile[i].setTresorAssocié(tresors);
                
                nom_tuiles_init.remove(alea);
                

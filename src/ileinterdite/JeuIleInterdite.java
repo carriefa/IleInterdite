@@ -28,7 +28,7 @@ public class JeuIleInterdite {
     public JeuIleInterdite(){
         
         scanner = new Scanner(System.in);
-        grille = new Grille();
+        grille = new Grille(trésors);
         roles = new ArrayList<>();
         trésors = new ArrayList<>();
         cartes_innondation_defausse = new ArrayList<>();
@@ -37,6 +37,15 @@ public class JeuIleInterdite {
         cartes_trésor_defausse = new ArrayList<>();
         cartes_trésor_pioche = new ArrayList<>();
         joueurs = new ArrayList<>();
+        
+         Tresor tresor1 = new Tresor("La Pierre Sacrée");
+        Tresor tresor2 = new Tresor("La Statue Du Zéphyr");
+        Tresor tresor3 = new Tresor("Le Cristal Ardent");
+        Tresor tresor4 = new Tresor("Le Calice De L’onde");
+        trésors.add(tresor1);
+        trésors.add(tresor2);
+        trésors.add(tresor3);
+        trésors.add(tresor4);
         
     }
     public void Jeu (){
