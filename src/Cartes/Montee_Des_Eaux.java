@@ -1,4 +1,4 @@
-package ileinterdite;
+package Cartes;
 
 import Cartes.Carte_Tresor_Abs;
 

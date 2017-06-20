@@ -61,8 +61,15 @@ public class Joueur {
         this.pion = pion;
     }
     
-    public void setMain(ArrayList<Carte_Tresor_Abs> cartes){
-        main = cartes;
+    public void addCarteMain(Carte_Tresor_Abs cartes){
+        getMain().add(cartes);
+    }
+
+    /**
+     * @return the main
+     */
+    public ArrayList<Cartes.Carte_Tresor_Abs> getMain() {
+        return main;
     }
         
         
