@@ -80,7 +80,7 @@ public class IHMileInterdite2 {
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(IHMileInterdite2.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+//        
             //Fenetre de depart
         windowStart = new JFrame("Ile Interdite");
         windowStart.setLayout(new BorderLayout());
