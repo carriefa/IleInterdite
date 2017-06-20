@@ -135,8 +135,24 @@ public class Tuile {
     public Grille getGrille() {
         return grille;
     }
+
+    /**
+     * @return the pionsPrésents
+     */
+    public String getPionsPrésentsAffichage() {
+         String constantation ="" ;
+        ArrayList<String> papa = new ArrayList();
+        pionsPrésents.stream().forEach((a) -> {
+            papa.add(a.getJoueur().getNom());
+        });
+        if (!papa.isEmpty()){
+             {   for (String papa1 : papa) {
+                 constantation = constantation +"<br />" + papa1;
+                 }
+}}
+    return constantation;
     
     
 
 
-}
+}}
