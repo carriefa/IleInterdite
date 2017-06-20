@@ -6,6 +6,7 @@
 package ileinterdite;
 
 import static ileinterdite.TypesMessage.DEMARRER_PARTIE;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,10 +17,20 @@ public class Controleur implements Observateur {
     private JeuIleInterdite jeu ;
     private IHMileInterdite2 ihm ;
     private Grille grille; 
+   
             
     public Controleur(){
         
+        ArrayList<Joueur> joueurs = new ArrayList<>();
+        Aventurier ingé = new Roles.Explorateur();
+        jeu = new JeuIleInterdite();
         
+        Joueur j1 = new Joueur("jean",new Roles.Explorateur() , Utils.Pion.VERT); 
+        Joueur j2 = new Joueur("jiji", new Roles.Messager(), Utils.Pion.ROUGE);
+        joueurs.add(j1);
+        joueurs.add(j2);
+        jeu.setJoueurs(joueurs);
+     
         
 
     }

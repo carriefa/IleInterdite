@@ -21,6 +21,13 @@ import java.util.Scanner;
 
 
 public class JeuIleInterdite {
+
+    /**
+     * @param joueurs the joueurs to set
+     */
+   
+    
+    
     private Grille grille;
     private Scanner scanner;
     private ArrayList<Carte_Tresor_Abs> cartes_trésor_defausse;
@@ -90,8 +97,31 @@ public class JeuIleInterdite {
               if(grille.getTuile(i).getNom() != null){
                       cartesInondation.add(new Carte_Inondation(grille.getTuile(i)));
               }}
+             
+             melangeCartes(cartestrésors);
+             melangeCartes(cartesInondation);
+             
+             
         
     } 
+    
+    
+     public void setJoueurs(ArrayList<Joueur> joueurs) {
+        this.joueurs = joueurs;
+    }
+     
+     
+    public void initCartesJoueurs(){
+        
+        for(int i = 0; i<joueurs.size(); i++){
+            for(int j = 0; j<cartestrésors.size(); i++){
+                joueurs.get(i);
+            }
+            
+        }
+    }
+    
+     
     public void Jeu (){
         boolean partiecontinue = true ;
         
@@ -425,7 +455,7 @@ public class JeuIleInterdite {
         return grille;
     }
     
-    public ArrayList<Carte_Tresor_Abs> melangeCartes(ArrayList<Carte_Tresor_Abs> cartes){
+    public ArrayList melangeCartes(ArrayList cartes){
         Collections.shuffle(cartes);
         return cartes;
         }

@@ -1,12 +1,15 @@
 package ileinterdite;
+import Cartes.Carte_Tresor_Abs;
 import ileinterdite.Aventurier;
 import ileinterdite.Tuile;
 import ileinterdite.Utils.Pion;
+import java.util.ArrayList;
 
 public class Joueur {
     private Aventurier aventurier;
     private String nom;
     private Pion pion;
+    private ArrayList<Cartes.Carte_Tresor_Abs> main;
 
     public Joueur(String nom, Aventurier aventurier,Pion pion){
         this.nom=nom;
@@ -56,6 +59,10 @@ public class Joueur {
      */
     public void setPion(Pion pion) {
         this.pion = pion;
+    }
+    
+    public void setMain(ArrayList<Carte_Tresor_Abs> cartes){
+        main = cartes;
     }
         
         
