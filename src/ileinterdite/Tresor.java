@@ -10,14 +10,22 @@ public class Tresor {
 
 	private ArrayList<Tuile> tuileAssociée ;
         private String nom_tresor;
+        private boolean recupere;
         private tresors = new ArrayList();
         
         public Tresor(String nom){
             setNom_tresor(nom_tresor);
-            tuileAssociée = new ArrayList<Tuile>();     
+            recupere= false ;
         }
     
 
+        public void recuperation(){
+            recupere = true ;
+        }
+        
+        public boolean estRecupere(){
+            return recupere;
+        }
     public void setNom_tresor(String nom_tresor) {
         this.nom_tresor = nom_tresor;
     }

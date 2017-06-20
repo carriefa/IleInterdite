@@ -53,6 +53,10 @@ public abstract class Aventurier {
         this.pion = pion;
     }
 
+    
+   public Pion getPion(){
+       return pion;
+   }
     /**
      * @return the grille
      */

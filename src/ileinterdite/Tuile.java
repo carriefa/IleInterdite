@@ -169,7 +169,7 @@ public class Tuile {
         ArrayList<String> noms = new ArrayList();
       
         for (Aventurier joueurspresent : joueurspresents) {
-           noms.add(joueurspresent.getJoueur().getNom());
+           noms.add(joueurspresent.getJoueur().getNom()+"("+joueurspresent.getPion().toString()+")");
         };
         if (!noms.isEmpty()){
              {   for (String nom : noms) {
