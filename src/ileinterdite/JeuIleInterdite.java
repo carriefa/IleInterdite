@@ -15,6 +15,8 @@ import com.sun.glass.ui.SystemClipboard;
 import ileinterdite.Utils.Pion;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Scanner;
 
 
@@ -29,8 +31,8 @@ public class JeuIleInterdite {
     private ArrayList<Carte_Inondation> cartes_innondation_defausse;
     private ArrayList<Carte_Inondation> cartes_innondation_pioche;
     private ArrayList<Carte_Inondation> cartes_innodation_cimetiere;
-    private Carte_Tresor_Abs[] cartestrésors;
-    private Carte_Inondation[] cartesInondation;
+    private ArrayList<Carte_Tresor_Abs> cartestrésors;
+    private ArrayList<Carte_Inondation> cartesInondation;
     public JeuIleInterdite(){
         // init des tresors 
         Tresor tresor1 = new Tresor("La Pierre Sacrée");
@@ -44,8 +46,8 @@ public class JeuIleInterdite {
         
         
         
-        cartesInondation = new Carte_Inondation[24];
-        cartestrésors = new  Carte_Tresor_Abs[28];
+        cartesInondation = new ArrayList<>();
+        cartestrésors = new ArrayList<>();
         scanner = new Scanner(System.in);
         grille = new Grille(trésors);
         roles = new ArrayList<>();
@@ -62,33 +64,31 @@ public class JeuIleInterdite {
         // init des cartes trésors 
         for (int i = 0 ; i < 27 ; i++){
             if (i <=4){
-                cartestrésors[i]=new Carte_Tresor(tresor1);
+                cartestrésors.add(new Carte_Tresor(tresor1));
             }
             if (4 < i && i<=9 ){
-                cartestrésors[i]=new Carte_Tresor(tresor2);
+                cartestrésors.add(new Carte_Tresor(tresor2));
             }
              if (9 < i && i<=14 ){
-                cartestrésors[i]=new Carte_Tresor(tresor3);
+                cartestrésors.add(new Carte_Tresor(tresor3));
             }
               if (14 < i && i<=19 ){
-                cartestrésors[i]=new Carte_Tresor(tresor4);
+                cartestrésors.add(new Carte_Tresor(tresor4));
             }
              if (19 < i && i<=22){
-                 cartestrésors[i]=new Montee_Des_Eaux();
+                 cartestrésors.add(new Montee_Des_Eaux());
              }
              if (22< i && i<=25){
-                 cartestrésors[i]=new Helicoptere();
+                 cartestrésors.add(new Helicoptere());
              }
              if (25 < i && i<=27){
-                 cartestrésors[i]=new SacDeSable();
+                 cartestrésors.add(new SacDeSable());
              }
         }
         
-        int a = 0 ;
              for(int i = 0; i < grille.getTuiles().length; i++){
               if(grille.getTuile(i).getNom() != null){
-                      cartesInondation[a] = new Carte_Inondation(grille.getTuile(i));
-                a = a+1;
+                      cartesInondation.add(new Carte_Inondation(grille.getTuile(i)));
               }}
         
     } 
@@ -425,54 +425,11 @@ public class JeuIleInterdite {
         return grille;
     }
     
-    public Carte_Tresor_Abs[] melangeCarteTresor(Carte_Tresor_Abs[] cartes){
-        
-        Carte_Tresor_Abs[] c = new Carte_Tresor_Abs[28];
-        ArrayList<Carte_Tresor_Abs> ca = new ArrayList<>();
-        for(int i = 0; i<cartes.length; i++){
-            ca.add(cartes[i]); 
+    public ArrayList<Carte_Tresor_Abs> melangeCartes(ArrayList<Carte_Tresor_Abs> cartes){
+        Collections.shuffle(cartes);
+        return cartes;
         }
-        int alea; 
-        int a = 27;
-        
-        
-        for(int i = 0; i < c.length; i++){ // boucle qui parcoute les nom des tuiles
-            alea = (int) (Math.random() * (a - 0)); // alea un nombre entre 0 et 27
-            //alea=a; // A MODIFIER!!!!
-            c[i] = ca.get(alea);
-            ca.remove(alea);
-            a = a-1;
-
-         
-        }
-        
-        return c;
-    }
-    
-    public Carte_Inondation[] melangeCarteInondation(Carte_Inondation[] cartes){
-        
-        Carte_Inondation[] c = new Carte_Inondation[24];
-        ArrayList<Carte_Inondation> ca = new ArrayList<>();
-        for(int i = 0; i<cartes.length; i++){
-            ca.add(cartes[i]); 
-        }
-        int alea; 
-        int a = 27;
-        
-        
-        for(int i = 0; i < c.length; i++){ // boucle qui parcoute les nom des tuiles
-            alea = (int) (Math.random() * (a - 0)); // alea un nombre entre 0 et 27
-            //alea=a; // A MODIFIER!!!!
-            c[i] = ca.get(alea);
-            ca.remove(alea);
-            a = a-1;
-
-         
-        }
-        
-        return c;
-    }
-
+     
     /**
      * @return the joueurs
      */
