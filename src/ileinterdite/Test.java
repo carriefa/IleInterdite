@@ -17,9 +17,13 @@ public class Test {
         grille.setEtat(16, Etat.DISPARUE);       
         IHMileInterdite2 ihm = new IHMileInterdite2();
         JeuIleInterdite jeu = new JeuIleInterdite();
-        ihm.InitFenetrePrincipale(grille);
-        jeu.Jeu();
+        //ihm.InitFenetrePrincipale(grille);
+        //jeu.Jeu();
         grille.setEtat(15, Etat.INONDEE);
+        
+        
+        //tests anas
+        ihm.InitFenetreDepart();
     }
     
 }
