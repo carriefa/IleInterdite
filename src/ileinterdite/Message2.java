@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author carriefa
  */
 public class Message2 {
-   private TypesMessage type ;
+   public TypesMessage type ;
    private ArrayList<Joueur> joueurs ;
    private Tuile tuileChoisie ;
    private Joueur joueur ;

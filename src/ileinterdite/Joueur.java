@@ -71,6 +71,10 @@ public class Joueur {
     public ArrayList<Cartes.Carte_Tresor_Abs> getMain() {
         return main;
     }
+    
+    public void supprimerCarte(Carte_Tresor_Abs carte){
+        main.remove(carte);
+    }
         
         
 }

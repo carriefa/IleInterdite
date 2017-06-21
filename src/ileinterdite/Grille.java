@@ -12,7 +12,7 @@ import java.util.ArrayList;
         private final Integer [] num_tuile_colonne_droite = {05,11,17,23,29,35};
         
          
-     public Grille(ArrayList<Tresor> tresors){
+     public Grille(ArrayList<Tresor> tresor){
          /* |00|01|02|03|04|05|
             |06|07|08|09|10|11|
             |12|13|14|15|16|17|
@@ -29,7 +29,7 @@ import java.util.ArrayList;
         }
         
         instance_tuile = new Tuile [36];
-        initTuiles(tresors);
+        initTuiles(tresor);
      }
      
 
