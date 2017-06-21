@@ -35,6 +35,7 @@ public class Message2 {
      */
     public ArrayList<Joueur> getJoueurs() {
         return joueurs;
+        
     }
 
     /**

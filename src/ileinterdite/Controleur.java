@@ -32,7 +32,11 @@ public class Controleur implements Observateur {
         switch(msg.getType()) {
             case DEMARRER_PARTIE:
                 ArrayList<Joueur> joueurs  = msg.getJoueurs();
+                for(Joueur joueur : joueurs){
+                    System.out.println(joueur.getNom()+joueur.getAventurier()+ joueur.getPion());
+                }
                 jeu.setJoueurs(joueurs);
+                
                 ihm.InitFenetrePrincipale(grille);
                 majJeu();
             break;
@@ -53,6 +57,8 @@ public class Controleur implements Observateur {
                 
                 majJeu();
             break;
+            
+                
             
             
                 

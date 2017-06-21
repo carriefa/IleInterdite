@@ -1,5 +1,9 @@
 package ileinterdite;
 
+import Cartes.Montee_Des_Eaux;
+import Cartes.Carte_Tresor;
+import Cartes.SacDeSable;
+import Cartes.Helicoptere;
 import Cartes.Carte_Inondation;
 import Cartes.Carte_Tresor;
 import Cartes.Carte_Tresor_Abs;
@@ -31,6 +35,7 @@ public class JeuIleInterdite {
     private ArrayList<Carte_Inondation> cartes_innodation_cimetiere;
     private ArrayList<Carte_Tresor_Abs> cartestrésors;
     private ArrayList<Carte_Inondation> cartesInondation;
+    private Joueur joueur_courant; 
     public JeuIleInterdite(){
         // init des tresors 
          trésors = new ArrayList<>();
@@ -100,6 +105,8 @@ public class JeuIleInterdite {
      public void setJoueurs(ArrayList<Joueur> joueurs_ihm) {
         this.joueurs = joueurs_ihm;
         for (Joueur joueur : joueurs){
+            System.out.println(joueur.getPion()+" pion du joueur dans JeuIleInterdite");
+            System.out.println(grille.getTuile(grille.getNumTuilePion(joueur.getPion())));
             joueur.setPostition(grille.getTuile(grille.getNumTuilePion(joueur.getPion())));
         }
     }
@@ -137,11 +144,38 @@ public class JeuIleInterdite {
         //InitJoueur();
         while (partiecontinue){
         for (Joueur joueur : getJoueurs()) {
+            setJoueurCourant(joueur);
             TourJoueur(joueur);
         }}
     }
 
            
+    public void piocheCarteTresor(Joueur joueur){
+        if (joueur.getMain().size()<5){
+            joueur.addCarteMain(cartestrésors.get(0));
+            cartestrésors.remove(0);
+        }
+    }
+    
+    public Tuile piocheCarteInondation(){
+        
+        Carte_Inondation carte = cartesInondation.get(0);  // Regarde Luca
+        Tuile tuile = carte.getTuileassociée();
+        if (tuile.getEtat() == Etat.ASSECHEE){
+            tuile.SetEtat(Etat.INONDEE);
+            cartes_innondation_defausse.add(carte);
+        }
+        else if (tuile.getEtat() == Etat.INONDEE){
+            tuile.SetEtat(Etat.DISPARUE);
+            cartes_innodation_cimetiere.add(carte);
+        }
+        
+        cartesInondation.remove(0);
+        return tuile;
+        
+    }
+    
+    
     public void TourJoueur(Joueur joueur) {
         int pointsActions = 3 ;
         boolean sortie = false ;
@@ -161,7 +195,7 @@ public class JeuIleInterdite {
                     sortie =true ;
                 }  
                 else if (action == 1){
-                    Deplacement(joueur);
+                    //Deplacement(joueur);
                     pointsActions = pointsActions - 1 ;
                 }
                 else if (action == 2){
@@ -179,7 +213,7 @@ public class JeuIleInterdite {
         }
         System.out.println("Fin du tour de "+joueur.getNom());
     }
-    
+    /*
     public void Deplacement(Joueur joueur) {
         ArrayList<Tuile> tuiles_deplacement = joueur.getAventurier().getTuilesDeplacement(joueur);
         boolean controle_boucle =true;
@@ -206,7 +240,7 @@ public class JeuIleInterdite {
             } //fin for
         } //fin while
     }
-    
+    *//*
     public void DeplacementPlongeur(Joueur joueur){
        
         boolean controle_boucle = true;
@@ -246,12 +280,7 @@ public class JeuIleInterdite {
             }//fin if
         }//fin while     
     }
-    
-    //public ArrayList<Tuile> getTuiles
-    
-    //public void DeplacementPilote(Joueur joueur){
-    //    ArrayList<Tuile>
-    //}
+    */
     
     public void DeplacementNavigateur(Joueur joueur){
         
@@ -373,10 +402,19 @@ public class JeuIleInterdite {
         return joueurs;
     }
 
-    /**
-     * @return the trésors
-     */
+    
+    
+    
     public ArrayList<Tresor> getTrésors() {
         return trésors;
+    }
+
+    
+    public Joueur getJoueurCourant(){
+        return joueur_courant; 
+    }
+    
+    public void setJoueurCourant(Joueur joueur) {
+        this.joueur_courant=joueur;
     }
 }

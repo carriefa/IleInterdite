@@ -153,7 +153,6 @@ public class IHMileInterdite2 {
             Deplacement.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    System.out.println("je suis un juif");
                 }
             });
         
@@ -171,7 +170,6 @@ public class IHMileInterdite2 {
                 cases[a].addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        System.out.println("je suis juif");
                     }
                 });}
                 panelCentre.add(cases[a]);
@@ -575,6 +573,7 @@ public class IHMileInterdite2 {
                     
                     joueurs[numJoueur-1] = new Joueur(nomJoueur,roleChoisi, pionChoisi);
                     System.out.println(joueurs[numJoueur-1].getNom()+joueurs[numJoueur-1].getAventurier()+joueurs[numJoueur-1].getPion());
+                    joueurs_crees.add(joueurs[numJoueur-1]);
                     windowRoles.dispose();
                     fenetreChoixJoueur(numJoueur+1, nbJoueursChoisis);
                     
@@ -618,12 +617,12 @@ public class IHMileInterdite2 {
                     }
                     
                     joueurs[numJoueur-1] = new Joueur(nomJoueur,roleChoisi, pionChoisi);
-                    System.out.println(joueurs[numJoueur-1].getNom()+joueurs[numJoueur-1].getAventurier()+joueurs[numJoueur-1].getPion());
+                    joueurs_crees.add(joueurs[numJoueur-1]);
                    // windowRoles.dispose();
                     Message2 m = new Message2();
                     m.type = TypesMessage.DEMARRER_PARTIE;
                     windowRoles.dispose();
-                    // m.setMessages(joueurs_crees);
+                    m.setJoueurs(joueurs_crees);
                     observateur.traiterMessage(m);
                 }
             });
@@ -715,7 +714,7 @@ public class IHMileInterdite2 {
                     Message2 m = new Message2();
                     m.type=TypesMessage.DEMARRER_PARTIE;
                     windowRoles.dispose();
-                   // m.setMessages(joueurs_crees);
+                    m.setJoueurs(joueurs_crees);
                     observateur.traiterMessage(m);
                     
                  }
@@ -727,4 +726,8 @@ public class IHMileInterdite2 {
     public Joueur[] getJoueurs() {
         return joueurs;
     }
+    
+    public String getJoueurCourant() {
+    return nomJoueur; 
+}
 }
