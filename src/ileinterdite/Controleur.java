@@ -34,13 +34,15 @@ public class Controleur implements Observateur {
                 ArrayList<Joueur> joueurs  = msg.getJoueurs();
                 jeu.setJoueurs(joueurs);
                 ihm.InitFenetrePrincipale(grille);
+                majJeu();
             break;
             case MOUVEMENT:
                 ihm.setActionCourante("mouvement");
-            
+            majJeu();
             break;
             case ASSECHER: 
                 ihm.setActionCourante("assecher");
+                majJeu();
             break;
             case AUTREACTION :
                 
@@ -49,12 +51,12 @@ public class Controleur implements Observateur {
                     System.out.println(j.getAventurier());
                     System.out.println(j.getPion());
                 }
-             
+             majJeu();
             break;
             case DONNER:
                 ihm.getJoueurs(); 
                     
-            
+            majJeu();
             case TERMINERTOUR :
                 
             break;
