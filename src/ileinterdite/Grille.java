@@ -51,7 +51,7 @@ import java.util.ArrayList;
                 instance_tuile[i].setNom(null);
             }else{
                instance_tuile[i].setNom(nom_tuiles_init.get(alea));
-               //instance_tuile[i].setTresorAssocié(tresors);
+               instance_tuile[i].setTresorAssocié(tresors);
                
                nom_tuiles_init.remove(alea);
                

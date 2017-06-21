@@ -560,6 +560,7 @@ public class IHMileInterdite2 {
                     
                     joueurs[numJoueur-1] = new Joueur(nomJoueur,roleChoisi, pionChoisi);
                     System.out.println(joueurs[numJoueur-1].getNom()+joueurs[numJoueur-1].getAventurier()+joueurs[numJoueur-1].getPion());
+                    windowRoles.dispose();
                     fenetreChoixJoueur(numJoueur+1, nbJoueursChoisis);
                 }
             });
@@ -604,6 +605,7 @@ public class IHMileInterdite2 {
                     System.out.println(joueurs[numJoueur-1].getNom()+joueurs[numJoueur-1].getAventurier()+joueurs[numJoueur-1].getPion());
                     Message2 m = new Message2();
                     m.type = TypesMessage.DEMARRER_PARTIE;
+                    windowRoles.dispose();
                     // m.setMessages(joueurs_crees);
                     observateur.traiterMessage(m);
                 }
@@ -648,6 +650,7 @@ public class IHMileInterdite2 {
 
                     joueurs[numJoueur-1] = new Joueur(nomJoueur, roleChoisi, pionChoisi);
                     joueurs_crees.add(joueurs[numJoueur-1]);
+                    windowRoles.dispose();
                     fenetreChoixJoueur(numJoueur+1,nbJoueursChoisis);
                     
                 }
@@ -692,6 +695,7 @@ public class IHMileInterdite2 {
                     joueurs_crees.add(joueurs[numJoueur-1]); 
                     Message2 m = new Message2();
                     m.type=TypesMessage.DEMARRER_PARTIE;
+                    windowRoles.dispose();
                    // m.setMessages(joueurs_crees);
                     observateur.traiterMessage(m);
                     

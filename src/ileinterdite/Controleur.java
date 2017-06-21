@@ -22,7 +22,6 @@ public class Controleur implements Observateur {
     public Controleur(){
         
         ArrayList<Joueur> joueurs = new ArrayList<>();
-        Aventurier ingé = new Roles.Explorateur();
         jeu = new JeuIleInterdite();
         
         Joueur j1 = new Joueur("jean",new Roles.Explorateur() , Utils.Pion.VERT); 
@@ -52,12 +51,7 @@ public class Controleur implements Observateur {
                 ihm.setActionCourante("assecher");
             break;
             case AUTREACTION :
-                
-                for(Joueur j : ihm.getJoueurs()){
-                    System.out.println(j.getNom());
-                    System.out.println(j.getAventurier());
-                    System.out.println(j.getPion());
-                }
+            
              
             break;
             case TERMINERTOUR :
