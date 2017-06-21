@@ -55,9 +55,10 @@ public class Controleur implements Observateur {
             break;
            
                     
-            majJeu();
+            
             case TERMINERTOUR :
                 
+                majJeu();
             break;
             
             

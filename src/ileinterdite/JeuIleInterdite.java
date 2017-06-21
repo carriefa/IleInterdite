@@ -42,6 +42,7 @@ public class JeuIleInterdite {
     private ArrayList<Carte_Inondation> cartesInondation;
     public JeuIleInterdite(){
         // init des tresors 
+        trésors = new ArrayList<>();
         
         Tresor tresor1 = new Tresor("La Pierre Sacrée");
         Tresor tresor2 = new Tresor("La Statue Du Zéphyr");
@@ -59,7 +60,7 @@ public class JeuIleInterdite {
         scanner = new Scanner(System.in);
         grille = new Grille(trésors);
         roles = new ArrayList<>();
-        trésors = new ArrayList<>();
+        
         cartes_innondation_defausse = new ArrayList<>();
         cartes_innondation_pioche = new ArrayList<>();
         cartes_innodation_cimetiere = new ArrayList<>();
