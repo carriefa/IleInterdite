@@ -212,6 +212,7 @@ public class IHMileInterdite2 {
    
    public void setActionCourante(String action){
        actionCourante.setText(action);
+       
    }
     
     
