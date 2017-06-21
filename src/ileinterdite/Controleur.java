@@ -37,13 +37,24 @@ public class Controleur implements Observateur {
                 majJeu();
             break;
             case MOUVEMENT:
+                Tuile t1 = new Tuile(3);
+                Tuile t2 = new Tuile(14);
+                ArrayList<Tuile> a = new ArrayList<>();
+                a.add(t1);
+                a.add(t2);
                 ihm.setActionCourante("mouvement");
-                ihm.choixDeplacement(jeu.getJoueurCourant().getAventurier().getTuilesDeplacement(jeu.getJoueurCourant()));
+                
+                ihm.choixDeplacement(a);
+                
+                
+                //ihm.choixDeplacement(jeu.getJoueurCourant().getAventurier().getTuilesDeplacement(jeu.getJoueurCourant()));
             break;
                 
             case VALIDER_MOUVEMENT:
+                
                 Tuile tuilechoisie =  msg.getTuileChoisie();
-                jeu.getJoueurCourant().getAventurier().Deplacement(tuilechoisie);
+                System.out.println(msg.getTuileChoisie().getNom());
+                //jeu.getJoueurCourant().getAventurier().Deplacement(tuilechoisie);
                 majJeu();
                 break;
             

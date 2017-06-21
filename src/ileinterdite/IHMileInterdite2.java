@@ -42,6 +42,8 @@ public class IHMileInterdite2 {
     private JFrame windowRoles;
     private JPanel commandes;
     private Observateur observateur;
+    
+    private ActionListener a; 
        
     //boutons
 
@@ -57,6 +59,8 @@ public class IHMileInterdite2 {
     
     private ArrayList<Tuile> tuilesDeplacement = new ArrayList<>();
      Tuile tTemp;
+     
+     boolean checkClicCase =true;
 
       //Options
 
@@ -211,9 +215,10 @@ public class IHMileInterdite2 {
                     if (deplacementPossible){
                     
                         Message2 m = new Message2();
-                        m.type = TypesMessage.TERMINERTOUR;
+                        m.type = TypesMessage.MOUVEMENT;
                         observateur.traiterMessage(m);
-                        clikDeplacement = true; 
+                        clikDeplacement = true;
+                        
                     
                 
                 }else{
@@ -267,14 +272,7 @@ public class IHMileInterdite2 {
             }
         });
 
-        Deplacement.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Message2 m = new Message2();
-                m.type = TypesMessage.MOUVEMENT;
-                observateur.traiterMessage(m);
-            }
-        });
+
         
         
     }
@@ -314,8 +312,30 @@ public class IHMileInterdite2 {
    }
    
    public void choixDeplacement(ArrayList<Tuile> tuilesPossibles){
-
+       
+       a = new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent e) {
+               if(checkClicCase){
+               Case t = (Case) e.getSource();
+               
+                                   tTemp = t.getTuileAssocie();
+                                   //System.out.println(tTemp.getNom());
+                                   majGrille(grille);
+                                   tuileDeplacementChoisi = t.getTuileAssocie();
+                                   Message2 m = new Message2();
+                                    m.type = TypesMessage.VALIDER_MOUVEMENT;
+                                    System.out.println(tuileDeplacementChoisi.getNom()+" tuile choisie");
+                                    m.setTuileChoisie(tuileDeplacementChoisi);
+                                    observateur.traiterMessage(m);
+                                    deleteActionMouv();
+                                    t.removeActionListener(this);
+                                   
+                                   checkClicCase = false; 
+           }}
+       };
        JButton b = new JButton();
+       
        for (int i = 0; i< grille.getTuiles().length; i++){
                for (int j = 0; j<tuilesPossibles.size(); j++){
                    
@@ -324,30 +344,42 @@ public class IHMileInterdite2 {
                        if (i<=3){
                            
                            cases[tuilesPossibles.get(j).getNumero()-2].setBackground(Color.green);
-                           cases[tuilesPossibles.get(j).getNumero()-2].addActionListener(new ActionListener() {
-                               @Override
-                               public void actionPerformed(ActionEvent e) {
-                                   Case t = (Case) e.getSource();
-                                   tTemp = t.getTuileAssocie();
-                                   System.out.println(tTemp.getNom());
-                               }
-                           });
+                           cases[tuilesPossibles.get(j).getNumero()-2].addActionListener(a);
                              
                        } else if (i>=7 && i<=10){
                            cases[tuilesPossibles.get(j).getNumero()-5].setBackground(Color.green);
+                           cases[tuilesPossibles.get(j).getNumero()-5].addActionListener(a);
                        } else if (i>=12 && i<=23){
                            cases[tuilesPossibles.get(j).getNumero()-6].setBackground(Color.green);
+                           cases[tuilesPossibles.get(j).getNumero()-6].addActionListener(a);
                        } else if(i>=25 && i<=28){
                            cases[tuilesPossibles.get(j).getNumero()-7].setBackground(Color.green);
+                           cases[tuilesPossibles.get(j).getNumero()-7].addActionListener(a);
                        } else if (i>=32 && i<=33){
                            cases[tuilesPossibles.get(j).getNumero()-10].setBackground(Color.green);
+                           cases[tuilesPossibles.get(j).getNumero()-10].addActionListener(a);
                        }
+                       
           
                        
                    }
                  
                }
                
+       }
+       
+       
+      
+      
+       
+       
+       
+   }
+   
+   public void deleteActionMouv(){
+       for(int i = 0; i<cases.length; i++){
+           cases[i].removeActionListener(a);
+           System.out.println("delete");
        }
    }
    
