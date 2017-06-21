@@ -44,6 +44,14 @@ public class Pilote extends Aventurier {
     public void Deplacement(Tuile tuile) {
         super.setPosition(tuile);
     }
+    
+    public ArrayList<Tuile> getTuilesDeplacementPilote(Joueur joueur){
+        return super.getPosition().getGrille().getTuilesDeplacementPilote(joueur);
+    }
+    
+    public void DeplacementPilote(Tuile tuile){
+        super.setPosition(tuile);
+    }
 
    
 

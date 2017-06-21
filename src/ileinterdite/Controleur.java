@@ -52,6 +52,8 @@ public class Controleur implements Observateur {
                 
                 majJeu();
             break;
+            c
+                
             
             
                 

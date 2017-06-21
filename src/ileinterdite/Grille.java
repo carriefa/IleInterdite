@@ -442,6 +442,17 @@ import java.util.ArrayList;
         return tuiles_finales;
     }
     
+    public ArrayList<Tuile> getTuilesDeplacementPilote(Joueur joueur){
+        Tuile tuile_joueur = joueur.getPosition();
+        ArrayList<Tuile> tuiles_deplacement = new ArrayList<>();
+        for (Tuile tuile : getTuiles()){
+            if (tuile.getEtat()!= Etat.VIDE && tuile.getEtat() != Etat.DISPARUE && tuile!=tuile_joueur){
+                tuiles_deplacement.add(tuile);
+            }
+        }        
+        return tuiles_deplacement;
+    }
+    
     public ArrayList<Tuile> getTuilesAssechables(Joueur joueur){
         Tuile tuile_joueur = joueur.getPosition();
         ArrayList<Tuile> tuiles_assechable = new ArrayList<>();

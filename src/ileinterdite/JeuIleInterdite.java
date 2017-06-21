@@ -31,6 +31,7 @@ public class JeuIleInterdite {
     private ArrayList<Carte_Inondation> cartes_innodation_cimetiere;
     private ArrayList<Carte_Tresor_Abs> cartestrésors;
     private ArrayList<Carte_Inondation> cartesInondation;
+    private Joueur joueur_courant; 
     public JeuIleInterdite(){
         // init des tresors 
         ArrayList<Tresor> trésors = new ArrayList<>();
@@ -137,6 +138,7 @@ public class JeuIleInterdite {
         //InitJoueur();
         while (partiecontinue){
         for (Joueur joueur : getJoueurs()) {
+            setJoueurCourant(joueur);
             TourJoueur(joueur);
         }}
     }
@@ -161,7 +163,7 @@ public class JeuIleInterdite {
                     sortie =true ;
                 }  
                 else if (action == 1){
-                    Deplacement(joueur);
+                    //Deplacement(joueur);
                     pointsActions = pointsActions - 1 ;
                 }
                 else if (action == 2){
@@ -179,7 +181,7 @@ public class JeuIleInterdite {
         }
         System.out.println("Fin du tour de "+joueur.getNom());
     }
-    
+    /*
     public void Deplacement(Joueur joueur) {
         ArrayList<Tuile> tuiles_deplacement = joueur.getAventurier().getTuilesDeplacement(joueur);
         boolean controle_boucle =true;
@@ -206,7 +208,7 @@ public class JeuIleInterdite {
             } //fin for
         } //fin while
     }
-    
+    *//*
     public void DeplacementPlongeur(Joueur joueur){
        
         boolean controle_boucle = true;
@@ -246,12 +248,7 @@ public class JeuIleInterdite {
             }//fin if
         }//fin while     
     }
-    
-    //public ArrayList<Tuile> getTuiles
-    
-    //public void DeplacementPilote(Joueur joueur){
-    //    ArrayList<Tuile>
-    //}
+    */
     
     public void DeplacementNavigateur(Joueur joueur){
         
@@ -373,10 +370,19 @@ public class JeuIleInterdite {
         return joueurs;
     }
 
-    /**
-     * @return the trésors
-     */
+    
+    
+    
     public ArrayList<Tresor> getTrésors() {
         return trésors;
+    }
+
+    
+    public Joueur getJoueurCourant(){
+        return joueur_courant; 
+    }
+    
+    public void setJoueurCourant(Joueur joueur) {
+        this.joueur_courant=joueur;
     }
 }

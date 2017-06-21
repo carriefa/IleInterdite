@@ -732,4 +732,8 @@ public class IHMileInterdite2 {
     public Joueur[] getJoueurs() {
         return joueurs;
     }
+    
+    public String getJoueurCourant() {
+    return nomJoueur; 
+}
 }
