@@ -36,6 +36,10 @@ public class JeuIleInterdite {
     private ArrayList<Carte_Tresor_Abs> cartestrésors;
     private ArrayList<Carte_Inondation> cartesInondation;
     private Joueur joueur_courant; 
+    private Controleur observateur ;
+    private int niveau_eau;
+    private boolean passerTour ;
+    
     public JeuIleInterdite(){
         // init des tresors 
         ArrayList<Tresor> trésors = new ArrayList<>();
@@ -138,15 +142,28 @@ public class JeuIleInterdite {
    
 }
      
-    public void Jeu (){
-        boolean partiecontinue = true ;
+    public void DemarrerJeu (){
+        boolean b = jeuGagné(grille) ;
+        boolean c = jeuPerdu(grille);
         
         //InitJoueur();
-        while (partiecontinue){
+        while (!c && !b){
         for (Joueur joueur : getJoueurs()) {
             setJoueurCourant(joueur);
-            TourJoueur(joueur);
+            TourJoueur(joueur_courant);
         }}
+        
+        if (c){
+            Message2 m = new Message2();
+            m.setType(TypesMessage.PERDU);
+            observateur.traiterMessage(m);
+        } 
+        
+        if (b){
+             Message2 m = new Message2();
+            m.setType(TypesMessage.GAGNER);
+            observateur.traiterMessage(m);
+        }
     }
 
            
@@ -175,44 +192,61 @@ public class JeuIleInterdite {
         
     }
     
-    
-    public void TourJoueur(Joueur joueur) {
-        int pointsActions = 3 ;
-        boolean sortie = false ;
-        String couleur = joueur.getPion().name();
-        System.out.println("Tour de "+joueur.getNom()+"("+joueur.getAventurier().getRole()+")"+"ayant le pion "+couleur);
-        while (pointsActions > 0 && sortie == false ){
-            System.out.println("Actions possibles par ");
-            System.out.println("0- Passer tour");
-            System.out.println("1- Deplacement ");
-            System.out.println("2- Afficher la grille");
-            if (joueur.getAventurier().getTuilesAssechables(joueur).size()>0 ){
-                System.out.println("3- Assecher "); 
-            }
-            int action = scanner.nextInt();
-            scanner.nextLine();
-                if ( action == 0 ) {
-                    sortie =true ;
-                }  
-                else if (action == 1){
-                    //Deplacement(joueur);
-                    pointsActions = pointsActions - 1 ;
-                }
-                else if (action == 2){
-                     for (Tuile tuile : getGrille().getTuiles()){
-                    System.out.println(tuile.getNumero()+" "+tuile.getNom()+" "+tuile.getEtat());
-                    }
-                }
-                else if(action == 3 && grille.getTuilesAssechables(joueur).size() > 0 ){
-                    AssecherTuile(joueur);
-                    pointsActions = pointsActions - 1 ;
-                }
-                else {
-                    System.out.println("Action Impossible .");
-                }
+    public void UtiliserAction() {
+            joueur_courant.setNbPointAction(joueur_courant.getNbPointAction()-1);
         }
-        System.out.println("Fin du tour de "+joueur.getNom());
+    
+    public void PasserTour(){
+        passerTour = true ;
     }
+    public void TourJoueur(Joueur joueur) {
+        joueur_courant = joueur ;
+        joueur_courant.setNbPointAction(3);
+        passerTour= false ;
+        Message2 msg = new Message2();
+        msg.setType(TypesMessage.DEBUT_TOUR);
+        msg.setJoueur(joueur);
+        observateur.traiterMessage(msg);
+        
+        
+        //String couleur = joueur.getPion().name();
+       // System.out.println("Tour de "+joueur.getNom()+"("+joueur.getAventurier().getRole()+")"+"ayant le pion "+couleur);
+        while (joueur_courant.getNbPointAction() > 0 || passerTour != true){
+            
+                   
+                    
+        } }
+           // System.out.println("Actions possibles par ");
+            //System.out.println("0- Passer tour");
+            //System.out.println("1- Deplacement ");
+            //    System.out.println("2- Afficher la grille");
+           // if (joueur.getAventurier().getTuilesAssechables(joueur).size()>0 ){
+              //  System.out.println("3- Assecher "); 
+            //}
+            //int action = scanner.nextInt();
+            //scanner.nextLine();
+               // if ( action == 0 ) {
+                  //  sortie =true ;
+                //}  
+                //else if (action == 1){
+                    //Deplacement(joueur);
+                   // pointsActions = pointsActions - 1 ;
+//                }
+//                else if (action == 2){
+//                     for (Tuile tuile : getGrille().getTuiles()){
+//                    System.out.println(tuile.getNumero()+" "+tuile.getNom()+" "+tuile.getEtat());
+//                    }
+//                }
+//                else if(action == 3 && grille.getTuilesAssechables(joueur).size() > 0 ){
+//                    AssecherTuile(joueur);
+//                    pointsActions = pointsActions - 1 ;
+//                }
+//                else {
+//                    System.out.println("Action Impossible .");
+//                }
+//        }
+//        System.out.println("Fin du tour de "+joueur.getNom());
+//    } 
     /*
     public void Deplacement(Joueur joueur) {
         ArrayList<Tuile> tuiles_deplacement = joueur.getAventurier().getTuilesDeplacement(joueur);
@@ -453,5 +487,12 @@ public class JeuIleInterdite {
        } else {
            return false;
        }
+    }
+
+    /**
+     * @param observateur the observateur to set
+     */
+    public void setObservateur(Controleur observateur) {
+        this.observateur = observateur;
     }
 }

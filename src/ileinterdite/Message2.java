@@ -16,7 +16,7 @@ public class Message2 {
    private ArrayList<Joueur> joueurs ;
    private Tuile tuileChoisie ;
    private Joueur joueur ;
-   
+   private boolean choix ;
     
     public Message2(){
         joueurs = new ArrayList();
@@ -71,6 +71,20 @@ public class Message2 {
      */
     public void setJoueur(Joueur joueur) {
         this.joueur = joueur;
+    }
+
+    /**
+     * @return the choix
+     */
+    public boolean getChoix() {
+        return choix;
+    }
+
+    /**
+     * @param choix the choix to set
+     */
+    public void setChoix(boolean choix) {
+        this.choix = choix;
     }
     
     
