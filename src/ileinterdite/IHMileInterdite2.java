@@ -89,7 +89,56 @@ public class IHMileInterdite2 {
     //private Utils.Pion[] pions = new Utils.Pion[6-pions_utilises.size()];
     //private Aventurier[] roles = new Aventurier[6-roles_utilises.size()];
     
-   
+    
+    
+   //=============================================================================================
+   //POP UP INGENIEUR
+    private JFrame PopUpIngenieur= new JFrame("Voulez vous assécher une autre tuile?");
+    
+    
+    
+    public void PopUpIngenieur () {
+        PopUpIngenieur.setLayout(new BorderLayout());
+        JPanel panelPrincipal = new JPanel(new GridLayout(1,2));
+        JButton OuiPU= new JButton("Oui");
+        JButton NonPU= new JButton("Non");
+        PopUpIngenieur.add(panelPrincipal);
+        PopUpIngenieur.setResizable(false);
+        
+        panelPrincipal.add(OuiPU);
+        panelPrincipal.add(NonPU);
+        
+        
+        
+        //Partie superieure : Label
+        
+        panelPrincipal.setVisible(true);
+        PopUpIngenieur.setVisible(true);
+        PopUpIngenieur.setSize(400,100);
+        
+        OuiPU.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               Message2 m = new Message2();
+                m.type = TypesMessage.OUI_2EME_ASSECHAGE;
+                observateur.traiterMessage(m);
+            }
+        });
+        
+        NonPU.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+              Message2 m = new Message2();
+                m.type = TypesMessage.NON_2EME_ASSECHAGE;
+                observateur.traiterMessage(m);
+            }
+        });
+    }
+        
+    
+    
+    
+    
     
 
 
@@ -571,10 +620,14 @@ public class IHMileInterdite2 {
                         break;
                     }
                     
+                    roles.remove(roleChoisi.getRole());
+                    pions.remove(pionChoisi);
+                    
                     joueurs[numJoueur-1] = new Joueur(nomJoueur,roleChoisi, pionChoisi);
+                    windowRoles.dispose();
                     System.out.println(joueurs[numJoueur-1].getNom()+joueurs[numJoueur-1].getAventurier()+joueurs[numJoueur-1].getPion());
                     joueurs_crees.add(joueurs[numJoueur-1]);
-                    windowRoles.dispose();
+                    //windowRoles.dispose();
                     fenetreChoixJoueur(numJoueur+1, nbJoueursChoisis);
                     
                 }
@@ -616,12 +669,15 @@ public class IHMileInterdite2 {
                         break;
                     }
                     
+                    roles.remove(roleChoisi.getRole());
+                    pions.remove(pionChoisi);
+                    
                     joueurs[numJoueur-1] = new Joueur(nomJoueur,roleChoisi, pionChoisi);
                     joueurs_crees.add(joueurs[numJoueur-1]);
-                   // windowRoles.dispose();
+                    windowRoles.dispose();
                     Message2 m = new Message2();
                     m.type = TypesMessage.DEMARRER_PARTIE;
-                    windowRoles.dispose();
+                    //windowRoles.dispose();
                     m.setJoueurs(joueurs_crees);
                     observateur.traiterMessage(m);
                 }
@@ -668,7 +724,7 @@ public class IHMileInterdite2 {
                     joueurs_crees.add(joueurs[numJoueur-1]);
                     windowRoles.dispose();
                     fenetreChoixJoueur(numJoueur+1,nbJoueursChoisis);
-                    windowRoles.dispose();
+                    //windowRoles.dispose();
                     
                 }
             });
@@ -710,10 +766,13 @@ public class IHMileInterdite2 {
 
                     joueurs[numJoueur-1] = new Joueur(nomJoueur, roleChoisi, pionChoisi);
                     joueurs_crees.add(joueurs[numJoueur-1]); 
+                    for(Joueur joueur : joueurs_crees){
+                        System.out.println(joueur.getNom());
+                    }
                     windowRoles.dispose();
                     Message2 m = new Message2();
                     m.type=TypesMessage.DEMARRER_PARTIE;
-                    windowRoles.dispose();
+                    //windowRoles.dispose();
                     m.setJoueurs(joueurs_crees);
                     observateur.traiterMessage(m);
                     
