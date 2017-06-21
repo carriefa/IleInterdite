@@ -10,6 +10,7 @@ public class Joueur {
     private String nom;
     private Pion pion;
     private ArrayList<Cartes.Carte_Tresor_Abs> main;
+    private int nbPointAction ;
 
     public Joueur(String nom, Aventurier aventurier,Pion pion){
         this.nom=nom;
@@ -74,6 +75,20 @@ public class Joueur {
     
     public void supprimerCarte(Carte_Tresor_Abs carte){
         main.remove(carte);
+    }
+
+    /**
+     * @return the nbPointAction
+     */
+    public int getNbPointAction() {
+        return nbPointAction;
+    }
+
+    /**
+     * @param nbPointAction the nbPointAction to set
+     */
+    public void setNbPointAction(int nbPointAction) {
+        this.nbPointAction = nbPointAction;
     }
         
         
