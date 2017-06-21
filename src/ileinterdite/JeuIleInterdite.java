@@ -278,8 +278,7 @@ public class JeuIleInterdite {
                 Joueur joueur = new Joueur(nom_joueur,aventurier,pion);
                 
                 if (grille.getNumTuilePion(joueur.getPion())!=36){
-                    //joueur.setPostition(grille.getTuile(grille.getNumTuilePion(joueur.getPion())));
-                    joueur.setPostition(grille.getTuile(32));
+                    joueur.setPostition(grille.getTuile(grille.getNumTuilePion(joueur.getPion())));
                 }
                 
                 getJoueurs().add(joueur);
