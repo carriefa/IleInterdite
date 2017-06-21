@@ -26,8 +26,12 @@ public abstract class Aventurier {
     }
     
     public void setPosition(Tuile tuile){
+//        if (position_actuelle != null){
+//            position_actuelle.getJoueurspresents().remove(this);   
+//        }
         this.position_actuelle=tuile;
         tuile.addPion(this);
+        
     }
     
     public abstract ArrayList<Tuile> getTuilesAssechables(Joueur joueur);

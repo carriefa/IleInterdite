@@ -55,9 +55,9 @@ public class Controleur implements Observateur {
              numjoueurcourant = 0 ;
             break;
             case MOUVEMENT:
-                ihm.fenetreVictoire();
-//                ihm.setActionCourante("mouvement");
-//                ihm.choixDeplacement(jeu.getGrille().getTuilesDeplacement(jeu.getJoueurCourant()));
+                
+                ihm.setActionCourante("mouvement");
+                ihm.choixDeplacement(jeu.getGrille().getTuilesDeplacement(jeu.getJoueurCourant()));
                 
             break;
                 
