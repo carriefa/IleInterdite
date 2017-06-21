@@ -21,6 +21,11 @@ public class Carte_Tresor extends Carte_Tresor_Abs {
     public void setTresorAssocié(Tresor tresorAssocié) {
         this.tresorAssocié = tresorAssocié;
     }
+
+    @Override
+    public String getType() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
         
         
         

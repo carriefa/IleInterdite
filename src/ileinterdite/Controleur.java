@@ -34,6 +34,7 @@ public class Controleur implements Observateur {
         grille = new Grille();
         ihm = new IHMileInterdite2();
         ihm.setObservateur(this);
+      
                 
 
     }
@@ -60,8 +61,8 @@ public class Controleur implements Observateur {
                 }
              
             break;
-            case DONNER:
-                ihm.getJoueurs(); 
+           // case DONNER:
+           //     ihm.getJoueurs(); 
                     
             
             case TERMINERTOUR :
