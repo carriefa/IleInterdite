@@ -30,7 +30,7 @@ public class Controleur implements Observateur {
         joueurs.add(j2);
         jeu.setJoueurs(joueurs);
         
-        grille = new Grille();
+        grille = new Grille(ArrayList<Tresor> tresors);
         ihm = new IHMileInterdite2();
         ihm.setObservateur(this);
                 
@@ -54,9 +54,6 @@ public class Controleur implements Observateur {
             
              
             break;
-           
-                    
-            
             case TERMINERTOUR :
                 
             break;
