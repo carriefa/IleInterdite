@@ -65,6 +65,13 @@ public class Controleur implements Observateur {
             
             case TERMINERTOUR :
                 
+                Tuile t1 = new Tuile(32);
+                Tuile t2 = new Tuile(33);
+                ArrayList<Tuile> a = new ArrayList<>();
+                a.add(t1);
+                a.add(t2);
+                ihm.setTuilesDeplacement(a);
+                ihm.choixDeplacement(grille);
             break;
             
             
