@@ -54,6 +54,9 @@ public class Controleur implements Observateur {
             
              
             break;
+           
+                    
+            
             case TERMINERTOUR :
                 
             break;
