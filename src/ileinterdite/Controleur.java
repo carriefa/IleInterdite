@@ -34,25 +34,33 @@ public class Controleur implements Observateur {
                 ArrayList<Joueur> joueurs  = msg.getJoueurs();
                 jeu.setJoueurs(joueurs);
                 ihm.InitFenetrePrincipale(grille);
-                
-            break ;
+            break;
             case MOUVEMENT:
-                
-                ihm.setActionCourante("Bopnjour");
-                
-                majJeu();
-            break;
-            case ASSECHER: 
-                ihm.setActionCourante("essecher");
-                
-                majJeu();
-            break;
-            case AUTREACTION :
+                ihm.setActionCourante("mouvement");
             
             break;
+            case ASSECHER: 
+                ihm.setActionCourante("assecher");
+            break;
+            case AUTREACTION :
+                
+                for(Joueur j : ihm.getJoueurs()){
+                    System.out.println(j.getNom());
+                    System.out.println(j.getAventurier());
+                    System.out.println(j.getPion());
+                }
+             
+            break;
+            case DONNER:
+                ihm.getJoueurs(); 
+                    
+            
             case TERMINERTOUR :
                 
-            break;    
+            break;
+            
+            
+                
         }
       }
      public void majJeu(){
