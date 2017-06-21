@@ -17,38 +17,32 @@ public class Controleur implements Observateur {
     private JeuIleInterdite jeu ;
     private IHMileInterdite2 ihm ;
     private Grille grille; 
-   
-            
+    private ArrayList<Joueur> joueurs ;
     public Controleur(){
         
-        ArrayList<Joueur> joueurs = new ArrayList<>();
-        jeu = new JeuIleInterdite();
-        
-        Joueur j1 = new Joueur("jean",new Roles.Explorateur() , Utils.Pion.VERT); 
-        Joueur j2 = new Joueur("jiji", new Roles.Messager(), Utils.Pion.ROUGE);
-        joueurs.add(j1);
-        joueurs.add(j2);
-        jeu.setJoueurs(joueurs);
-        
-        grille = new Grille(ArrayList<Tresor> tresors);
-        ihm = new IHMileInterdite2();
-        ihm.setObservateur(this);
-                
-
+            jeu = new JeuIleInterdite();
+            ihm = new IHMileInterdite2();
+            ihm.setObservateur(this);
+            grille = jeu.getGrille();
+            joueurs = new ArrayList();
+            
     }
     @Override
     public void traiterMessage(Message2 msg) {
         switch(msg.getType()) {
-            
-            case DEMARRER_PARTIE : //affiche le plateau
+            case DEMARRER_PARTIE:
+                ArrayList<Joueur> joueurs  = msg.getJoueurs();
+                jeu.setJoueurs(joueurs);
                 ihm.InitFenetrePrincipale(grille);
+                majJeu();
             break;
             case MOUVEMENT:
                 ihm.setActionCourante("mouvement");
-            
+            majJeu();
             break;
             case ASSECHER: 
                 ihm.setActionCourante("assecher");
+                majJeu();
             break;
             case AUTREACTION :
             
@@ -56,11 +50,16 @@ public class Controleur implements Observateur {
             break;
             case TERMINERTOUR :
                 
+                majJeu();
             break;
             
             
                 
         }
+      }
+     public void majJeu(){
+          grille = jeu.getGrille();
+         ihm.majGrille(grille);
     }
 
     

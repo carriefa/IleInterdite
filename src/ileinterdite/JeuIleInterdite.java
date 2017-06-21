@@ -1,7 +1,10 @@
 package ileinterdite;
 
 import Cartes.Carte_Inondation;
+import Cartes.Carte_Tresor;
 import Cartes.Carte_Tresor_Abs;
+import Cartes.Helicoptere;
+import Cartes.SacDeSable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,6 +33,7 @@ public class JeuIleInterdite {
     private ArrayList<Carte_Inondation> cartesInondation;
     public JeuIleInterdite(){
         // init des tresors 
+        ArrayList<Tresor> trésors = new ArrayList<>();
         
         Tresor tresor1 = new Tresor("La Pierre Sacrée");
         Tresor tresor2 = new Tresor("La Statue Du Zéphyr");
@@ -45,9 +49,9 @@ public class JeuIleInterdite {
         cartesInondation = new ArrayList<>();
         cartestrésors = new ArrayList<>();
         scanner = new Scanner(System.in);
-        grille = new Grille(ArrayList<Tresor> tresors);
+        grille = new Grille(trésors);
         roles = new ArrayList<>();
-        trésors = new ArrayList<>();
+        
         cartes_innondation_defausse = new ArrayList<>();
         cartes_innondation_pioche = new ArrayList<>();
         cartes_innodation_cimetiere = new ArrayList<>();
@@ -243,9 +247,11 @@ public class JeuIleInterdite {
         }//fin while     
     }
     
-    public void DeplacementPilote(Joueur joueur){
-        
-    }
+    //public ArrayList<Tuile> getTuiles
+    
+    //public void DeplacementPilote(Joueur joueur){
+    //    ArrayList<Tuile>
+    //}
     
     public void DeplacementNavigateur(Joueur joueur){
         
