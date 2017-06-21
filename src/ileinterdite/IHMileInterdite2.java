@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ileinterdite;
 
 import Roles.Explorateur;
@@ -580,8 +575,9 @@ public class IHMileInterdite2 {
                     
                     joueurs[numJoueur-1] = new Joueur(nomJoueur,roleChoisi, pionChoisi);
                     System.out.println(joueurs[numJoueur-1].getNom()+joueurs[numJoueur-1].getAventurier()+joueurs[numJoueur-1].getPion());
-                    fenetreChoixJoueur(numJoueur+1, nbJoueursChoisis);
                     windowRoles.dispose();
+                    fenetreChoixJoueur(numJoueur+1, nbJoueursChoisis);
+                    
                 }
             });
         }else{
@@ -623,9 +619,10 @@ public class IHMileInterdite2 {
                     
                     joueurs[numJoueur-1] = new Joueur(nomJoueur,roleChoisi, pionChoisi);
                     System.out.println(joueurs[numJoueur-1].getNom()+joueurs[numJoueur-1].getAventurier()+joueurs[numJoueur-1].getPion());
-                    windowRoles.dispose();
+                   // windowRoles.dispose();
                     Message2 m = new Message2();
                     m.type = TypesMessage.DEMARRER_PARTIE;
+                    windowRoles.dispose();
                     // m.setMessages(joueurs_crees);
                     observateur.traiterMessage(m);
                 }
@@ -670,7 +667,7 @@ public class IHMileInterdite2 {
 
                     joueurs[numJoueur-1] = new Joueur(nomJoueur, roleChoisi, pionChoisi);
                     joueurs_crees.add(joueurs[numJoueur-1]);
-                    
+                    windowRoles.dispose();
                     fenetreChoixJoueur(numJoueur+1,nbJoueursChoisis);
                     windowRoles.dispose();
                     
@@ -717,6 +714,7 @@ public class IHMileInterdite2 {
                     windowRoles.dispose();
                     Message2 m = new Message2();
                     m.type=TypesMessage.DEMARRER_PARTIE;
+                    windowRoles.dispose();
                    // m.setMessages(joueurs_crees);
                     observateur.traiterMessage(m);
                     
