@@ -51,6 +51,7 @@ public class JeuIleInterdite {
         
         
         
+        
         cartesInondation = new ArrayList<>();
         cartestrésors = new ArrayList<>();
         scanner = new Scanner(System.in);
@@ -90,8 +91,9 @@ public class JeuIleInterdite {
              if (25 < i && i<=27){
                  cartestrésors.add(new SacDeSable());
              }
+             
+             
         }
-        
              for(int i = 0; i < grille.getTuiles().length; i++){
               if(grille.getTuile(i).getNom() != null){
                       cartesInondation.add(new Carte_Inondation(grille.getTuile(i)));
@@ -104,23 +106,21 @@ public class JeuIleInterdite {
     
      public void setJoueurs(ArrayList<Joueur> joueurs_ihm) {
         this.joueurs = joueurs_ihm;
-        for (Joueur joueur : joueurs){
-            System.out.println(joueur.getPion()+" pion du joueur dans JeuIleInterdite");
-            System.out.println(grille.getTuile(grille.getNumTuilePion(joueur.getPion())));
-            joueur.setPostition(grille.getTuile(grille.getNumTuilePion(joueur.getPion())));
-        }
+        
     }
      
      
     public void initCartesJoueurs(){
         
         for(int i = 0; i<joueurs.size(); i++){
-            for(int j = 0; j<2; i++){              
-                while(cartestrésors.get(j).getType()=="Montee_Des_Eaux"){
+            for(int j = 0; j<=1; j++){              
+                while(cartestrésors.get(j).getType()=="Montée des eaux"){
                     melangeCartes(cartestrésors); 
-                    }
-                joueurs.get(i).addCarteMain(cartestrésors.get(i));
-                cartestrésors.remove(i);
+                }
+                
+                joueurs.get(i).addCarteMain(cartestrésors.get(j));
+                
+                cartestrésors.remove(j);
             
             }
         }
@@ -281,10 +281,7 @@ public class JeuIleInterdite {
         }//fin while     
     }
     */
-    
-    public void DeplacementNavigateur(Joueur joueur){
-        
-    }
+
 
     public void AssecherTuile(Joueur joueur) {
         ArrayList<Tuile> tuiles_assechables = joueur.getAventurier().getTuilesAssechables(joueur);
@@ -402,9 +399,6 @@ public class JeuIleInterdite {
         return joueurs;
     }
 
-    
-    
-    
     public ArrayList<Tresor> getTrésors() {
         return trésors;
     }

@@ -17,6 +17,7 @@ public class Joueur {
         this.pion=pion;
         aventurier.setJoueur_associé(this);
         aventurier.setPion(pion);
+        main = new ArrayList<>();
     }
 
     public Aventurier getAventurier() {
@@ -74,6 +75,8 @@ public class Joueur {
     
     public void supprimerCarte(Carte_Tresor_Abs carte){
         main.remove(carte);
+         
+        
     }
         
         

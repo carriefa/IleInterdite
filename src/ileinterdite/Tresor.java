@@ -13,7 +13,7 @@ public class Tresor {
         private boolean recupere;
         
         public Tresor(String nom){
-            setNom_tresor(nom_tresor);
+            setNom_tresor(nom);
             recupere= false ;
             tuileAssociée = new ArrayList();
         }

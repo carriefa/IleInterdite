@@ -4,7 +4,7 @@ import ileinterdite.Tresor;
 
 public class Carte_Tresor extends Carte_Tresor_Abs {
 	private Tresor tresorAssocié;
-        private String type = "Carte tresor";
+        private String type = "Carte tresor ";
         
         public Carte_Tresor(Tresor tresorAssocié){
             setTresorAssocié(tresorAssocié);
@@ -25,7 +25,7 @@ public class Carte_Tresor extends Carte_Tresor_Abs {
 
     @Override
     public String getType() {
-        return type+" ("+getTresorAssocié().getNom_tresor()+")";
+        return "<html>"+type+"<br/> ("+getTresorAssocié().getNom_tresor()+")<html/>";
     }
         
         

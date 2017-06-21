@@ -1,5 +1,6 @@
 package ileinterdite;
 
+import Cartes.*;
 import Roles.Explorateur;
 import Roles.Ingenieur;
 import Roles.Messager;
@@ -48,6 +49,7 @@ public class IHMileInterdite2 {
     private JButton Assechement = new JButton("Assechement");
     private JButton Deplacement = new JButton("Deplacement");
     private JButton Recuparation = new JButton("Récuperation");
+    private JButton Main = new JButton("Main");
 
     //grille
 
@@ -198,31 +200,39 @@ public class IHMileInterdite2 {
                 commandes.add(Assechement);
             } else if (i == 2){
                 commandes.add(Recuparation);
-            } else {
+            } else if (i == 3){
+                commandes.add(Main);
+            }else {
                 commandes.add(new JLabel(""));
             }
         }
         
+        Main.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message2 m = new Message2();
+                m.type=TypesMessage.MAIN;
+                m.setJoueurs(joueurs_crees);
+                observateur.traiterMessage(m);
+            }
+        });
         
+        
+            //Listener Déplacement
             Deplacement.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (deplacementPossible){
                     
                         Message2 m = new Message2();
-                        m.type = TypesMessage.TERMINERTOUR;
+                        m.type = TypesMessage.MOUVEMENT;
                         observateur.traiterMessage(m);
-                        clikDeplacement = true; 
-                    
-                
+                        clikDeplacement = true; //c'est Luca pour le "clik"
                 }else{
                         actionCourante.setText("Déplacement Impossible");
                     } 
                 }
             });
-        
-        
-        
         
         cases = new Case[24];
 
@@ -257,6 +267,7 @@ public class IHMileInterdite2 {
         windowJeu.setVisible(true);
         majGrille(grille);
 
+        //Listener Assèchement
         Assechement.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -266,16 +277,6 @@ public class IHMileInterdite2 {
             }
         });
 
-        Deplacement.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Message2 m = new Message2();
-                m.type = TypesMessage.MOUVEMENT;
-                observateur.traiterMessage(m);
-            }
-        });
-        
-        
     }
     
     public void setTuilesDeplacement (ArrayList<Tuile> tuiles){
@@ -620,7 +621,7 @@ public class IHMileInterdite2 {
                 panelHaut.add(new JLabel());
             }
         }
-
+        
         for (int i = 0; i<8; i++){
             if(i == 2){
                 panelCentre.add(new JLabel("Role Joueur : "));
@@ -842,6 +843,39 @@ public class IHMileInterdite2 {
              });
          }
 
+    }
+    public void fenetreCartesMain(){
+        for (Joueur joueur : joueurs_crees){
+            JFrame fenetre_main = new JFrame();
+            fenetre_main.setSize(400,200);
+            fenetre_main.setResizable(false);
+            fenetre_main.setLayout(new BorderLayout());
+            JPanel panelHaut = new JPanel(new BorderLayout());
+            JPanel panelCentre = new JPanel(new GridLayout(1,5));
+            JPanel panelBas = new JPanel(new BorderLayout());
+            JLabel nom_joueur = new JLabel("Main de "+joueur.getNom());
+            JButton quitter = new JButton("Quitter");
+            JButton donner = new JButton("Donner une Carte");
+            
+            panelHaut.add(nom_joueur,BorderLayout.CENTER);
+            
+            //création de PanelBas
+            panelBas.add(quitter,BorderLayout.WEST);
+            panelBas.add(donner,BorderLayout.EAST);
+            
+            for(Carte_Tresor_Abs carte : joueur.getMain()){
+                JButton karte = new JButton(carte.getType());
+                panelCentre.add(karte);
+            }
+
+            fenetre_main.add(panelHaut,BorderLayout.NORTH);
+            fenetre_main.add(panelCentre,BorderLayout.CENTER);
+            fenetre_main.add(panelBas,BorderLayout.SOUTH);
+
+            fenetre_main.setVisible(true);
+
+         }
+       
     }
     
     public Joueur[] getJoueurs() {
