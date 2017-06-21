@@ -65,6 +65,8 @@ public class IHMileInterdite2 {
     private JPanel panelOptions = new JPanel(new BorderLayout());
     private JLabel joueurCourant = new JLabel();
     private JLabel actionCourante = new JLabel();
+    private boolean b = true;
+   
 
         
        
@@ -201,6 +203,16 @@ public class IHMileInterdite2 {
             }
         }
         
+        
+            Deplacement.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                }
+            });
+        
+        
+        
+        
         cases = new JButton[24];
 
         int a = 0;
@@ -208,7 +220,12 @@ public class IHMileInterdite2 {
             for(int i = 0; i<grille.getTuiles().length; i++){
               if(grille.getTuile(i).getNom() != null){
                 cases[a] = new JButton((grille.getTuile(i).getNom())+(grille.getTuile(i).getNumero()));
-                
+                if(b){
+                cases[a].addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                    }
+                });}
                 panelCentre.add(cases[a]);
                 a = a+1;
             } else {
@@ -277,6 +294,7 @@ public class IHMileInterdite2 {
 
    public void setActionCourante(String action){
        actionCourante.setText(action);
+       
    }
 
     public void InitFenetreRegles() {
@@ -610,7 +628,10 @@ public class IHMileInterdite2 {
                     joueurs[numJoueur-1] = new Joueur(nomJoueur,roleChoisi, pionChoisi);
                     windowRoles.dispose();
                     System.out.println(joueurs[numJoueur-1].getNom()+joueurs[numJoueur-1].getAventurier()+joueurs[numJoueur-1].getPion());
+                    joueurs_crees.add(joueurs[numJoueur-1]);
+                    windowRoles.dispose();
                     fenetreChoixJoueur(numJoueur+1, nbJoueursChoisis);
+                    
                 }
             });
         }else{
@@ -651,11 +672,12 @@ public class IHMileInterdite2 {
                     }
                     
                     joueurs[numJoueur-1] = new Joueur(nomJoueur,roleChoisi, pionChoisi);
-                    System.out.println(joueurs[numJoueur-1].getNom()+joueurs[numJoueur-1].getAventurier()+joueurs[numJoueur-1].getPion());
-                    windowRoles.dispose();
+                    joueurs_crees.add(joueurs[numJoueur-1]);
+                   // windowRoles.dispose();
                     Message2 m = new Message2();
                     m.type = TypesMessage.DEMARRER_PARTIE;
-                    // m.setMessages(joueurs_crees);
+                    windowRoles.dispose();
+                    m.setJoueurs(joueurs_crees);
                     observateur.traiterMessage(m);
                 }
             });
@@ -701,6 +723,7 @@ public class IHMileInterdite2 {
                     joueurs_crees.add(joueurs[numJoueur-1]);
                     windowRoles.dispose();
                     fenetreChoixJoueur(numJoueur+1,nbJoueursChoisis);
+                    windowRoles.dispose();
                     
                 }
             });
@@ -741,11 +764,12 @@ public class IHMileInterdite2 {
                     roles.remove(roleChoisi.getRole());
 
                     joueurs[numJoueur-1] = new Joueur(nomJoueur, roleChoisi, pionChoisi);
-                    joueurs_crees.add(joueurs[numJoueur-1]);
+                    joueurs_crees.add(joueurs[numJoueur-1]); 
                     windowRoles.dispose();
                     Message2 m = new Message2();
                     m.type=TypesMessage.DEMARRER_PARTIE;
-                   // m.setMessages(joueurs_crees);
+                    windowRoles.dispose();
+                    m.setJoueurs(joueurs_crees);
                     observateur.traiterMessage(m);
                     
                  }
@@ -757,4 +781,8 @@ public class IHMileInterdite2 {
     public Joueur[] getJoueurs() {
         return joueurs;
     }
+    
+    public String getJoueurCourant() {
+    return nomJoueur; 
+}
 }

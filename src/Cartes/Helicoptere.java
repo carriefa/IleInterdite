@@ -2,7 +2,7 @@ package Cartes;
 
 public class Helicoptere extends Carte_Tresor_Abs {
     
-    private String type = "Helicptere";
+    private String type = "Helicoptere";
     
     @Override
     public String getType(){

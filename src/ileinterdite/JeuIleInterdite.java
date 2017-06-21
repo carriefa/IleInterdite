@@ -1,21 +1,16 @@
 package ileinterdite;
 
+import Cartes.Montee_Des_Eaux;
 import Cartes.Carte_Tresor;
 import Cartes.SacDeSable;
 import Cartes.Helicoptere;
 import Cartes.Carte_Inondation;
+import Cartes.Carte_Tresor;
 import Cartes.Carte_Tresor_Abs;
-import Roles.Plongeur;
-import Roles.Pilote;
-import Roles.Navigateur;
-import Roles.Ingenieur;
-import Roles.Explorateur;
-import Roles.Messager;
-import com.sun.glass.ui.SystemClipboard;
-import ileinterdite.Utils.Pion;
+import Cartes.Helicoptere;
+import Cartes.SacDeSable;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Scanner;
 
@@ -40,9 +35,11 @@ public class JeuIleInterdite {
     private ArrayList<Carte_Inondation> cartes_innodation_cimetiere;
     private ArrayList<Carte_Tresor_Abs> cartestrésors;
     private ArrayList<Carte_Inondation> cartesInondation;
+    private Joueur joueur_courant; 
     public JeuIleInterdite(){
         // init des tresors 
-        /*
+        ArrayList<Tresor> trésors = new ArrayList<>();
+        
         Tresor tresor1 = new Tresor("La Pierre Sacrée");
         Tresor tresor2 = new Tresor("La Statue Du Zéphyr");
         Tresor tresor3 = new Tresor("Le Cristal Ardent");
@@ -51,15 +48,15 @@ public class JeuIleInterdite {
         trésors.add(tresor2);
         trésors.add(tresor3);
         trésors.add(tresor4);
-        */
+        
         
         
         cartesInondation = new ArrayList<>();
         cartestrésors = new ArrayList<>();
         scanner = new Scanner(System.in);
-        grille = new Grille();
+        grille = new Grille(trésors);
         roles = new ArrayList<>();
-        trésors = new ArrayList<>();
+        
         cartes_innondation_defausse = new ArrayList<>();
         cartes_innondation_pioche = new ArrayList<>();
         cartes_innodation_cimetiere = new ArrayList<>();
@@ -70,7 +67,7 @@ public class JeuIleInterdite {
         
         
         // init des cartes trésors 
-        /*
+        
         for (int i = 0 ; i < 27 ; i++){
             if (i <=4){
                 cartestrésors.add(new Carte_Tresor(tresor1));
@@ -94,7 +91,7 @@ public class JeuIleInterdite {
                  cartestrésors.add(new SacDeSable());
              }
         }
-        */
+        
              for(int i = 0; i < grille.getTuiles().length; i++){
               if(grille.getTuile(i).getNom() != null){
                       cartesInondation.add(new Carte_Inondation(grille.getTuile(i)));
@@ -103,13 +100,15 @@ public class JeuIleInterdite {
              melangeCartes(cartestrésors);
              melangeCartes(cartesInondation);
              
-             
-        
     } 
     
-    
-     public void setJoueurs(ArrayList<Joueur> joueurs) {
-        this.joueurs = joueurs;
+     public void setJoueurs(ArrayList<Joueur> joueurs_ihm) {
+        this.joueurs = joueurs_ihm;
+        for (Joueur joueur : joueurs){
+            System.out.println(joueur.getPion()+" pion du joueur dans JeuIleInterdite");
+            System.out.println(grille.getTuile(grille.getNumTuilePion(joueur.getPion())));
+            joueur.setPostition(grille.getTuile(grille.getNumTuilePion(joueur.getPion())));
+        }
     }
      
      
@@ -119,15 +118,11 @@ public class JeuIleInterdite {
             for(int j = 0; j<2; i++){              
                 while(cartestrésors.get(j).getType()=="Montee_Des_Eaux"){
                     melangeCartes(cartestrésors); 
-                    
                     }
-                    
                 joueurs.get(i).addCarteMain(cartestrésors.get(i));
                 cartestrésors.remove(i);
             
             }
-            
-            
         }
     }
     
@@ -146,13 +141,41 @@ public class JeuIleInterdite {
     public void Jeu (){
         boolean partiecontinue = true ;
         
-        InitJoueur();
+        //InitJoueur();
         while (partiecontinue){
         for (Joueur joueur : getJoueurs()) {
+            setJoueurCourant(joueur);
             TourJoueur(joueur);
         }}
     }
+
            
+    public void piocheCarteTresor(Joueur joueur){
+        if (joueur.getMain().size()<5){
+            joueur.addCarteMain(cartestrésors.get(0));
+            cartestrésors.remove(0);
+        }
+    }
+    
+    public Tuile piocheCarteInondation(){
+        
+        Carte_Inondation carte = cartesInondation.get(0);  // Regarde Luca
+        Tuile tuile = carte.getTuileassociée();
+        if (tuile.getEtat() == Etat.ASSECHEE){
+            tuile.SetEtat(Etat.INONDEE);
+            cartes_innondation_defausse.add(carte);
+        }
+        else if (tuile.getEtat() == Etat.INONDEE){
+            tuile.SetEtat(Etat.DISPARUE);
+            cartes_innodation_cimetiere.add(carte);
+        }
+        
+        cartesInondation.remove(0);
+        return tuile;
+        
+    }
+    
+    
     public void TourJoueur(Joueur joueur) {
         int pointsActions = 3 ;
         boolean sortie = false ;
@@ -172,7 +195,7 @@ public class JeuIleInterdite {
                     sortie =true ;
                 }  
                 else if (action == 1){
-                    Deplacement(joueur);
+                    //Deplacement(joueur);
                     pointsActions = pointsActions - 1 ;
                 }
                 else if (action == 2){
@@ -190,112 +213,7 @@ public class JeuIleInterdite {
         }
         System.out.println("Fin du tour de "+joueur.getNom());
     }
-    
-    public void InitJoueur(){
-        System.out.println("Rentrez le nombre de joueurs (de 1 à 4): ");
-        int nb_joueurs = scanner.nextInt();
-        scanner.nextLine();
-        
-        if (nb_joueurs<1){
-            System.out.println("Il n'y a pas assez de joueurs.");
-        }else if(nb_joueurs>4){
-            System.out.println("Il y a trop de joueurs.");
-        }else{
-            String nom_joueur;
-            Aventurier pilote = new Pilote();
-            Aventurier ingenieur = new Ingenieur();
-            Aventurier messager = new Messager();
-            Aventurier explorateur = new Explorateur();
-            Aventurier plongeur = new Plongeur();
-            Aventurier navigateur = new Navigateur();
-
-            ArrayList<Pion> pions = new ArrayList<>();
-            ArrayList<Aventurier> aventuriers = new ArrayList<>();
-            ArrayList<Aventurier> role_non_uitlises = aventuriers;
-            Aventurier aventurier = null;
-            Pion pion = null;
-
-            pions.add(Pion.BLEU);
-            pions.add(Pion.JAUNE);
-            pions.add(Pion.ORANGE);
-            pions.add(Pion.ROUGE);
-            pions.add(Pion.VERT);
-            pions.add(Pion.VIOLET);
-
-            aventuriers.add(pilote);
-            aventuriers.add(ingenieur);
-            aventuriers.add(messager);
-            aventuriers.add(explorateur);
-            aventuriers.add(plongeur);
-            aventuriers.add(navigateur);
-
-
-            ArrayList<Pion> pions_non_utilises = pions;
-
-            for (int i = 1; i<=nb_joueurs;i++){
-               
-                
-                System.out.println("rentrez le nom du joueur :");
-                nom_joueur = scanner.nextLine(); //on définie le nom du joueur
-                
-
-                System.out.println("quel rôle voulez vous prendre :");
-                for (int j =0 ; j<role_non_uitlises.size();j++){
-                    System.out.println(j+" "+role_non_uitlises.get(j).getRole());
-                }
-                int num_aventurier_choisie = scanner.nextInt();scanner.nextLine();
-                if (num_aventurier_choisie>=0 && num_aventurier_choisie<7){
-                    aventurier=role_non_uitlises.get(num_aventurier_choisie);
-                    role_non_uitlises.remove(aventurier);
-                }else{
-                    while (num_aventurier_choisie<0 || num_aventurier_choisie>=7){
-                        System.out.println("Il n'y a aucun rôle correspondant à ce chiffre, veuillez en rentrer un autre :");
-                        for (int j =1 ; j<=role_non_uitlises.size();j++){
-                            System.out.println(j+" "+role_non_uitlises.get(j).getRole());
-                            num_aventurier_choisie=scanner.nextInt();scanner.nextLine();
-                        }
-                    }//fin while
-                }//fin if
-                
-                System.out.println("Quelle couleur de pion voulez-vous avoir? :");
-                for (int j =0 ; j<pions_non_utilises.size();j++){
-                    System.out.println(j+" "+pions_non_utilises.get(j));
-                }
-                int num_pion_choisie = scanner.nextInt();scanner.nextLine();
-                if (num_pion_choisie>=0 && num_pion_choisie<7){
-                    pion=pions_non_utilises.get(num_pion_choisie);
-                    pions_non_utilises.remove(pion);
-                }else{
-                    while (num_pion_choisie<0 || num_pion_choisie>=7){
-                        System.out.println("Il n'y a aucun pion correspondant à ce chiffre, veuillez en rentrer un autre :");
-                        for (int j =1 ; j<=pions_non_utilises.size();j++){
-                            System.out.println(j+" "+pions_non_utilises.get(j));
-                            num_pion_choisie=scanner.nextInt();
-                            scanner.nextLine();
-                        }
-                    }//fin while
-                }//fin if
-                Joueur joueur = new Joueur(nom_joueur,aventurier,pion);
-                
-                if (grille.getNumTuilePion(joueur.getPion())!=36){
-                    joueur.setPostition(grille.getTuile(grille.getNumTuilePion(joueur.getPion())));
-                }
-                
-                getJoueurs().add(joueur);
-                //tests
-                /*
-                System.out.println(grille.getNumTuilePion(joueur.getPion()));
-                for(Pion pion12 : pions){
-                    System.out.println(grille.getNumTuilePion(pion12));
-                }
-                System.out.println(joueur.getPosition().getNumero()+"beuleubeuleu");
-                */
-            }//fin for
-            
-        }
-        
-    }
-
+    /*
     public void Deplacement(Joueur joueur) {
         ArrayList<Tuile> tuiles_deplacement = joueur.getAventurier().getTuilesDeplacement(joueur);
         boolean controle_boucle =true;
@@ -322,9 +240,9 @@ public class JeuIleInterdite {
             } //fin for
         } //fin while
     }
-    
+    *//*
     public void DeplacementPlongeur(Joueur joueur){
-        ArrayList<Tuile> tuiles_deplacements = joueur.getAventurier().getTuilesDeplacement(joueur);
+       
         boolean controle_boucle = true;
         
         System.out.println("Voici les cases sur lesquelles vous pouvez vous déplacer:");
@@ -362,10 +280,7 @@ public class JeuIleInterdite {
             }//fin if
         }//fin while     
     }
-    
-    public void DeplacementPilote(Joueur joueur){
-        
-    }
+    */
     
     public void DeplacementNavigateur(Joueur joueur){
         
@@ -487,12 +402,19 @@ public class JeuIleInterdite {
         return joueurs;
     }
 
-    /**
-     * @return the trésors
-     */
+    
+    
+    
     public ArrayList<Tresor> getTrésors() {
         return trésors;
     }
+
     
+    public Joueur getJoueurCourant(){
+        return joueur_courant; 
+    }
     
+    public void setJoueurCourant(Joueur joueur) {
+        this.joueur_courant=joueur;
+    }
 }

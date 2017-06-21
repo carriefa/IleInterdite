@@ -4,6 +4,7 @@ import ileinterdite.Tresor;
 
 public class Carte_Tresor extends Carte_Tresor_Abs {
 	private Tresor tresorAssocié;
+        private String type = "Carte tresor";
         
         public Carte_Tresor(Tresor tresorAssocié){
             setTresorAssocié(tresorAssocié);
@@ -24,7 +25,7 @@ public class Carte_Tresor extends Carte_Tresor_Abs {
 
     @Override
     public String getType() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return type+" ("+getTresorAssocié().getNom_tresor()+")";
     }
         
         
