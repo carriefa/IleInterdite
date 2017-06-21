@@ -20,7 +20,8 @@ public class Controleur implements Observateur {
     private ArrayList<Joueur> joueurs ;
     private Joueur joueur_courant ;
     private Joueur[] joueursTab;
-    int numjoueurcourant;
+    private int numjoueurcourant;
+    private int nummax;
     
     public Controleur(){
         
@@ -40,7 +41,7 @@ public class Controleur implements Observateur {
             
             // Partie IHM
             case DEMARRER_PARTIE:
-                ArrayList<Joueur> joueurs  = msg.getJoueurs();  // Validé 
+                joueurs  = msg.getJoueurs();  // Validé 
                 jeu.setJoueurs(joueurs);
                 ihm.InitFenetrePrincipale(grille);
                 joueursTab = new Joueur[joueurs.size()];
@@ -48,6 +49,7 @@ public class Controleur implements Observateur {
                     joueursTab[i] = joueurs.get(i);
                 }
              //jeu.initCartesJoueurs();
+             nummax = joueursTab.length - 1;
              majJeu();
              joueur_courant = joueursTab[0];
              jeu.setJoueurCourant(joueur_courant);
@@ -56,8 +58,8 @@ public class Controleur implements Observateur {
             break;
             case MOUVEMENT:
                 
-                ihm.setActionCourante("mouvement");
-                ihm.choixDeplacement(jeu.getGrille().getTuilesDeplacement(jeu.getJoueurCourant()));
+               ihm.setActionCourante("mouvement");
+               ihm.choixDeplacement(jeu.getGrille().getTuilesDeplacement(jeu.getJoueurCourant()));
                 
             break;
                 
@@ -93,15 +95,16 @@ public class Controleur implements Observateur {
             case TERMINERTOUR :
                 
         
-            if (joueursTab[numjoueurcourant+1]!= null){
-                numjoueurcourant = numjoueurcourant + 1;
-                jeu.TourJoueur(joueursTab[numjoueurcourant]);
-                ihm.setJourCourant(joueur_courant);
-            }
-            else {
+            if (numjoueurcourant == nummax){
                 numjoueurcourant = 0 ;
                 jeu.TourJoueur(joueursTab[numjoueurcourant]);
-                ihm.setJourCourant(joueur_courant);
+                ihm.setJourCourant(joueursTab[numjoueurcourant]);
+                
+            }
+            else {
+                numjoueurcourant = numjoueurcourant + 1;
+                jeu.TourJoueur(joueursTab[numjoueurcourant]);
+                ihm.setJourCourant(joueursTab[numjoueurcourant]);
             }
         
             break;

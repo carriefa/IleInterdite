@@ -29,15 +29,15 @@ public abstract class Aventurier {
     public void setPosition(Tuile tuile){
         if (position_actuelle != null){
                    this.position_precedente = this.position_actuelle;
-                   this.position_precedente.getJoueurspresents().clear();
+                  for (int i = 0 ; i< this.position_precedente.getJoueurspresents().size();i++){
+                 if (this.position_precedente.getJoueurspresents().get(i) == this){
+                     this.position_precedente.getJoueurspresents().remove(i);
+                    }
+               };
         }
         this.position_actuelle=tuile;
         tuile.addAventurier(this);
-//            for (int i = 0 ; i< this.position_precedente.getJoueurspresents().size();i++){
-//                if (this.position_precedente.getJoueurspresents().get(i) == this){
-//                     this.position_precedente.getJoueurspresents().remove(i);
-//                   }
-//              };
+
     
     }
     

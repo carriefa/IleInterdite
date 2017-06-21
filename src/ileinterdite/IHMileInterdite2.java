@@ -314,7 +314,7 @@ public class IHMileInterdite2 {
    }
    
    public void choixDeplacement(ArrayList<Tuile> tuilesPossibles){
-       
+       checkClicCase = true;
        a = new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent e) {
@@ -336,7 +336,7 @@ public class IHMileInterdite2 {
                                    checkClicCase = false; 
            }}
        };
-       JButton b = new JButton();
+ 
        
        for (int i = 0; i< grille.getTuiles().length; i++){
                for (int j = 0; j<tuilesPossibles.size(); j++){
