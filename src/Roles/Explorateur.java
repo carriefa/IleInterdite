@@ -61,5 +61,10 @@ public class Explorateur extends Aventurier {
 //            return super.getJoueur();
 //    }
 
+    @Override
+    public int getControleAssechable() {
+        return 0;
+    }
+
 
 }

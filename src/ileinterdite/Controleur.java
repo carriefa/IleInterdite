@@ -44,8 +44,17 @@ public class Controleur implements Observateur {
                 ihm.setActionCourante("mouvement");
             majJeu();
             break;
-            case ASSECHER: 
-                ihm.setActionCourante("assecher");
+            case ASSECHER:
+                if(jeu.getJoueurCourant().getAventurier().getRole().equals("ingénieur")){
+                    if(jeu.getJoueurCourant().getAventurier().getControleAssechable()==1){
+                        ihm.setActionCourante("assecher");
+                        ihm.PopUpIngenieur();
+                    }else if(jeu.getJoueurCourant().getAventurier().getControleAssechable()==2){
+                        ihm.set
+                    }
+                }else{
+                    ihm.setActionCourante("assecher");
+                }
                 majJeu();
             break;
             case AUTREACTION :

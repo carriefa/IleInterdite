@@ -49,4 +49,9 @@ public class Plongeur extends Aventurier {
     public void Deplacement(Tuile tuile) {
         super.setPosition(tuile);
     }
+
+    @Override
+    public int getControleAssechable() {
+        return 0;
+    }
 }

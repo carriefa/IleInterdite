@@ -53,6 +53,11 @@ public class Pilote extends Aventurier {
         super.setPosition(tuile);
     }
 
+    @Override
+    public int getControleAssechable() {
+        return 0;
+    }
+
    
 
 

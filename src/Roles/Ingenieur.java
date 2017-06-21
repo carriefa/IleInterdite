@@ -15,10 +15,8 @@ import java.util.ArrayList;
 public class Ingenieur extends Aventurier {
     private String role = "ingénieur";
     private Observateur obs;
+    private int controle_assechage=1;
 
-
-
-    
     @Override
     public String getRole() {
         return role;
@@ -48,5 +46,14 @@ public class Ingenieur extends Aventurier {
     @Override
     public void Deplacement(Tuile tuile) {
         super.setPosition(tuile);
+    }
+
+    /**
+     * @return the controle_assechage
+     */
+    
+    @Override
+    public int getControleAssechable() {
+        return controle_assechage;
     }
 }

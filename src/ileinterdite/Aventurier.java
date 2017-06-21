@@ -32,7 +32,7 @@ public abstract class Aventurier {
     
     public abstract ArrayList<Tuile> getTuilesAssechables(Joueur joueur);
     public abstract void AssecherTuile(Tuile tuile);
-    
+    public abstract int getControleAssechable();
     public abstract ArrayList<Tuile> getTuilesDeplacement(Joueur joueur);
     
     public abstract void Deplacement(Tuile tuile);
@@ -46,7 +46,7 @@ public abstract class Aventurier {
     public void setJoueur_associé(Joueur joueur_associé) {
         this.joueur_associé = joueur_associé;
     }
-
+    
     /**
      * @param pion the pion to set
      */
