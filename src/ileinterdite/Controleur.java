@@ -53,8 +53,7 @@ public class Controleur implements Observateur {
                 }
              majJeu();
             break;
-            case DONNER:
-                ihm.getJoueurs(); 
+           
                     
             majJeu();
             case TERMINERTOUR :
