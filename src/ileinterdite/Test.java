@@ -25,6 +25,6 @@ public class Test {
         //j1.setPostition(grille.getTuile(27));
         
         Controleur controleur = new Controleur();
-      
+        
     }
 }

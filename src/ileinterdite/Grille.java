@@ -10,7 +10,7 @@ import java.util.ArrayList;
         private Tuile [] instance_tuile;  
         private final Integer [] num_tuile_colonne_gauche = {00,06,12,18,24,30};
         private final Integer [] num_tuile_colonne_droite = {05,11,17,23,29,35};
-        
+        private ArrayList<Tresor> trésors;
          
      public Grille(ArrayList<Tresor> tresor){
          /* |00|01|02|03|04|05|
@@ -20,7 +20,8 @@ import java.util.ArrayList;
             |24|25|26|27|28|29|
             |30|31|32|33|34|35|
          */
-         
+        trésors = new ArrayList<>();
+        trésors = tresor;
         tuile_type= new Tuile();
         nom_tuiles_init = new ArrayList<>();
                 
@@ -466,6 +467,10 @@ import java.util.ArrayList;
         }//fin if  
         
      return tuiles_assechable;
+    }
+
+    Iterable<Tresor> getTresors() {
+        return trésors ;
     }
  }
  

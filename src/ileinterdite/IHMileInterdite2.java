@@ -41,6 +41,7 @@ public class IHMileInterdite2 {
     private JFrame windowJeu;
     private JFrame windowRules;
     private JFrame windowRoles;
+    private JFrame windowVict;
     private JPanel commandes;
     private Observateur observateur;
     
@@ -609,7 +610,33 @@ public class IHMileInterdite2 {
  }
    
         
+        public void fenetreVictoire(){
+            JLabel z = new JLabel("Bravo ! Vous vous etes échappé de l'ile à temps et avec tout les trésors.");
+            JPanel panelPrincipal = new JPanel(new BorderLayout());
+            windowVict = new JFrame("Bravo");
+            windowVict.setVisible(true);
+            windowVict.setSize(500, 100);
+            windowVict.setResizable(false);
+            windowVict.add(panelPrincipal);
+            panelPrincipal.add(z);
+            windowJeu.setVisible(false);   
+        }
         
+        
+        public void fenetreDefaite(){
+        JLabel z = new JLabel("Dommage vous avez perdu la partie ");
+        JPanel panelPrincipal = new JPanel(new BorderLayout());
+        windowVict = new JFrame("Bravo");
+        windowVict.setVisible(true);
+        windowVict.setSize(500, 100);
+        windowVict.setResizable(false);
+        windowVict.add(panelPrincipal);
+        panelPrincipal.add(z);
+        windowJeu.setVisible(false);
+          }  
+            
+            
+               
     public void fenetreChoixJoueur(int numJoueur, int nbJoueurs){
         nbJoueurs=nbJoueursChoisis;
         

@@ -18,6 +18,10 @@ public class Controleur implements Observateur {
     private IHMileInterdite2 ihm ;
     private Grille grille; 
     private ArrayList<Joueur> joueurs ;
+    private Joueur joueur_courant ;
+    private Joueur[] joueursTab;
+    int numjoueurcourant;
+    
     public Controleur(){
         
             jeu = new JeuIleInterdite();
@@ -30,6 +34,8 @@ public class Controleur implements Observateur {
     }
     @Override
     public void traiterMessage(Message2 msg) {
+        System.out.println(msg.type.name());
+        jeu.VerifGagnéPerdu();
         switch(msg.getType()) {
             
             // Partie IHM
@@ -37,14 +43,22 @@ public class Controleur implements Observateur {
                 ArrayList<Joueur> joueurs  = msg.getJoueurs();  // Validé 
                 jeu.setJoueurs(joueurs);
                 ihm.InitFenetrePrincipale(grille);
-                jeu.initCartesJoueurs();
-                majJeu();
-                jeu.DemarrerJeu();
+                joueursTab = new Joueur[joueurs.size()];
+                for (int i = 0; i<joueurs.size(); i++){
+                    joueursTab[i] = joueurs.get(i);
+                }
+             //jeu.initCartesJoueurs();
+             majJeu();
+             joueur_courant = joueursTab[0];
+             jeu.setJoueurCourant(joueur_courant);
+             jeu.TourJoueur(joueur_courant);
+             numjoueurcourant = 0 ;
             break;
             case MOUVEMENT:
+                ihm.fenetreVictoire();
+//                ihm.setActionCourante("mouvement");
+//                ihm.choixDeplacement(jeu.getGrille().getTuilesDeplacement(jeu.getJoueurCourant()));
                 
-                ihm.setActionCourante("mouvement");
-                ihm.choixDeplacement(grille);
             break;
                 
             case VALIDER_MOUVEMENT:
@@ -77,12 +91,24 @@ public class Controleur implements Observateur {
              
             break;
             case TERMINERTOUR :
-                jeu.PasserTour();
-                majJeu();
+                
+        
+            if (joueursTab[numjoueurcourant+1]!= null){
+                numjoueurcourant = numjoueurcourant + 1;
+                jeu.TourJoueur(joueursTab[numjoueurcourant]);
+                ihm.setJourCourant(joueur_courant);
+            }
+            else {
+                numjoueurcourant = 0 ;
+                jeu.TourJoueur(joueursTab[numjoueurcourant]);
+                ihm.setJourCourant(joueur_courant);
+            }
+        
             break;
             
             case MAIN :
                 ihm.fenetreCartesMain();
+                break;
             case OUI_2EME_ASSECHAGE:
                 jeu.getJoueurCourant().getAventurier().setControleAssechable(2);
             break;
@@ -96,11 +122,11 @@ public class Controleur implements Observateur {
                 break;
                 
             case GAGNER:
-                // Foutre l'IHM montrant qu'on a perdu
+                ihm.fenetreVictoire();
                 break;
                 
             case PERDU:
-                // Foutre l'IHM montrant qu'on a gagné 
+                ihm.fenetreDefaite();
                 break;
         }
       }
@@ -109,6 +135,8 @@ public class Controleur implements Observateur {
          ihm.majGrille(grille);
     }
 
+     
+     
     
 }
                 

@@ -119,12 +119,12 @@ public class JeuIleInterdite {
     public void initCartesJoueurs(){
         
         for(int i = 0; i<joueurs.size(); i++){
-            for(int j = 0; j<2; i++){              
+            for(int j = 0; j<2; j++){              
                 while(cartestrésors.get(j).getType()=="Montee_Des_Eaux"){
                     melangeCartes(cartestrésors); 
                     }
-                joueurs.get(i).addCarteMain(cartestrésors.get(i));
-                cartestrésors.remove(i);
+                joueurs.get(j).addCarteMain(cartestrésors.get(j));
+                cartestrésors.remove(j);
             
             }
         }
@@ -142,21 +142,17 @@ public class JeuIleInterdite {
    
 }
      
-    public void DemarrerJeu (){
-        boolean b = jeuGagné(grille) ;
+    
+    public void VerifGagnéPerdu () {
+         boolean b = jeuGagné(grille) ;
         boolean c = jeuPerdu(grille);
         
-        //InitJoueur();
-        while (!c && !b){
-        for (Joueur joueur : getJoueurs()) {
-            setJoueurCourant(joueur);
-            TourJoueur(joueur_courant);
-        }}
-        
+
         if (c){
             Message2 m = new Message2();
             m.setType(TypesMessage.PERDU);
             observateur.traiterMessage(m);
+          
         } 
         
         if (b){
@@ -164,8 +160,8 @@ public class JeuIleInterdite {
             m.setType(TypesMessage.GAGNER);
             observateur.traiterMessage(m);
         }
+        
     }
-
            
     public void piocheCarteTresor(Joueur joueur){
         if (joueur.getMain().size()<5){
@@ -194,28 +190,23 @@ public class JeuIleInterdite {
     
     public void UtiliserAction() {
             joueur_courant.setNbPointAction(joueur_courant.getNbPointAction()-1);
+            if (joueur_courant.getNbPointAction() == 0){
+                TourSuivant();
+            }
         }
     
-    public void PasserTour(){
-        passerTour = true ;
+    public void TourSuivant(){
+        Message2 msg = new Message2();
+        msg.setType(TypesMessage.TERMINERTOUR);
+        observateur.traiterMessage(msg);
+        
     }
     public void TourJoueur(Joueur joueur) {
         joueur_courant = joueur ;
         joueur_courant.setNbPointAction(3);
-        passerTour= false ;
-        Message2 msg = new Message2();
-        msg.setType(TypesMessage.DEBUT_TOUR);
-        msg.setJoueur(joueur);
-        observateur.traiterMessage(msg);
-        
-        
+     }
         //String couleur = joueur.getPion().name();
        // System.out.println("Tour de "+joueur.getNom()+"("+joueur.getAventurier().getRole()+")"+"ayant le pion "+couleur);
-        while (joueur_courant.getNbPointAction() > 0 || passerTour != true){
-            
-                   
-                    
-        } }
            // System.out.println("Actions possibles par ");
             //System.out.println("0- Passer tour");
             //System.out.println("1- Deplacement ");
@@ -450,6 +441,12 @@ public class JeuIleInterdite {
     
     public void setJoueurCourant(Joueur joueur) {
         this.joueur_courant=joueur;
+        joueur_courant.setNbPointAction(3);
+        passerTour= false ;
+        Message2 msg = new Message2();
+        msg.setType(TypesMessage.DEBUT_TOUR);
+        msg.setJoueur(joueur);
+        observateur.traiterMessage(msg);
     }
     public boolean jeuGagné(Grille grille) {
         
@@ -461,7 +458,7 @@ public class JeuIleInterdite {
             }
         }
         int nbTresorsRecuperés = 0 ;
-        for (Tresor tresor : trésors){
+        for (Tresor tresor : grille.getTresors()){
             
             if (tresor.estRecupere()){
                     nbTresorsRecuperés=nbTresorsRecuperés+1;
