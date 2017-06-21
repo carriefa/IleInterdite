@@ -15,13 +15,9 @@ public class Controleur implements Observateur {
 
     private JeuIleInterdite jeu ;
     private IHMileInterdite2 ihm ;
-    private Grille grille; 
-            
+    private Grille grille;
     public Controleur(){
         
-        
-        
-
     }
     @Override
     public void traiterMessage(Message2 msg) {
@@ -34,15 +30,14 @@ public class Controleur implements Observateur {
                 
             break ;
             case MOUVEMENT:
-                ihm.setActionCourante("Bopnjour");
+                ihm.setActionCourante("mouvement");
             
             break;
             case ASSECHER: 
-                ihm.setActionCourante("essecher");
+                ihm.setActionCourante("assecher");
             break;
             case AUTREACTION :
-                System.out.println("aaaaaaaaaaaaaaaaaaaaaa");
-                System.out.println(ihm.getJoueurs().length);
+                
                 for(Joueur j : ihm.getJoueurs()){
                     System.out.println(j.getNom());
                     System.out.println(j.getAventurier());
@@ -52,7 +47,10 @@ public class Controleur implements Observateur {
             break;
             case TERMINERTOUR :
                 
-            break;    
+            break;
+            
+            
+                
         }
     }
 

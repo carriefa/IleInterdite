@@ -47,7 +47,7 @@ public class JeuIleInterdite {
         cartesInondation = new Carte_Inondation[24];
         cartestrésors = new  Carte_Tresor_Abs[28];
         scanner = new Scanner(System.in);
-        grille = new Grille(trésors);
+        grille = new Grille();
         roles = new ArrayList<>();
         trésors = new ArrayList<>();
         cartes_innondation_defausse = new ArrayList<>();
