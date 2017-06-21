@@ -37,14 +37,14 @@ public class Controleur implements Observateur {
                 ArrayList<Joueur> joueurs  = msg.getJoueurs();  // Validé 
                 jeu.setJoueurs(joueurs);
                 ihm.InitFenetrePrincipale(grille);
+                jeu.initCartesJoueurs();
                 majJeu();
                 jeu.DemarrerJeu();
             break;
             case MOUVEMENT:
                 
                 ihm.setActionCourante("mouvement");
-                ihm.choixDeplacement(jeu.getJoueurCourant().getAventurier().getTuilesDeplacement(jeu.getJoueurCourant()));
-                
+                ihm.choixDeplacement(grille);
             break;
                 
             case VALIDER_MOUVEMENT:
@@ -81,6 +81,8 @@ public class Controleur implements Observateur {
                 majJeu();
             break;
             
+            case MAIN :
+                ihm.fenetreCartesMain();
             case OUI_2EME_ASSECHAGE:
                 jeu.getJoueurCourant().getAventurier().setControleAssechable(2);
             break;

@@ -13,7 +13,7 @@ public class Tresor {
         private boolean recupere;
         
         public Tresor(String nom){
-            setNom_tresor(nom_tresor);
+            setNom_tresor(nom);
             recupere= false ;
             tuileAssociée = new ArrayList();
         }
@@ -31,11 +31,18 @@ public class Tresor {
     }
     
     public void addTuile(Tuile tuile){
-        tuileAssociée.add(tuile);
+        getTuileAssociée().add(tuile);
     }
     
     public String getNom_tresor() {
         return nom_tresor;
+    }
+
+    /**
+     * @return the tuileAssociée
+     */
+    public ArrayList<Tuile> getTuileAssociée() {
+        return tuileAssociée;
     }
         
     }

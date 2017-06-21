@@ -58,7 +58,6 @@ import java.util.ArrayList;
                a = a-1;
             }
             num= num+1;
-            System.out.println(instance_tuile[i].getNom());
         }
         for(Tuile tuile : instance_tuile){
             tuile.setPionAssocie();
@@ -347,57 +346,42 @@ import java.util.ArrayList;
             for(Tuile tuile_inondee : tuiles_innondee_a_faire){ //parcourt de toutes les tuiles inondees
                 
                 for(Tuile tuile_adj : this.getTuilesAdjacentes(tuile_inondee)){ // on regarde toutes les cases adjacentes des cases innondées a faire
-                    System.out.println("test");
-                    System.out.println(tuile_adj.getNumero()+" : tuile adj premier for");
                     
                     if (tuile_adj.getEtat()==Etat.ASSECHEE && !tuiles_tout.contains(tuile_adj) &&  tuiles_assechees.contains(tuile_adj)==false){
                         tuiles_assechees.add(tuile_adj);
-                        System.out.println("premier for ASSECHEE");
                     }else if(tuile_adj.getEtat()==Etat.INONDEE && !tuiles_tout.contains(tuile_adj) &&  tuiles_innondee_a_faire.contains(tuile_adj)==false && tuiles_innondee_a_faire2.contains(tuile_adj)==false && tuiles_innondes_OK.contains(tuile_adj)==false){
                         tuiles_innondee_a_faire2.add(tuile_adj);
-                        System.out.println("premier for INONDEE");
                     }else if (tuile_adj.getEtat()==Etat.DISPARUE && !tuiles_tout.contains(tuile_adj) &&  tuiles_disparue_a_faire.contains(tuile_adj)==false && tuiles_disparues_a_faire2.contains(tuile_adj)==false && tuiles_disparues_OK.contains(tuile_adj)==false){
                         tuiles_disparues_a_faire2.add(tuile_adj);
-                        System.out.println("premier for DISPARUE");
                     }else if (!tuiles_tout.contains(tuile_adj)) {
                         tuiles_vides.add(tuile_adj);
-                        System.out.println(tuile_adj.getEtat()+"premier for VIDE");
                     }
                     
                     if(!tuiles_tout.contains(tuile_adj)){
                        tuiles_tout.add(tuile_adj); 
                     }
                     
-                    //System.out.println(this.getTuilesAdjacentes(tuile_inondee).size()+" tuiles adj inondees");
                 }
-                //System.out.println(getTuile(i).getNumero()+" numero tuiles_inonndees_a_faire");
                 
                 if (!tuiles_tout.contains(tuile_inondee)){
                     tuiles_tout.add(tuile_inondee);
                 }
                 
                 tuiles_innondes_OK.add(tuile_inondee);
-                //tuiles_innondee_a_faire.remove(getTuile(i));
             }
             
             for(Tuile tuile_disparue : tuiles_disparue_a_faire){
-                System.out.println("test-2");
                 
                 for(Tuile tuile_adj : this.getTuilesAdjacentes(tuile_disparue)){
-                    System.out.println(tuile_adj.getNumero()+" : tuile adj deuxieme for");
                     
                     if (tuile_adj.getEtat()==Etat.ASSECHEE && !tuiles_tout.contains(tuile_adj) &&  tuiles_assechees.contains(tuile_adj)==false){
                         tuiles_assechees.add(tuile_adj);
-                        System.out.println("deuxieme for ASSECHEE");
                     }else if(tuile_adj.getEtat()==Etat.INONDEE && !tuiles_tout.contains(tuile_adj) &&  tuiles_innondee_a_faire.contains(tuile_adj)==false && tuiles_innondee_a_faire2.contains(tuile_adj)==false && tuiles_innondes_OK.contains(tuile_adj)==false){
                         tuiles_innondee_a_faire2.add(tuile_adj);
-                        System.out.println("deuxieme for INONDEE");
                     }else if (tuile_adj.getEtat()==Etat.DISPARUE && !tuiles_tout.contains(tuile_adj) && tuiles_disparue_a_faire.contains(tuile_adj)==false && tuiles_disparues_a_faire2.contains(tuile_adj)==false && tuiles_disparues_OK.contains(tuile_adj)==false){
                         tuiles_disparues_a_faire2.add(tuile_adj);
-                        System.out.println("deuxieme for DISPARUE");
                     }else if (!tuiles_tout.contains(tuile_adj)){
                         tuiles_vides.add(tuile_adj);
-                        System.out.println(tuile_adj.getEtat()+"deuxieme for VIDE");
                     }
                     
                     if (!tuiles_tout.contains(tuile_adj)){
@@ -428,7 +412,6 @@ import java.util.ArrayList;
             }
 
         }
-        System.out.println("\n");
         for(Tuile tuiletout : tuiles_tout){
             if((tuiletout != tuile_joueur) &&(tuiletout.getEtat()!=Etat.DISPARUE) && (tuiletout.getEtat()!=Etat.VIDE)){
                 tuiles_finales.add(tuiletout);
