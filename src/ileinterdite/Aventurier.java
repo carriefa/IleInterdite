@@ -33,6 +33,7 @@ public abstract class Aventurier {
     public abstract ArrayList<Tuile> getTuilesAssechables(Joueur joueur);
     public abstract void AssecherTuile(Tuile tuile);
     public abstract int getControleAssechable();
+    public abstract void setControleAssechable(int i);
     public abstract ArrayList<Tuile> getTuilesDeplacement(Joueur joueur);
     
     public abstract void Deplacement(Tuile tuile);

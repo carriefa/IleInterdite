@@ -45,12 +45,13 @@ public class Controleur implements Observateur {
             majJeu();
             break;
             case ASSECHER:
-                if(jeu.getJoueurCourant().getAventurier().getRole().equals("ingénieur")){
-                    if(jeu.getJoueurCourant().getAventurier().getControleAssechable()==1){
+                if(jeu.getJoueurCourant().getAventurier().getRole().equals("ingénieur")){ //si c'est un ingénieur
+                    if(jeu.getJoueurCourant().getAventurier().getControleAssechable()==1){ //si c'est la premiere fois qu'il asseche.
                         ihm.setActionCourante("assecher");
                         ihm.PopUpIngenieur();
+                        
                     }else if(jeu.getJoueurCourant().getAventurier().getControleAssechable()==2){
-                        //ihm.set
+                        
                     }
                 }else{
                     ihm.setActionCourante("assecher");
@@ -66,9 +67,8 @@ public class Controleur implements Observateur {
                 majJeu();
             break;
             
-                
-            
-            
+            case OUI_2EME_ASSECHAGE:
+                jeu.getJoueurCourant().getAventurier().setControleAssechable(2);
                 
         }
       }

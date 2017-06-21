@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 public class Navigateur extends Aventurier {
         private String role = "navigateur";
+        private int controle_assechage=0;
 
 
     
@@ -50,6 +51,11 @@ public class Navigateur extends Aventurier {
     @Override
     public int getControleAssechable() {
         return 0;
+    }
+
+    @Override
+    public void setControleAssechable(int i) {
+        this.controle_assechage=i;
     }
     
     

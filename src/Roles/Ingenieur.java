@@ -56,4 +56,9 @@ public class Ingenieur extends Aventurier {
     public int getControleAssechable() {
         return controle_assechage;
     }
+
+    @Override
+    public void setControleAssechable(int i) {
+        this.controle_assechage=i;
+    }
 }

@@ -625,11 +625,14 @@ public class IHMileInterdite2 {
                         break;
                     }
                     
+                    roles.remove(roleChoisi.getRole());
+                    pions.remove(pionChoisi);
+                    
                     joueurs[numJoueur-1] = new Joueur(nomJoueur,roleChoisi, pionChoisi);
                     windowRoles.dispose();
                     System.out.println(joueurs[numJoueur-1].getNom()+joueurs[numJoueur-1].getAventurier()+joueurs[numJoueur-1].getPion());
                     joueurs_crees.add(joueurs[numJoueur-1]);
-                    windowRoles.dispose();
+                    //windowRoles.dispose();
                     fenetreChoixJoueur(numJoueur+1, nbJoueursChoisis);
                     
                 }
@@ -671,12 +674,15 @@ public class IHMileInterdite2 {
                         break;
                     }
                     
+                    roles.remove(roleChoisi.getRole());
+                    pions.remove(pionChoisi);
+                    
                     joueurs[numJoueur-1] = new Joueur(nomJoueur,roleChoisi, pionChoisi);
                     joueurs_crees.add(joueurs[numJoueur-1]);
-                   // windowRoles.dispose();
+                    windowRoles.dispose();
                     Message2 m = new Message2();
                     m.type = TypesMessage.DEMARRER_PARTIE;
-                    windowRoles.dispose();
+                    //windowRoles.dispose();
                     m.setJoueurs(joueurs_crees);
                     observateur.traiterMessage(m);
                 }
@@ -723,7 +729,7 @@ public class IHMileInterdite2 {
                     joueurs_crees.add(joueurs[numJoueur-1]);
                     windowRoles.dispose();
                     fenetreChoixJoueur(numJoueur+1,nbJoueursChoisis);
-                    windowRoles.dispose();
+                    //windowRoles.dispose();
                     
                 }
             });
@@ -765,10 +771,13 @@ public class IHMileInterdite2 {
 
                     joueurs[numJoueur-1] = new Joueur(nomJoueur, roleChoisi, pionChoisi);
                     joueurs_crees.add(joueurs[numJoueur-1]); 
+                    for(Joueur joueur : joueurs_crees){
+                        System.out.println(joueur.getNom());
+                    }
                     windowRoles.dispose();
                     Message2 m = new Message2();
                     m.type=TypesMessage.DEMARRER_PARTIE;
-                    windowRoles.dispose();
+                    //windowRoles.dispose();
                     m.setJoueurs(joueurs_crees);
                     observateur.traiterMessage(m);
                     

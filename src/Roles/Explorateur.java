@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 public class Explorateur extends Aventurier {
         private String role;
+        private int controle_assechage=0;
 
     public Explorateur() {
         super();
@@ -64,6 +65,11 @@ public class Explorateur extends Aventurier {
     @Override
     public int getControleAssechable() {
         return 0;
+    }
+
+    @Override
+    public void setControleAssechable(int i) {
+        this.controle_assechage=i;
     }
 
 
