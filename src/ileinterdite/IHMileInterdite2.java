@@ -65,6 +65,8 @@ public class IHMileInterdite2 {
     private JPanel panelOptions = new JPanel(new BorderLayout());
     private JLabel joueurCourant = new JLabel();
     private JLabel actionCourante = new JLabel();
+    private boolean b = true;
+   
 
         
        
@@ -152,6 +154,17 @@ public class IHMileInterdite2 {
             }
         }
         
+        
+            Deplacement.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    System.out.println("je suis un juif");
+                }
+            });
+        
+        
+        
+        
         cases = new JButton[24];
 
         int a = 0;
@@ -159,7 +172,13 @@ public class IHMileInterdite2 {
             for(int i = 0; i<grille.getTuiles().length; i++){
               if(grille.getTuile(i).getNom() != null){
                 cases[a] = new JButton((grille.getTuile(i).getNom())+(grille.getTuile(i).getNumero()));
-                
+                if(b){
+                cases[a].addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        System.out.println("je suis juif");
+                    }
+                });}
                 panelCentre.add(cases[a]);
                 a = a+1;
             } else {
