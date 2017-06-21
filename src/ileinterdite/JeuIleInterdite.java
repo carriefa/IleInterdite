@@ -442,16 +442,75 @@ public class JeuIleInterdite {
     public boolean jeuPerdu(Grille grille) {
         
         Tuile heliport = null;
+        
+        int nbTuileTresorTemple =0;
+        int nbTuileTresorCaverne=0;
+        int nbTuileTresorPalais=0;
+        int nbTuileTresorJardin=0;
+        
+        int nbTuilesAdjNonDisp=0;
+        boolean joueurNoyé=false;
+        
+        // Cette portion de code parcours toutes les tuiles de la grille 
+        // afin de trouver la tuile Heliport
         for (int i = 0; i<grille.getTuiles().length;i++){
-            
             if ((grille.getTuile(i).getNom())==("Heliport")) {
                 heliport = grille.getTuile(i);
             }
         }
-       if(heliport.getEtat().equals(Etat.DISPARUE)) {
-           return true;
-       } else {
-           return false;
-       }
-    }
+        // fin for
+        //
+        
+        
+        
+        // Cette portion de code parcours toutes les tuiles de la grille 
+        // et compte le nombre de tuiles "Tresor" disparues
+         for (int i = 0; i<grille.getTuiles().length;i++){ 
+            if ((grille.getTuile(i).getNom()).contains("Temple")&& grille.getTuile(i).getEtat().equals(Etat.DISPARUE)) {
+                nbTuileTresorTemple=nbTuileTresorTemple+1 ;
+            } else if ((grille.getTuile(i).getNom()).contains("Caverne")&& grille.getTuile(i).getEtat().equals(Etat.DISPARUE)) {
+                nbTuileTresorCaverne=nbTuileTresorCaverne+1 ;
+            } else if ((grille.getTuile(i).getNom()).contains("Palais")&& grille.getTuile(i).getEtat().equals(Etat.DISPARUE)) {
+                nbTuileTresorPalais=nbTuileTresorPalais+1 ; }
+            else if ((grille.getTuile(i).getNom()).contains("Jardin")&& grille.getTuile(i).getEtat().equals(Etat.DISPARUE)) {
+                nbTuileTresorJardin=nbTuileTresorJardin+1 ; }
+          //
+         }//fin for 
+         
+         
+         
+        // Cette boucle parcours la collection de joueurs 
+        // et si un joueur est sur une tuile Île qui sombre 
+        // et qu’il n’y a pas de tuile adjacente où nager
+        // alors un booléen joueurNoyé prend la valeur true
+         for (int i =0; i<=joueurs.size();i++) {
+             ArrayList<Tuile> tuilesAdjJoueurCourant;
+             Tuile positionJoueurCourant=joueurs.get(i).getPosition();
+             tuilesAdjJoueurCourant=grille.getTuilesAdjacentes(positionJoueurCourant);
+            // Cette boucle parcours les tuiles adjacentes au joueur 
+            // courant i de la collection de joueur
+            // et compte le nombre de tuiles adjacentes non disparues
+             for (int j = 0; j<tuilesAdjJoueurCourant.size();j++) {
+                if (tuilesAdjJoueurCourant.get(j).getEtat().equals(Etat.ASSECHEE) ||tuilesAdjJoueurCourant.get(j).getEtat().equals(Etat.INONDEE)){
+                    nbTuilesAdjNonDisp = nbTuilesAdjNonDisp+1;
+                } else {}
+            } // fin for
+            if (nbTuilesAdjNonDisp == 0) {
+                joueurNoyé=true;
+            }
+         } // fin for
+        if (nbTuileTresorCaverne==2 || nbTuileTresorJardin==2 || nbTuileTresorPalais==2 || nbTuileTresorTemple==2) //Si les 2 tuiles « Temple », « Caverne », « Palais» ou « Jardin »
+            {                                                                                                          //sombrent avant que vous n’ayez pris leurs trésors respectifs 
+                return true;
+            } else if (heliport.getEtat().equals(Etat.DISPARUE))                                                       //Si « l’héliport » sombre
+            {
+                return true;
+            } else if (joueurNoyé) {
+                return true;
+            } else if (niveau_eau > 9) {
+                return true;
+            } else {
+                return false;
+            }
+    } 
 }
