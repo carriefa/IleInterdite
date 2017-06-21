@@ -67,6 +67,7 @@ public class Controleur implements Observateur {
                 }else{
                     ihm.setActionCourante("assecher");
                 }
+                jeu.UtiliserAction();
                 majJeu();
             break;
             case AUTREACTION :
@@ -87,6 +88,7 @@ public class Controleur implements Observateur {
                 
             case DEBUT_TOUR : 
                 ihm.setJourCourant(msg.getJoueur());
+                majJeu();
                 break;
                 
             case GAGNER:
