@@ -105,6 +105,8 @@ public class JeuIleInterdite {
      public void setJoueurs(ArrayList<Joueur> joueurs_ihm) {
         this.joueurs = joueurs_ihm;
         for (Joueur joueur : joueurs){
+            System.out.println(joueur.getPion()+" pion du joueur dans JeuIleInterdite");
+            System.out.println(grille.getTuile(grille.getNumTuilePion(joueur.getPion())));
             joueur.setPostition(grille.getTuile(grille.getNumTuilePion(joueur.getPion())));
         }
     }
