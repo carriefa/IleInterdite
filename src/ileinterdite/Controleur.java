@@ -31,20 +31,21 @@ public class Controleur implements Observateur {
     public void traiterMessage(Message2 msg) {
         switch(msg.getType()) {
             case DEMARRER_PARTIE:
-                ArrayList<Joueur> joueurs  = msg.getJoueurs();
-                for(Joueur joueur : joueurs){
-                    System.out.println(joueur.getNom()+joueur.getAventurier()+ joueur.getPion());
-                }
+                ArrayList<Joueur> joueurs  = msg.getJoueurs();  // Validé 
                 jeu.setJoueurs(joueurs);
-                
                 ihm.InitFenetrePrincipale(grille);
                 majJeu();
             break;
             case MOUVEMENT:
                 ihm.setActionCourante("mouvement");
-                
-            majJeu();
+                ihm.ChoixDeplacement(jeu.getJoueur_courant().getAventurier().getTuilesDeplacement(jeu.getJoueur_courant()));
             break;
+                
+            case VALIDER_MOUVEMENT:
+                Tuile tuilechoisie =  msg.getTuileChoisie();
+                jeu.getJoueur_courant().getAventurier().Deplacement(tuilechoisie);
+                majJeu();
+                break;
             case ASSECHER: 
                 ihm.setActionCourante("assecher");
                 majJeu();
