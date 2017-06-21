@@ -1,5 +1,6 @@
 package ileinterdite;
 
+import Cartes.Carte_Tresor_Abs;
 import Roles.Explorateur;
 import Roles.Ingenieur;
 import Roles.Messager;
@@ -878,6 +879,40 @@ public class IHMileInterdite2 {
              });
          }
 
+    }
+    
+    public void fenetreCartesMain(){
+        for (Joueur joueur : joueurs_crees){
+            JFrame fenetre_main = new JFrame();
+            fenetre_main.setSize(400,200);
+            fenetre_main.setResizable(false);
+            fenetre_main.setLayout(new BorderLayout());
+            JPanel panelHaut = new JPanel(new BorderLayout());
+            JPanel panelCentre = new JPanel(new GridLayout(1,5));
+            JPanel panelBas = new JPanel(new BorderLayout());
+            JLabel nom_joueur = new JLabel("Main de "+joueur.getNom());
+            JButton quitter = new JButton("Quitter");
+            JButton donner = new JButton("Donner une Carte");
+            
+            panelHaut.add(nom_joueur,BorderLayout.CENTER);
+            
+            //création de PanelBas
+            panelBas.add(quitter,BorderLayout.WEST);
+            panelBas.add(donner,BorderLayout.EAST);
+            
+            for(Carte_Tresor_Abs carte : joueur.getMain()){
+                JButton karte = new JButton(carte.getType());
+                panelCentre.add(karte);
+            }
+
+            fenetre_main.add(panelHaut,BorderLayout.NORTH);
+            fenetre_main.add(panelCentre,BorderLayout.CENTER);
+            fenetre_main.add(panelBas,BorderLayout.SOUTH);
+
+            fenetre_main.setVisible(true);
+
+         }
+       
     }
     
     public Joueur[] getJoueurs() {
