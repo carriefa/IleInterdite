@@ -51,6 +51,7 @@ public class IHMileInterdite2 {
 
     //grille
 
+    private Grille grille;
     private Case[] cases;
     private JPanel panelCentre = new JPanel(new GridLayout(6,6));
     
@@ -285,7 +286,10 @@ public class IHMileInterdite2 {
                       
    public void majGrille(Grille grille){
        int a = 0 ;
-     
+       this.grille = grille; 
+       
+           
+       
        for (int i = 0;i< grille.getTuiles().length; i++){
            if (grille.getTuile(i).getEtat() == Etat.DISPARUE){
                cases[a].setBackground( new Color(0,0,55));
@@ -293,6 +297,8 @@ public class IHMileInterdite2 {
            }
            else if (grille.getTuile(i).getEtat() == Etat.INONDEE){
                cases[a].setBackground( new Color(0,0,155));
+                              cases[a].setText("<html>"+grille.getTuile(i).getNom()+"<br>"+grille.getTuile(i).getPionsPrésentsAffichage()+"<html />");
+
                a=a+1;
                cases[a].setText("<html>"+grille.getTuile(i).getNom()+"<br>"+grille.getTuile(i).getPionsPrésentsAffichage()+"<html />");
            }
@@ -308,18 +314,18 @@ public class IHMileInterdite2 {
        }
    }
    
-   public void choixDeplacement(Grille grille){
+   public void choixDeplacement(ArrayList<Tuile> tuilesPossibles){
 
        JButton b = new JButton();
        for (int i = 0; i< grille.getTuiles().length; i++){
-               for (int j = 0; j<tuilesDeplacement.size(); j++){
+               for (int j = 0; j<tuilesPossibles.size(); j++){
                    
-                   if(tuilesDeplacement.get(j).getNumero() == grille.getTuile(i).getNumero()){
+                   if(tuilesPossibles.get(j).getNumero() == grille.getTuile(i).getNumero()){
                        
                        if (i<=3){
                            
-                           cases[tuilesDeplacement.get(j).getNumero()-2].setBackground(Color.green);
-                           cases[tuilesDeplacement.get(j).getNumero()-2].addActionListener(new ActionListener() {
+                           cases[tuilesPossibles.get(j).getNumero()-2].setBackground(Color.green);
+                           cases[tuilesPossibles.get(j).getNumero()-2].addActionListener(new ActionListener() {
                                @Override
                                public void actionPerformed(ActionEvent e) {
                                    Case t = (Case) e.getSource();
@@ -329,13 +335,13 @@ public class IHMileInterdite2 {
                            });
                              
                        } else if (i>=7 && i<=10){
-                           cases[tuilesDeplacement.get(j).getNumero()-5].setBackground(Color.green);
+                           cases[tuilesPossibles.get(j).getNumero()-5].setBackground(Color.green);
                        } else if (i>=12 && i<=23){
-                           cases[tuilesDeplacement.get(j).getNumero()-6].setBackground(Color.green);
+                           cases[tuilesPossibles.get(j).getNumero()-6].setBackground(Color.green);
                        } else if(i>=25 && i<=28){
-                           cases[tuilesDeplacement.get(j).getNumero()-7].setBackground(Color.green);
+                           cases[tuilesPossibles.get(j).getNumero()-7].setBackground(Color.green);
                        } else if (i>=32 && i<=33){
-                           cases[tuilesDeplacement.get(j).getNumero()-10].setBackground(Color.green);
+                           cases[tuilesPossibles.get(j).getNumero()-10].setBackground(Color.green);
                        }
           
                        
@@ -845,6 +851,10 @@ public class IHMileInterdite2 {
     
     public Joueur[] getJoueurs() {
         return joueurs;
+    }
+    
+    public void setJourCourant(Joueur joueur){
+        joueurCourant.setText(joueur.getNom());
     }
     
     public String getJoueurCourant() {
