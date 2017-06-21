@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 public class Pilote extends Aventurier {
     private String role = "pilote";
+    private int controle_assechage=0;
 
 
     @Override
@@ -51,6 +52,16 @@ public class Pilote extends Aventurier {
     
     public void DeplacementPilote(Tuile tuile){
         super.setPosition(tuile);
+    }
+
+    @Override
+    public int getControleAssechable() {
+        return 0;
+    }
+
+    @Override
+    public void setControleAssechable(int i) {
+        this.controle_assechage=i;
     }
 
    

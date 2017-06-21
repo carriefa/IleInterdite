@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 public class Messager extends Aventurier {
 private String role = "messager";
+private int controle_assechage=0;
 
 
 
@@ -39,5 +40,15 @@ private String role = "messager";
     @Override
     public void Deplacement(Tuile tuile) {
         super.setPosition(tuile);
+    }
+
+    @Override
+    public int getControleAssechable() {
+        return 0;
+    }
+
+    @Override
+    public void setControleAssechable(int i) {
+        this.controle_assechage=i;
     }
 }
