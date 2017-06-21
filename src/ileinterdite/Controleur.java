@@ -38,7 +38,7 @@ public class Controleur implements Observateur {
             break;
             case MOUVEMENT:
                 ihm.setActionCourante("mouvement");
-                ihm.ChoixDeplacement(jeu.getJoueur_courant().getAventurier().getTuilesDeplacement(jeu.getJoueur_courant()));
+                ihm.choixDeplacement(grille);
             break;
                 
             case VALIDER_MOUVEMENT:
