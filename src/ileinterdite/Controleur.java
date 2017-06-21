@@ -45,17 +45,9 @@ public class Controleur implements Observateur {
                 majJeu();
             break;
             case AUTREACTION :
-                
-                for(Joueur j : ihm.getJoueurs()){
-                    System.out.println(j.getNom());
-                    System.out.println(j.getAventurier());
-                    System.out.println(j.getPion());
-                }
-             majJeu();
-            break;
-           
-                    
             
+             
+            break;
             case TERMINERTOUR :
                 
                 majJeu();
