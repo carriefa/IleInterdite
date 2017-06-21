@@ -42,6 +42,7 @@ public class JeuIleInterdite {
     private ArrayList<Carte_Inondation> cartesInondation;
     public JeuIleInterdite(){
         // init des tresors 
+        /*
         Tresor tresor1 = new Tresor("La Pierre Sacrée");
         Tresor tresor2 = new Tresor("La Statue Du Zéphyr");
         Tresor tresor3 = new Tresor("Le Cristal Ardent");
@@ -50,13 +51,13 @@ public class JeuIleInterdite {
         trésors.add(tresor2);
         trésors.add(tresor3);
         trésors.add(tresor4);
-        
+        */
         
         
         cartesInondation = new ArrayList<>();
         cartestrésors = new ArrayList<>();
         scanner = new Scanner(System.in);
-        grille = new Grille(getTrésors());
+        grille = new Grille();
         roles = new ArrayList<>();
         trésors = new ArrayList<>();
         cartes_innondation_defausse = new ArrayList<>();
@@ -69,6 +70,7 @@ public class JeuIleInterdite {
         
         
         // init des cartes trésors 
+        /*
         for (int i = 0 ; i < 27 ; i++){
             if (i <=4){
                 cartestrésors.add(new Carte_Tresor(tresor1));
@@ -92,7 +94,7 @@ public class JeuIleInterdite {
                  cartestrésors.add(new SacDeSable());
              }
         }
-        
+        */
              for(int i = 0; i < grille.getTuiles().length; i++){
               if(grille.getTuile(i).getNom() != null){
                       cartesInondation.add(new Carte_Inondation(grille.getTuile(i)));
@@ -276,8 +278,7 @@ public class JeuIleInterdite {
                 Joueur joueur = new Joueur(nom_joueur,aventurier,pion);
                 
                 if (grille.getNumTuilePion(joueur.getPion())!=36){
-                    //joueur.setPostition(grille.getTuile(grille.getNumTuilePion(joueur.getPion())));
-                    joueur.setPostition(grille.getTuile(32));
+                    joueur.setPostition(grille.getTuile(grille.getNumTuilePion(joueur.getPion())));
                 }
                 
                 getJoueurs().add(joueur);

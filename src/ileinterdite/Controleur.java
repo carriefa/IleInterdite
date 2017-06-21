@@ -30,30 +30,29 @@ public class Controleur implements Observateur {
         joueurs.add(j1);
         joueurs.add(j2);
         jeu.setJoueurs(joueurs);
-     
         
+        grille = new Grille();
+        ihm = new IHMileInterdite2();
+        ihm.setObservateur(this);
+                
 
     }
     @Override
     public void traiterMessage(Message2 msg) {
         switch(msg.getType()) {
-            case DEMARRER_PARTIE:
-                
-                ihm = new IHMileInterdite2();
-                ihm.setObservateur(this);
-                ihm.InitFenetreDepart();
-                
-            break ;
+            
+            case DEMARRER_PARTIE : //affiche le plateau
+                ihm.InitFenetrePrincipale(grille);
+            break;
             case MOUVEMENT:
-                ihm.setActionCourante("Bopnjour");
+                ihm.setActionCourante("mouvement");
             
             break;
             case ASSECHER: 
-                ihm.setActionCourante("essecher");
+                ihm.setActionCourante("assecher");
             break;
             case AUTREACTION :
-                System.out.println("aaaaaaaaaaaaaaaaaaaaaa");
-                System.out.println(ihm.getJoueurs().length);
+                
                 for(Joueur j : ihm.getJoueurs()){
                     System.out.println(j.getNom());
                     System.out.println(j.getAventurier());
@@ -67,7 +66,10 @@ public class Controleur implements Observateur {
             
             case TERMINERTOUR :
                 
-            break;    
+            break;
+            
+            
+                
         }
     }
 

@@ -13,15 +13,15 @@ import Roles.Pilote;
 import Roles.Plongeur;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -48,26 +48,26 @@ public class IHMileInterdite2 {
     private JPanel commandes;
     private Observateur observateur;
        
-        //boutons
+    //boutons
 
-        private JButton Assechement = new JButton("Assechement");
-        private JButton Deplacement = new JButton("Deplacement");
-        private JButton Recuparation = new JButton("Récuperation");
+    private JButton Assechement = new JButton("Assechement");
+    private JButton Deplacement = new JButton("Deplacement");
+    private JButton Recuparation = new JButton("Récuperation");
 
-        //grille
+    //grille
 
-        private JButton[] cases;
-        private JPanel panelCentre = new JPanel(new GridLayout(6,6));
+    private JButton[] cases;
+    private JPanel panelCentre = new JPanel(new GridLayout(6,6));
 
-          //Options
+      //Options
 
-        private JPanel status = new JPanel();
-        private JPanel panelOptions = new JPanel(new BorderLayout());
-        private JLabel joueurCourant = new JLabel();
-        private JLabel actionCourante = new JLabel();
+    private JPanel status = new JPanel();
+    private JPanel panelOptions = new JPanel(new BorderLayout());
+    private JLabel joueurCourant = new JLabel();
+    private JLabel actionCourante = new JLabel();
+
         
-        
-        private JLabel joueur = new JLabel();
+       
 
 // joueurs generés
 
@@ -78,16 +78,21 @@ public class IHMileInterdite2 {
     private String NomJoueur3="Joueur 3";
     private String NomJoueur4="Joueur 4";
     private String nbJoueursString;
+    private String nomJoueur;
     private ArrayList<String> nomsjoueurs = new ArrayList<>();
+    private ArrayList<Joueur> joueurs_crees = new ArrayList<>();
         
     private Integer nbJoueursChoisis;
 
     
     private Utils.Pion pionChoisi; 
     private Aventurier roleChoisi;
-    private Aventurier[] roles = new Aventurier[6];
-    private Utils.Pion[] pions = new Utils.Pion[6];
-    private int controle_boucle_role =1;
+    private ArrayList<String> roles = new ArrayList<>();
+    private ArrayList<Utils.Pion> pions = new ArrayList<>();
+    //private Utils.Pion[] pions = new Utils.Pion[6-pions_utilises.size()];
+    //private Aventurier[] roles = new Aventurier[6-roles_utilises.size()];
+    
+   
     
 
 
@@ -98,15 +103,34 @@ public class IHMileInterdite2 {
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(IHMileInterdite2.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        System.out.println("bebelelebl");
+        setRoles();
+        setPions();
         
+        InitFenetreDepart();
     }
     
      public void setObservateur(Observateur observateur){
         this.observateur = observateur;  
      }
-
+     
+     public void setRoles(){
+        roles.add("ingénieur");
+        roles.add("explorateur");
+        roles.add("messager");
+        roles.add("plongeur");
+        roles.add("pilote");
+        roles.add("navigateur");
+   
+     }
+     
+     public void setPions(){
+        pions.add(Utils.Pion.BLEU);
+        pions.add(Utils.Pion.VERT);
+        pions.add(Utils.Pion.JAUNE);
+        pions.add(Utils.Pion.ORANGE);
+        pions.add(Utils.Pion.ROUGE);
+        pions.add(Utils.Pion.VIOLET);
+     }
     public void InitFenetrePrincipale(Grille grille){
         
         // Fenetre jeu
@@ -164,11 +188,8 @@ public class IHMileInterdite2 {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Message2 m = new Message2();
-                
                 m.type = TypesMessage.ASSECHER;
                 observateur.traiterMessage(m);
-                
-                
             }
         });
 
@@ -176,11 +197,8 @@ public class IHMileInterdite2 {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Message2 m = new Message2();
-               
                 m.type = TypesMessage.MOUVEMENT;
                 observateur.traiterMessage(m);
-                
-               
             }
         });
         
@@ -205,7 +223,6 @@ public class IHMileInterdite2 {
                a=a+1;
 
            }
-           System.out.println("alllo");
        }
    }
 
@@ -248,6 +265,7 @@ public class IHMileInterdite2 {
           windowStart.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
           
+          //champs de texte pour le nom
           JTextField TextField_joueur1 = new JTextField("Joueur 1");
           TextField_joueur1.setColumns(10);
           JTextField TextField_joueur2 = new JTextField("Joueur 2");
@@ -256,8 +274,6 @@ public class IHMileInterdite2 {
           TextField_joueur3.setColumns(10);
           JTextField TextField_joueur4 = new JTextField("Joueur 4");
           TextField_joueur4.setColumns(10);
-
-          
           
           
           CaretListener caretupdate1 = new CaretListener() {
@@ -265,10 +281,11 @@ public class IHMileInterdite2 {
             public void caretUpdate(javax.swing.event.CaretEvent e) {
                 JTextField text = (JTextField)e.getSource();
                 NomJoueur1=TextField_joueur1.getText();
-                nomsjoueurs.add(NomJoueur1);
+                
             }
         };
-
+        
+        
         TextField_joueur1.addCaretListener(caretupdate1);
 
          CaretListener caretupdate2 = new CaretListener() {
@@ -276,7 +293,7 @@ public class IHMileInterdite2 {
             public void caretUpdate(javax.swing.event.CaretEvent e) {
                 JTextField text = (JTextField)e.getSource();
                 NomJoueur2=TextField_joueur2.getText();
-                nomsjoueurs.add(NomJoueur2);
+                //nomsjoueurs.add(NomJoueur2);
             }
         };
         TextField_joueur2.addCaretListener(caretupdate2);
@@ -287,7 +304,7 @@ public class IHMileInterdite2 {
             public void caretUpdate(javax.swing.event.CaretEvent e) {
                 JTextField text = (JTextField)e.getSource();
                 NomJoueur3=TextField_joueur3.getText();
-                nomsjoueurs.add(NomJoueur3);
+                //nomsjoueurs.add(NomJoueur3);
             }
         };
         TextField_joueur3.addCaretListener(caretupdate3);
@@ -297,99 +314,107 @@ public class IHMileInterdite2 {
             public void caretUpdate(javax.swing.event.CaretEvent e) {
                 JTextField text = (JTextField)e.getSource();
                 NomJoueur4=TextField_joueur4.getText();
-                nomsjoueurs.add(NomJoueur4);
+                //nomsjoueurs.add(NomJoueur4);
             }
         };
         TextField_joueur4.addCaretListener(caretupdate4);
         
         
+        choixNBJoueur.setPreferredSize(new Dimension(100, 20));
+        windowStart.setSize(600, 300);
+        windowStart.setContentPane(panelPrincipal);
+        windowStart.setVisible(true);
+
+        // Partie superieure de la fenetre
+        panelHaut.add(panelInterHaut,BorderLayout.CENTER);
+        panelInterHaut.add(new JLabel());
+        panelInterHaut.add(new JLabel());
+        panelInterHaut.add(new JLabel());
+        panelInterHaut.add(new JLabel());
+        panelInterHaut.add(new JLabel());
+        panelInterHaut.add(labelCombo);
+        panelInterHaut.add(choixNBJoueur);
+        panelInterHaut.add(new JLabel());
+
+        // Partie centre de la fenetre
+        panelCentre.add(new JLabel());
+        panelCentre.add(new JLabel("Saisissez les nom des joueurs"));
+        panelCentre.add(new JLabel());
+        panelCentre.add(TextField_joueur1);
+        panelCentre.add(TextField_joueur2);
+        panelCentre.add(TextField_joueur3);TextField_joueur3.setEnabled(false);
+        panelCentre.add(TextField_joueur4);TextField_joueur4.setEnabled(false);
 
 
+      // Partie inferieure de la fenetre
+      panelBas.add(new JLabel());
+      panelBas.add(new JLabel());
+      panelBas.add(new JLabel());
+      panelBas.add(new JLabel());
+      panelBas.add(new JLabel());
+      panelBas.add(new JLabel());
+      panelBas.add(new JLabel());
+      panelBas.add(new JLabel());
+      panelBas.add(new JLabel());
+      panelBas.add(valider);
+      panelBas.add(quitter);
+      panelBas.add(regles);
+      panelBas.add(new JLabel());
+      panelBas.add(new JLabel());
 
 
+        // listener du bouton quitter
+            quitter.addActionListener(new ActionListener() {
 
-          choixNBJoueur.setPreferredSize(new Dimension(100, 20));
-          windowStart.setSize(600, 300);
-          windowStart.setContentPane(panelPrincipal);
-          windowStart.setVisible(true);
-
-          // Partie superieure de la fenetre
-          panelHaut.add(panelInterHaut,BorderLayout.CENTER);
-          panelInterHaut.add(new JLabel());
-          panelInterHaut.add(new JLabel());
-          panelInterHaut.add(new JLabel());
-          panelInterHaut.add(new JLabel());
-          panelInterHaut.add(new JLabel());
-          panelInterHaut.add(labelCombo);
-          panelInterHaut.add(choixNBJoueur);
-          panelInterHaut.add(new JLabel());
-
-          // Partie centre de la fenetre
-          panelCentre.add(new JLabel());
-          panelCentre.add(new JLabel("Saisissez les nom des joueurs"));
-          panelCentre.add(new JLabel());
-          panelCentre.add(TextField_joueur1);
-          panelCentre.add(TextField_joueur2);
-          panelCentre.add(TextField_joueur3);TextField_joueur3.setEnabled(false);
-          panelCentre.add(TextField_joueur4);TextField_joueur4.setEnabled(false);
-
-
-          // Partie inferieure de la fenetre
-          panelBas.add(new JLabel());
-          panelBas.add(new JLabel());
-          panelBas.add(new JLabel());
-          panelBas.add(new JLabel());
-          panelBas.add(new JLabel());
-          panelBas.add(new JLabel());
-          panelBas.add(new JLabel());
-          panelBas.add(new JLabel());
-          panelBas.add(new JLabel());
-          panelBas.add(valider);
-          panelBas.add(quitter);
-          panelBas.add(regles);
-          panelBas.add(new JLabel());
-          panelBas.add(new JLabel());
-
-
-         // listener du bouton quitter
-          quitter.addActionListener(new ActionListener() {
-
-              @Override
-              public void actionPerformed(ActionEvent e) {
-                  if(e.getSource()==quitter){
-                   windowStart.setVisible(false);
-                   windowStart.dispose();
-                   System.exit(0);
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if(e.getSource()==quitter){
+                        windowStart.setVisible(false);
+                        windowStart.dispose();
+                        System.exit(0);
                     }
-              }
-          });
+                }
+            });
           
           // listener bouton valider
-          valider.addActionListener(new ActionListener() {
+            valider.addActionListener(new ActionListener() {
 
-              @Override
-              public void actionPerformed(ActionEvent e) {
-                  windowStart.setVisible(false);
-                  nbJoueursString = choixNBJoueur.getSelectedItem().toString();
-                  nbJoueursChoisis = Integer.parseUnsignedInt(nbJoueursString);
-                  joueurs = new Joueur[nbJoueursChoisis];
-                  if (nbJoueursChoisis==2){
-                      Message2 m = new Message2();
-                      m.type=TypesMessage.CHOIXJ1;
-                      m.type=TypesMessage.CHOIXJ2; 
-                  }
-                      
-                  InitFenetreRoles();
-              }
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    windowStart.setVisible(false);
+                    nbJoueursString = choixNBJoueur.getSelectedItem().toString();
+                    nbJoueursChoisis = Integer.parseUnsignedInt(nbJoueursString);
+                    joueurs = new Joueur[nbJoueursChoisis];
+                    
+                    //ajout des joueurs
+                    switch (nbJoueursChoisis){
+                        case 2 :
+                            nomsjoueurs.add(NomJoueur1);
+                            nomsjoueurs.add(NomJoueur2);
+                        break;
+                        case 3 :
+                            nomsjoueurs.add(NomJoueur1);
+                            nomsjoueurs.add(NomJoueur2);
+                            nomsjoueurs.add(NomJoueur3);
+                        break;
+                        case 4 :
+                            nomsjoueurs.add(NomJoueur1);
+                            nomsjoueurs.add(NomJoueur2);
+                            nomsjoueurs.add(NomJoueur3);
+                            nomsjoueurs.add(NomJoueur4);
+                        break;
+                    }
+                    fenetreChoixJoueur(1, nbJoueursChoisis);
+                }
 
-          });
-          // Listener du bouton regles
-           regles.addActionListener(new ActionListener() {
-              @Override
-              public void actionPerformed(ActionEvent e) {
-                  windowRules.setVisible(true);
-              }
-          });
+            });
+        // Listener du bouton regles
+            regles.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    windowRules.setVisible(true);
+                }
+            });
 
            choixNBJoueur.setPreferredSize(new Dimension(100, 20));
            choixNBJoueur.addItem("2");
@@ -399,304 +424,284 @@ public class IHMileInterdite2 {
 
     choixNBJoueur.addActionListener(new ActionListener() {
 
-              @Override
-              public void actionPerformed(ActionEvent e) {
-                  if (choixNBJoueur.getSelectedItem()=="2") {
-               TextField_joueur1.setEnabled(true);
-               TextField_joueur2.setEnabled(true);
-               TextField_joueur3.setEnabled(false);
-               TextField_joueur4.setEnabled(false);
-           } else if (choixNBJoueur.getSelectedItem()=="3") {
-               TextField_joueur1.setEnabled(true);
-               TextField_joueur2.setEnabled(true);
-               TextField_joueur3.setEnabled(true);
-               TextField_joueur4.setEnabled(false);
-           } else {
-               TextField_joueur1.setEnabled(true);
-               TextField_joueur2.setEnabled(true);
-               TextField_joueur3.setEnabled(true);
-               TextField_joueur4.setEnabled(true);
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (choixNBJoueur.getSelectedItem()=="2") {
+                TextField_joueur1.setEnabled(true);
+                TextField_joueur2.setEnabled(true);
+                TextField_joueur3.setEnabled(false);
+                TextField_joueur4.setEnabled(false);
+            } else if (choixNBJoueur.getSelectedItem()=="3") {
+                TextField_joueur1.setEnabled(true);
+                TextField_joueur2.setEnabled(true);
+                TextField_joueur3.setEnabled(true);
+                TextField_joueur4.setEnabled(false);
+            } else {
+                TextField_joueur1.setEnabled(true);
+                TextField_joueur2.setEnabled(true);
+                TextField_joueur3.setEnabled(true);
+                TextField_joueur4.setEnabled(true);
             }
-              }
-          });
+        }
+    });
 
+ }
+   
+        
+        
+    public void fenetreChoixJoueur(int numJoueur, int nbJoueurs){
+        nbJoueurs=nbJoueursChoisis;
+        
 
+        windowRoles = new JFrame("Choix du Role de :"+nomsjoueurs.get(numJoueur-1));
+        windowRoles.setLayout(new BorderLayout());
+        
+        
+        windowRoles.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        windowRoles.setVisible(true);
+        windowRoles.setSize(400, 500);
+        windowRoles.setResizable(false);
+        
+        
+        JButton aleatoire = new JButton("Aléatoire");
+        //JButton choix = new JButton("Choix");
+        JButton valider = new JButton("Valider");
+        JButton annuler = new JButton("Annuler");
 
-    // FENETRE CHOIX DES ROLES
-    //
-    //
-    //
-    //
+        JComboBox choixRole = new JComboBox();
+        for(String role : roles){
+            choixRole.addItem(role);
+        }
+        
+        choixRole.setPreferredSize(new Dimension(100, 20));
+        
+        JComboBox choixPion = new JComboBox(pions.toArray());
+        
+        choixPion.setPreferredSize(new Dimension(100, 20));
 
+        
+        JPanel panelPrincipal = new JPanel(new BorderLayout());
+        JPanel panelCentre = new JPanel (new GridLayout(4,2));
+        JPanel panelHaut = new JPanel(new GridLayout(2,3));
+        JPanel panelBas = new JPanel(new GridLayout(2,5));
+        panelPrincipal.add(panelHaut, BorderLayout.NORTH);
+        panelPrincipal.add(panelCentre, BorderLayout.CENTER);
+        panelPrincipal.add(panelBas, BorderLayout.SOUTH);
+        
+        for (int i = 0; i <6; i++){
+            if(i ==4){
+                panelHaut.add(aleatoire);
+            
+            }else{
+                panelHaut.add(new JLabel());
+            }
+        }
 
+        for (int i = 0; i<8; i++){
+            if(i == 2){
+                panelCentre.add(new JLabel("Role Joueur : "));
+            }else if (i == 4){
+                panelCentre.add(new JLabel("Pion : "));
+            }else if(i == 3){
+                panelCentre.add(choixRole);
+            }else if(i == 5){
+                panelCentre.add(choixPion);
+            }else {
+                panelCentre.add(new JLabel());
+            }
+        }
+        for (int i = 0; i <10; i++){
+            if(i == 1){
+                panelBas.add(valider);
+            } else if(i == 3){
+                panelBas.add(annuler);
+            } else {
+                panelBas.add(new JLabel());
+            }
+        }
+        windowRoles.add(panelPrincipal);
+        
+        if (numJoueur<nbJoueurs){
+            aleatoire.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    nomJoueur = nomsjoueurs.get(numJoueur-1);
+                    String role_temp;
+                    Collections.shuffle(roles);
+                    Collections.shuffle(pions);
+                    
+                    role_temp=roles.get(1);
+                    pionChoisi=pions.get(1);
+                    switch (role_temp){
+                        case"explorateur":
+                            roleChoisi= new Explorateur();
+                        break;
+                        
+                        case"ingénieur":
+                            roleChoisi= new Ingenieur();
+                        break;
+                        
+                        case"messager":
+                            roleChoisi= new Messager();
+                        break;
+                        
+                        case"navigateur":
+                            roleChoisi= new Navigateur();
+                        break;
+                        
+                        case"pilote":
+                            roleChoisi= new Pilote();
+                        break;
+                        
+                        case"plongeur":
+                            roleChoisi= new Plongeur();
+                        break;
+                    }
+                    
+                    joueurs[numJoueur-1] = new Joueur(nomJoueur,roleChoisi, pionChoisi);
+                    System.out.println(joueurs[numJoueur-1].getNom()+joueurs[numJoueur-1].getAventurier()+joueurs[numJoueur-1].getPion());
+                    fenetreChoixJoueur(numJoueur+1, nbJoueursChoisis);
+                }
+            });
+        }else{
+            aleatoire.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    nomJoueur = nomsjoueurs.get(numJoueur-1);
+                    String role_temp;
+                    Collections.shuffle(roles);
+                    Collections.shuffle(pions);
+                    
+                    role_temp=roles.get(1);
+                    pionChoisi=pions.get(1);
+                    switch (role_temp){
+                        case"explorateur":
+                            roleChoisi= new Explorateur();
+                        break;
+                        
+                        case"ingénieur":
+                            roleChoisi= new Ingenieur();
+                        break;
+                        
+                        case"messager":
+                            roleChoisi= new Messager();
+                        break;
+                        
+                        case"navigateur":
+                            roleChoisi= new Navigateur();
+                        break;
+                        
+                        case"pilote":
+                            roleChoisi= new Pilote();
+                        break;
+                        
+                        case"plongeur":
+                            roleChoisi= new Plongeur();
+                        break;
+                    }
+                    
+                    joueurs[numJoueur-1] = new Joueur(nomJoueur,roleChoisi, pionChoisi);
+                    System.out.println(joueurs[numJoueur-1].getNom()+joueurs[numJoueur-1].getAventurier()+joueurs[numJoueur-1].getPion());
+                    Message2 m = new Message2();
+                    m.type = TypesMessage.DEMARRER_PARTIE;
+                    // m.setMessages(joueurs_crees);
+                    observateur.traiterMessage(m);
+                }
+            });
+        }
+        
+         if (numJoueur<nbJoueurs){
+            valider.addActionListener(new ActionListener() {
+            @Override
+                public void actionPerformed(ActionEvent e) {
+                    nomJoueur = nomsjoueurs.get(numJoueur-1);
+                    pionChoisi = (Utils.Pion) choixPion.getSelectedItem();
+                    pions.remove(pionChoisi);
+                    
+                    switch ((String) choixRole.getSelectedItem()){
+                        case"explorateur":
+                            roleChoisi= new Explorateur();
+                        break;
+                        
+                        case"ingénieur":
+                            roleChoisi= new Ingenieur();
+                        break;
+                        
+                        case"messager":
+                            roleChoisi= new Messager();
+                        break;
+                        
+                        case"navigateur":
+                            roleChoisi= new Navigateur();
+                        break;
+                        
+                        case"pilote":
+                            roleChoisi= new Pilote();
+                        break;
+                        
+                        case"plongeur":
+                            roleChoisi= new Plongeur();
+                        break;
+                    }
+                    
+                    roles.remove(roleChoisi.getRole());
 
+                    joueurs[numJoueur-1] = new Joueur(nomJoueur, roleChoisi, pionChoisi);
+                    joueurs_crees.add(joueurs[numJoueur-1]);
+                    fenetreChoixJoueur(numJoueur+1,nbJoueursChoisis);
+                    
+                }
+            });
+        }else{
+            valider.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    nomJoueur = nomsjoueurs.get(numJoueur-1);
+                    pionChoisi = (Utils.Pion) choixPion.getSelectedItem();
+                    pions.remove(pionChoisi);
+                    
+                     switch ((String) choixRole.getSelectedItem()){
+                        case"explorateur":
+                            roleChoisi= new Explorateur();
+                        break;
+                        
+                        case"ingénieur":
+                            roleChoisi= new Ingenieur();
+                        break;
+                        
+                        case"messager":
+                            roleChoisi= new Messager();
+                        break;
+                        
+                        case"navigateur":
+                            roleChoisi= new Navigateur();
+                        break;
+                        
+                        case"pilote":
+                            roleChoisi= new Pilote();
+                        break;
+                        
+                        case"plongeur":
+                            roleChoisi= new Plongeur();
+                        break;
+                    }
+                     
+                    roles.remove(roleChoisi.getRole());
+
+                    joueurs[numJoueur-1] = new Joueur(nomJoueur, roleChoisi, pionChoisi);
+                    joueurs_crees.add(joueurs[numJoueur-1]); 
+                    Message2 m = new Message2();
+                    m.type=TypesMessage.DEMARRER_PARTIE;
+                   // m.setMessages(joueurs_crees);
+                    observateur.traiterMessage(m);
+                    
+                 }
+             });
+         }
 
     }
-
-    public void InitFenetreRoles() {
-        
-
-        //Fenetre choix roles
-        windowRoles = new JFrame("Choix Role");
-        windowRoles.setLayout(new BorderLayout());
-        
-        
-        
-        
-        windowRoles.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        windowRoles.setVisible(true);
-        windowRoles.setSize(400, 500);
-        windowRoles.setResizable(false);
-        roles[0]= new Ingenieur();
-        roles[1]= new Explorateur();
-        roles[2]= new Messager();
-        roles[3]= new Plongeur();
-        roles[4]= new Pilote();
-        roles[5]= new Navigateur();
-        
-        pions[0] = Utils.Pion.VERT;
-        pions[1] = Utils.Pion.BLEU;
-        pions[2] = Utils.Pion.ROUGE;
-        pions[3] = Utils.Pion.JAUNE;
-        pions[4] = Utils.Pion.ORANGE;
-        pions[5] = Utils.Pion.VIOLET;
-        
-        
-        
-        JButton aleatoire = new JButton("Aléatoire");
-        JButton choix = new JButton("Choix");
-        JButton valider = new JButton("Valider");
-        JButton annuler = new JButton("Annuler");
-        
-        JLabel LabelJoueur1 = new JLabel();
-        JLabel LabelJoueur2 = new JLabel();
-        JLabel LabelJoueur3 = new JLabel();
-        JLabel LabelJoueur4 = new JLabel();
-        
-        
-        JComboBox choixRole = new JComboBox(roles);
-        choixRole.setPreferredSize(new Dimension(100, 20));
-           choixRole.addItem( roles[0]);
-           choixRole.addItem("Messager");
-           choixRole.addItem("Navigateur");
-           choixRole.addItem("Pilote");
-           choixRole.addItem("Plongeur");
-        JComboBox choixPion = new JComboBox(pions);
-        choixPion.setPreferredSize(new Dimension(100, 20));
-           choixPion.addItem("Rouge");
-           choixPion.addItem("Vert");
-           choixPion.addItem("Bleu");
-           choixPion.addItem("Orange");
-           choixPion.addItem("Violet");
-
-       
-
-        JPanel panelPrincipal = new JPanel(new BorderLayout());
-        JPanel panelCentre = new JPanel (new GridLayout(4,2));
-        JPanel panelHaut = new JPanel(new GridLayout(2,5));
-        JPanel panelBas = new JPanel(new GridLayout(2,5));
-        panelPrincipal.add(panelHaut, BorderLayout.NORTH);
-        panelPrincipal.add(panelCentre, BorderLayout.CENTER);
-        panelPrincipal.add(panelBas, BorderLayout.SOUTH);
-        windowRoles.add(panelPrincipal);
-        
-        
-       for (int i = 0; i <10; i++){
-           if(i ==6){
-               panelHaut.add(aleatoire);
-           } else if(i == 8){
-               panelHaut.add(choix);
-           } else {
-               panelHaut.add(new JLabel());
-           }
-       }
-       
-       for (int i = 0; i<8; i++){
-            if(i == 2){
-               panelCentre.add(new JLabel("Role Joueur : "));
-           }else if (i == 4){
-               panelCentre.add(new JLabel("Pion : "));
-           }
-            else if(i == 3){
-               panelCentre.add(choixRole);
-           }else if(i == 5){
-               panelCentre.add(choixPion);
-           }
-           else {
-               panelCentre.add(new JLabel());
-           }
-       }
-        for (int i = 0; i <10; i++){
-           if(i == 1){
-               panelBas.add(valider);
-           } else if(i == 3){
-               panelBas.add(annuler);
-           } else {
-               panelBas.add(new JLabel());
-           }
-       }
-        for(String nom : nomsjoueurs){
-            System.out.println(nom);
-        }
-            boolean bool = true;
-          while (controle_boucle_role<=nbJoueursChoisis && bool){//controle_boucle_role = 1
-                windowRoles = new JFrame ("Choix du rôle & pion du joueur "+nomsjoueurs.get(controle_boucle_role-1));
-                
-                valider.addActionListener(new ActionListener(){
-
-                    @Override
-                      public void actionPerformed(ActionEvent e) {
-                          pionChoisi = (Utils.Pion) choixPion.getSelectedItem();
-                          roleChoisi = (Aventurier) choixRole.getSelectedItem();
-                          joueurs[controle_boucle_role-1] = new Joueur(nomsjoueurs.get(controle_boucle_role-1), roleChoisi, pionChoisi);
-                          Message2 m = new Message2();
-                          m.type = TypesMessage.AUTREACTION;
-                          observateur.traiterMessage(m);
-                          System.out.println(pionChoisi);
-                          System.out.println(roleChoisi);
-                          controle_boucle_role=controle_boucle_role+1;
-                      }
-                });
-                
-
-          }
-        
-                
-        }
-        public void fenetreChoixJoueur(int numJoueur){
-            windowRoles = new JFrame("Choix Role");
-        windowRoles.setLayout(new BorderLayout());
-        
-        
-        
-        
-        windowRoles.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        windowRoles.setVisible(true);
-        windowRoles.setSize(400, 500);
-        windowRoles.setResizable(false);
-        roles[0]= new Ingenieur();
-        roles[1]= new Explorateur();
-        roles[2]= new Messager();
-        roles[3]= new Plongeur();
-        roles[4]= new Pilote();
-        roles[5]= new Navigateur();
-        
-        pions[0] = Utils.Pion.VERT;
-        pions[1] = Utils.Pion.BLEU;
-        pions[2] = Utils.Pion.ROUGE;
-        pions[3] = Utils.Pion.JAUNE;
-        pions[4] = Utils.Pion.ORANGE;
-        pions[5] = Utils.Pion.VIOLET;
-        
-        JButton aleatoire = new JButton("Aléatoire");
-        JButton choix = new JButton("Choix");
-        JButton valider = new JButton("Valider");
-        JButton annuler = new JButton("Annuler");
-        
-        JLabel LabelJoueur1 = new JLabel();
-        JLabel LabelJoueur2 = new JLabel();
-        JLabel LabelJoueur3 = new JLabel();
-        JLabel LabelJoueur4 = new JLabel();
-        
-        
-        JComboBox choixRole = new JComboBox(roles);
-        choixRole.setPreferredSize(new Dimension(100, 20));
-           choixRole.addItem( roles[0].getRole());
-           choixRole.addItem("Messager");
-           choixRole.addItem("Navigateur");
-           choixRole.addItem("Pilote");
-           choixRole.addItem("Plongeur");
-        JComboBox choixPion = new JComboBox(pions);
-        choixPion.setPreferredSize(new Dimension(100, 20));
-           choixPion.addItem("Rouge");
-           choixPion.addItem("Vert");
-           choixPion.addItem("Bleu");
-           choixPion.addItem("Orange");
-           choixPion.addItem("Violet");
-
-        JPanel panelPrincipal = new JPanel(new BorderLayout());
-        JPanel panelCentre = new JPanel (new GridLayout(4,2));
-        JPanel panelHaut = new JPanel(new GridLayout(2,5));
-        JPanel panelBas = new JPanel(new GridLayout(2,5));
-        panelPrincipal.add(panelHaut, BorderLayout.NORTH);
-        panelPrincipal.add(panelCentre, BorderLayout.CENTER);
-        panelPrincipal.add(panelBas, BorderLayout.SOUTH);
-        windowRoles.add(panelPrincipal);
-        
-        
-       for (int i = 0; i <10; i++){
-           if(i ==6){
-               panelHaut.add(aleatoire);
-           } else if(i == 8){
-               panelHaut.add(choix);
-           } else {
-               panelHaut.add(new JLabel());
-           }
-       }
-       
-       for (int i = 0; i<8; i++){
-            if(i == 2){
-               panelCentre.add(new JLabel("Role Joueur : "));
-           }else if (i == 4){
-               panelCentre.add(new JLabel("Pion : "));
-           }
-            else if(i == 3){
-               panelCentre.add(choixRole);
-           }else if(i == 5){
-               panelCentre.add(choixPion);
-           }
-           else {
-               panelCentre.add(new JLabel());
-           }
-       }
-        for (int i = 0; i <10; i++){
-           if(i == 1){
-               panelBas.add(valider);
-           } else if(i == 3){
-               panelBas.add(annuler);
-           } else {
-               panelBas.add(new JLabel());
-           }
-       }
-        }
-        //Parametrage comboBox
-        
-
-
-        // Partie superieure de la fenetre
-        
-
-//
-//        //Partie centrale de la fenetre
-//
-//
-
-         
-          
-        
-        
-        
-        
-        
     
-       
-     
-    
-    
- // public void CreeJoueur(String nom, int num) {
-
-   //   joueurs[num-1] = new Joueur(nom,null,null);
-  //}
-
-    /**
-     * @return the joueurs
-     */
     public Joueur[] getJoueurs() {
         return joueurs;
     }
-
-
-}    
-        
- 
-    
+}
