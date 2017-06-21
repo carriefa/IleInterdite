@@ -170,7 +170,7 @@ public class Tuile {
         String nomspresents ="" ;
         ArrayList<String> noms = new ArrayList();
       
-        for (Aventurier joueurspresent : joueurspresents) {
+        for (Aventurier joueurspresent : getJoueurspresents()) {
            noms.add(joueurspresent.getJoueur().getNom()+"("+joueurspresent.getPion().toString()+")");
         };
         if (!noms.isEmpty()){
@@ -186,6 +186,13 @@ public class Tuile {
 }
 
     void addPion(Aventurier pion) {
-       joueurspresents.add(pion); 
+        getJoueurspresents().add(pion); 
+    }
+
+    /**
+     * @return the joueurspresents
+     */
+    public ArrayList<Aventurier> getJoueurspresents() {
+        return joueurspresents;
     }
 }

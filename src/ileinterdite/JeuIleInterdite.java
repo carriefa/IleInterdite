@@ -38,7 +38,7 @@ public class JeuIleInterdite {
     private Joueur joueur_courant; 
     public JeuIleInterdite(){
         // init des tresors 
-         trésors = new ArrayList<>();
+        ArrayList<Tresor> trésors = new ArrayList<>();
         
         Tresor tresor1 = new Tresor("La Pierre Sacrée");
         Tresor tresor2 = new Tresor("La Statue Du Zéphyr");
@@ -104,7 +104,6 @@ public class JeuIleInterdite {
     
      public void setJoueurs(ArrayList<Joueur> joueurs_ihm) {
         this.joueurs = joueurs_ihm;
-         System.out.println(joueurs.size());
         for (Joueur joueur : joueurs){
             System.out.println(joueur.getPion()+" pion du joueur dans JeuIleInterdite");
             System.out.println(grille.getTuile(grille.getNumTuilePion(joueur.getPion())));
@@ -143,9 +142,9 @@ public class JeuIleInterdite {
         boolean partiecontinue = true ;
         
         //InitJoueur();
-        while (!jeuGagnee() && !jeuPerdue()){
+        while (partiecontinue){
         for (Joueur joueur : getJoueurs()) {
-           setJoueur_courant(joueur);
+            setJoueurCourant(joueur);
             TourJoueur(joueur);
         }}
     }
@@ -411,19 +410,48 @@ public class JeuIleInterdite {
     }
 
     
- 
-
-    /**
-     * @return the joueur_courant
-     */
-    public Joueur getJoueur_courant() {
-        return joueur_courant;
+    public Joueur getJoueurCourant(){
+        return joueur_courant; 
     }
-
-    /**
-     * @param joueur_courant the joueur_courant to set
-     */
-    public void setJoueur_courant(Joueur joueur_courant) {
-        this.joueur_courant = joueur_courant;
+    
+    public void setJoueurCourant(Joueur joueur) {
+        this.joueur_courant=joueur;
+    }
+    public boolean jeuGagné(Grille grille) {
+        
+        Tuile heliport = null;
+        for (int i = 0; i<grille.getTuiles().length;i++){
+            
+            if ((grille.getTuile(i).getNom())==("Heliport")) {
+                heliport = grille.getTuile(i);
+            }
+        }
+        int nbTresorsRecuperés = 0 ;
+        for (Tresor tresor : trésors){
+            
+            if (tresor.estRecupere()){
+                    nbTresorsRecuperés=nbTresorsRecuperés+1;
+                    }
+        }
+                if (heliport.getJoueurspresents().size()==joueurs.size() && nbTresorsRecuperés == 4 ) {
+                    return true;}
+                else {
+                    return false;}
+        
+    }
+    public boolean jeuPerdu(Grille grille) {
+        
+        Tuile heliport = null;
+        for (int i = 0; i<grille.getTuiles().length;i++){
+            
+            if ((grille.getTuile(i).getNom())==("Heliport")) {
+                heliport = grille.getTuile(i);
+            }
+        }
+       if(heliport.getEtat().equals(Etat.DISPARUE)) {
+           return true;
+       } else {
+           return false;
+       }
     }
 }
