@@ -129,6 +129,17 @@ public class JeuIleInterdite {
         }
     }
     
+    
+   public boolean verifDonnerCarte(Joueur joueurDonneur, Joueur joueurReceveur,Carte_Tresor_Abs carte){
+       return ((joueurReceveur.getMain().size()>=5) && (joueurDonneur.getPosition() == joueurReceveur.getPosition()) && (carte.getType() != "Helicoptere") && (carte.getType() != "SacDeSable"));
+   }
+    
+    public void donnerCarte(Joueur joueurDonneur, Joueur joueurReceveur,Carte_Tresor_Abs carte) {
+             
+            joueurReceveur.addCarteMain(carte);
+            joueurDonneur.supprimerCarte(carte);
+   
+}
      
     public void Jeu (){
         boolean partiecontinue = true ;

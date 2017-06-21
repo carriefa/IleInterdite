@@ -21,7 +21,7 @@ public class Test {
         //System.out.println(j1.getNom());
         av1.setJoueur_associé(j1);
         //System.out.println(av1.getJoueur().getNom());
-        Grille grille = new Grille();
+        
         j1.setPostition(grille.getTuile(27));
         grille.setEtat(14, Etat.DISPARUE);
         grille.setEtat(20, Etat.DISPARUE);

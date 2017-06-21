@@ -38,7 +38,7 @@ public class Controleur implements Observateur {
     public void traiterMessage(Message2 msg) {
         switch(msg.getType()) {
             case DEMARRER_PARTIE:
-                grille = new Grille();
+                
                 ihm = new IHMileInterdite2();
                 ihm.setObservateur(this);
                 ihm.InitFenetreDepart();
