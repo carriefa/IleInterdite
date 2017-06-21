@@ -1,5 +1,9 @@
 package ileinterdite;
 
+import Cartes.Montee_Des_Eaux;
+import Cartes.Carte_Tresor;
+import Cartes.SacDeSable;
+import Cartes.Helicoptere;
 import Cartes.Carte_Inondation;
 import Cartes.Carte_Tresor;
 import Cartes.Carte_Tresor_Abs;
@@ -144,6 +148,32 @@ public class JeuIleInterdite {
     }
 
            
+    public void piocheCarteTresor(Joueur joueur){
+        if (joueur.getMain().size()<5){
+            joueur.addCarteMain(cartestrésors.get(0));
+            cartestrésors.remove(0);
+        }
+    }
+    
+    public Tuile piocheCarteInondation(){
+        
+        Carte_Inondation carte = cartesInondation.get(0);  // Regarde Luca
+        Tuile tuile = carte.getTuileassociée();
+        if (tuile.getEtat() == Etat.ASSECHEE){
+            tuile.SetEtat(Etat.INONDEE);
+            cartes_innondation_defausse.add(carte);
+        }
+        else if (tuile.getEtat() == Etat.INONDEE){
+            tuile.SetEtat(Etat.DISPARUE);
+            cartes_innodation_cimetiere.add(carte);
+        }
+        
+        cartesInondation.remove(0);
+        return tuile;
+        
+    }
+    
+    
     public void TourJoueur(Joueur joueur) {
         int pointsActions = 3 ;
         boolean sortie = false ;
