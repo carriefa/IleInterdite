@@ -417,4 +417,41 @@ public class JeuIleInterdite {
     public void setJoueurCourant(Joueur joueur) {
         this.joueur_courant=joueur;
     }
+    public boolean jeuGagné(Grille grille) {
+        
+        Tuile heliport = null;
+        for (int i = 0; i<grille.getTuiles().length;i++){
+            
+            if ((grille.getTuile(i).getNom())==("Heliport")) {
+                heliport = grille.getTuile(i);
+            }
+        }
+        int nbTresorsRecuperés = 0 ;
+        for (Tresor tresor : trésors){
+            
+            if (tresor.estRecupere()){
+                    nbTresorsRecuperés=nbTresorsRecuperés+1;
+                    }
+        }
+                if (heliport.getJoueurspresents().size()==joueurs.size() && nbTresorsRecuperés == 4 ) {
+                    return true;}
+                else {
+                    return false;}
+        
+    }
+    public boolean jeuPerdu(Grille grille) {
+        
+        Tuile heliport = null;
+        for (int i = 0; i<grille.getTuiles().length;i++){
+            
+            if ((grille.getTuile(i).getNom())==("Heliport")) {
+                heliport = grille.getTuile(i);
+            }
+        }
+       if(heliport.getEtat().equals(Etat.DISPARUE)) {
+           return true;
+       } else {
+           return false;
+       }
+    }
 }
