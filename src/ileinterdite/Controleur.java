@@ -6,6 +6,7 @@
 package ileinterdite;
 
 import static ileinterdite.TypesMessage.DEMARRER_PARTIE;
+import java.util.ArrayList;
 
 /**
  *
@@ -15,20 +16,34 @@ public class Controleur implements Observateur {
 
     private JeuIleInterdite jeu ;
     private IHMileInterdite2 ihm ;
-    private Grille grille;
+    private Grille grille; 
+   
+            
     public Controleur(){
         
+        ArrayList<Joueur> joueurs = new ArrayList<>();
+        Aventurier ingé = new Roles.Explorateur();
+        jeu = new JeuIleInterdite();
+        
+        Joueur j1 = new Joueur("jean",new Roles.Explorateur() , Utils.Pion.VERT); 
+        Joueur j2 = new Joueur("jiji", new Roles.Messager(), Utils.Pion.ROUGE);
+        joueurs.add(j1);
+        joueurs.add(j2);
+        jeu.setJoueurs(joueurs);
+        
+        grille = new Grille();
+        ihm = new IHMileInterdite2();
+        ihm.setObservateur(this);
+                
+
     }
     @Override
     public void traiterMessage(Message2 msg) {
         switch(msg.getType()) {
-            case DEMARRER_PARTIE:
-                grille = new Grille();
-                ihm = new IHMileInterdite2();
-                ihm.setObservateur(this);
-                ihm.InitFenetreDepart();
-                
-            break ;
+            
+            case DEMARRER_PARTIE : //affiche le plateau
+                ihm.InitFenetrePrincipale(grille);
+            break;
             case MOUVEMENT:
                 ihm.setActionCourante("mouvement");
             

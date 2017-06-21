@@ -15,10 +15,19 @@ import com.sun.glass.ui.SystemClipboard;
 import ileinterdite.Utils.Pion;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Scanner;
 
 
 public class JeuIleInterdite {
+
+    /**
+     * @param joueurs the joueurs to set
+     */
+   
+    
+    
     private Grille grille;
     private Scanner scanner;
     private ArrayList<Carte_Tresor_Abs> cartes_trésor_defausse;
@@ -29,10 +38,11 @@ public class JeuIleInterdite {
     private ArrayList<Carte_Inondation> cartes_innondation_defausse;
     private ArrayList<Carte_Inondation> cartes_innondation_pioche;
     private ArrayList<Carte_Inondation> cartes_innodation_cimetiere;
-    private Carte_Tresor_Abs[] cartestrésors;
-    private Carte_Inondation[] cartesInondation;
+    private ArrayList<Carte_Tresor_Abs> cartestrésors;
+    private ArrayList<Carte_Inondation> cartesInondation;
     public JeuIleInterdite(){
         // init des tresors 
+        /*
         Tresor tresor1 = new Tresor("La Pierre Sacrée");
         Tresor tresor2 = new Tresor("La Statue Du Zéphyr");
         Tresor tresor3 = new Tresor("Le Cristal Ardent");
@@ -41,11 +51,11 @@ public class JeuIleInterdite {
         trésors.add(tresor2);
         trésors.add(tresor3);
         trésors.add(tresor4);
+        */
         
         
-        
-        cartesInondation = new Carte_Inondation[24];
-        cartestrésors = new  Carte_Tresor_Abs[28];
+        cartesInondation = new ArrayList<>();
+        cartestrésors = new ArrayList<>();
         scanner = new Scanner(System.in);
         grille = new Grille();
         roles = new ArrayList<>();
@@ -60,38 +70,68 @@ public class JeuIleInterdite {
         
         
         // init des cartes trésors 
+        /*
         for (int i = 0 ; i < 27 ; i++){
             if (i <=4){
-                cartestrésors[i]=new Carte_Tresor(tresor1);
+                cartestrésors.add(new Carte_Tresor(tresor1));
             }
             if (4 < i && i<=9 ){
-                cartestrésors[i]=new Carte_Tresor(tresor2);
+                cartestrésors.add(new Carte_Tresor(tresor2));
             }
              if (9 < i && i<=14 ){
-                cartestrésors[i]=new Carte_Tresor(tresor3);
+                cartestrésors.add(new Carte_Tresor(tresor3));
             }
               if (14 < i && i<=19 ){
-                cartestrésors[i]=new Carte_Tresor(tresor4);
+                cartestrésors.add(new Carte_Tresor(tresor4));
             }
              if (19 < i && i<=22){
-                 cartestrésors[i]=new Montee_Des_Eaux();
+                 cartestrésors.add(new Montee_Des_Eaux());
              }
              if (22< i && i<=25){
-                 cartestrésors[i]=new Helicoptere();
+                 cartestrésors.add(new Helicoptere());
              }
              if (25 < i && i<=27){
-                 cartestrésors[i]=new SacDeSable();
+                 cartestrésors.add(new SacDeSable());
              }
         }
-        
-        int a = 0 ;
+        */
              for(int i = 0; i < grille.getTuiles().length; i++){
               if(grille.getTuile(i).getNom() != null){
-                      cartesInondation[a] = new Carte_Inondation(grille.getTuile(i));
-                a = a+1;
+                      cartesInondation.add(new Carte_Inondation(grille.getTuile(i)));
               }}
+             
+             melangeCartes(cartestrésors);
+             melangeCartes(cartesInondation);
+             
+             
         
     } 
+    
+    
+     public void setJoueurs(ArrayList<Joueur> joueurs) {
+        this.joueurs = joueurs;
+    }
+     
+     
+    public void initCartesJoueurs(){
+        
+        for(int i = 0; i<joueurs.size(); i++){
+            for(int j = 0; j<2; i++){              
+                while(cartestrésors.get(j).getType()=="Montee_Des_Eaux"){
+                    melangeCartes(cartestrésors); 
+                    
+                    }
+                    
+                joueurs.get(i).addCarteMain(cartestrésors.get(i));
+                cartestrésors.remove(i);
+            
+            }
+            
+            
+        }
+    }
+    
+     
     public void Jeu (){
         boolean partiecontinue = true ;
         
@@ -424,11 +464,23 @@ public class JeuIleInterdite {
     public Grille getGrille() {
         return grille;
     }
-
+    
+    public ArrayList melangeCartes(ArrayList cartes){
+        Collections.shuffle(cartes);
+        return cartes;
+        }
+     
     /**
      * @return the joueurs
      */
     public ArrayList<Joueur> getJoueurs() {
         return joueurs;
+    }
+
+    /**
+     * @return the trésors
+     */
+    public ArrayList<Tresor> getTrésors() {
+        return trésors;
     }
 }

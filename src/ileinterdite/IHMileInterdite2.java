@@ -18,6 +18,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -46,24 +48,24 @@ public class IHMileInterdite2 {
     private JPanel commandes;
     private Observateur observateur;
        
-        //boutons
+    //boutons
 
-        private JButton Assechement = new JButton("Assechement");
-        private JButton Deplacement = new JButton("Deplacement");
-        private JButton Recuparation = new JButton("Récuperation");
+    private JButton Assechement = new JButton("Assechement");
+    private JButton Deplacement = new JButton("Deplacement");
+    private JButton Recuparation = new JButton("Récuperation");
 
-        //grille
+    //grille
 
-        private JButton[] cases;
-        private JPanel panelCentre = new JPanel(new GridLayout(6,6));
+    private JButton[] cases;
+    private JPanel panelCentre = new JPanel(new GridLayout(6,6));
 
-          //Options
+      //Options
 
-        private JPanel status = new JPanel();
-        private JPanel panelOptions = new JPanel(new BorderLayout());
-        private JLabel joueurCourant = new JLabel();
-        private JLabel actionCourante = new JLabel();
-        
+    private JPanel status = new JPanel();
+    private JPanel panelOptions = new JPanel(new BorderLayout());
+    private JLabel joueurCourant = new JLabel();
+    private JLabel actionCourante = new JLabel();
+
         
        
 
@@ -103,6 +105,8 @@ public class IHMileInterdite2 {
         }
         setRoles();
         setPions();
+        
+        InitFenetreDepart();
     }
     
      public void setObservateur(Observateur observateur){
@@ -277,10 +281,11 @@ public class IHMileInterdite2 {
             public void caretUpdate(javax.swing.event.CaretEvent e) {
                 JTextField text = (JTextField)e.getSource();
                 NomJoueur1=TextField_joueur1.getText();
-                nomsjoueurs.add(NomJoueur1);
+                
             }
         };
-
+        
+        
         TextField_joueur1.addCaretListener(caretupdate1);
 
          CaretListener caretupdate2 = new CaretListener() {
@@ -288,7 +293,7 @@ public class IHMileInterdite2 {
             public void caretUpdate(javax.swing.event.CaretEvent e) {
                 JTextField text = (JTextField)e.getSource();
                 NomJoueur2=TextField_joueur2.getText();
-                nomsjoueurs.add(NomJoueur2);
+                //nomsjoueurs.add(NomJoueur2);
             }
         };
         TextField_joueur2.addCaretListener(caretupdate2);
@@ -299,7 +304,7 @@ public class IHMileInterdite2 {
             public void caretUpdate(javax.swing.event.CaretEvent e) {
                 JTextField text = (JTextField)e.getSource();
                 NomJoueur3=TextField_joueur3.getText();
-                nomsjoueurs.add(NomJoueur3);
+                //nomsjoueurs.add(NomJoueur3);
             }
         };
         TextField_joueur3.addCaretListener(caretupdate3);
@@ -309,7 +314,7 @@ public class IHMileInterdite2 {
             public void caretUpdate(javax.swing.event.CaretEvent e) {
                 JTextField text = (JTextField)e.getSource();
                 NomJoueur4=TextField_joueur4.getText();
-                nomsjoueurs.add(NomJoueur4);
+                //nomsjoueurs.add(NomJoueur4);
             }
         };
         TextField_joueur4.addCaretListener(caretupdate4);
@@ -381,6 +386,24 @@ public class IHMileInterdite2 {
                     nbJoueursChoisis = Integer.parseUnsignedInt(nbJoueursString);
                     joueurs = new Joueur[nbJoueursChoisis];
                     
+                    //ajout des joueurs
+                    switch (nbJoueursChoisis){
+                        case 2 :
+                            nomsjoueurs.add(NomJoueur1);
+                            nomsjoueurs.add(NomJoueur2);
+                        break;
+                        case 3 :
+                            nomsjoueurs.add(NomJoueur1);
+                            nomsjoueurs.add(NomJoueur2);
+                            nomsjoueurs.add(NomJoueur3);
+                        break;
+                        case 4 :
+                            nomsjoueurs.add(NomJoueur1);
+                            nomsjoueurs.add(NomJoueur2);
+                            nomsjoueurs.add(NomJoueur3);
+                            nomsjoueurs.add(NomJoueur4);
+                        break;
+                    }
                     fenetreChoixJoueur(1, nbJoueursChoisis);
                 }
 
@@ -441,7 +464,7 @@ public class IHMileInterdite2 {
         
         
         JButton aleatoire = new JButton("Aléatoire");
-        JButton choix = new JButton("Choix");
+        //JButton choix = new JButton("Choix");
         JButton valider = new JButton("Valider");
         JButton annuler = new JButton("Annuler");
 
@@ -459,17 +482,16 @@ public class IHMileInterdite2 {
         
         JPanel panelPrincipal = new JPanel(new BorderLayout());
         JPanel panelCentre = new JPanel (new GridLayout(4,2));
-        JPanel panelHaut = new JPanel(new GridLayout(2,5));
+        JPanel panelHaut = new JPanel(new GridLayout(2,3));
         JPanel panelBas = new JPanel(new GridLayout(2,5));
         panelPrincipal.add(panelHaut, BorderLayout.NORTH);
         panelPrincipal.add(panelCentre, BorderLayout.CENTER);
         panelPrincipal.add(panelBas, BorderLayout.SOUTH);
         
-        for (int i = 0; i <10; i++){
-            if(i ==6){
+        for (int i = 0; i <6; i++){
+            if(i ==4){
                 panelHaut.add(aleatoire);
-            }else if(i == 8){
-                panelHaut.add(choix);
+            
             }else{
                 panelHaut.add(new JLabel());
             }
@@ -498,11 +520,101 @@ public class IHMileInterdite2 {
             }
         }
         windowRoles.add(panelPrincipal);
+        
+        if (numJoueur<nbJoueurs){
+            aleatoire.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    nomJoueur = nomsjoueurs.get(numJoueur-1);
+                    String role_temp;
+                    Collections.shuffle(roles);
+                    Collections.shuffle(pions);
+                    
+                    role_temp=roles.get(1);
+                    pionChoisi=pions.get(1);
+                    switch (role_temp){
+                        case"explorateur":
+                            roleChoisi= new Explorateur();
+                        break;
+                        
+                        case"ingénieur":
+                            roleChoisi= new Ingenieur();
+                        break;
+                        
+                        case"messager":
+                            roleChoisi= new Messager();
+                        break;
+                        
+                        case"navigateur":
+                            roleChoisi= new Navigateur();
+                        break;
+                        
+                        case"pilote":
+                            roleChoisi= new Pilote();
+                        break;
+                        
+                        case"plongeur":
+                            roleChoisi= new Plongeur();
+                        break;
+                    }
+                    
+                    joueurs[numJoueur-1] = new Joueur(nomJoueur,roleChoisi, pionChoisi);
+                    System.out.println(joueurs[numJoueur-1].getNom()+joueurs[numJoueur-1].getAventurier()+joueurs[numJoueur-1].getPion());
+                    fenetreChoixJoueur(numJoueur+1, nbJoueursChoisis);
+                }
+            });
+        }else{
+            aleatoire.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    nomJoueur = nomsjoueurs.get(numJoueur-1);
+                    String role_temp;
+                    Collections.shuffle(roles);
+                    Collections.shuffle(pions);
+                    
+                    role_temp=roles.get(1);
+                    pionChoisi=pions.get(1);
+                    switch (role_temp){
+                        case"explorateur":
+                            roleChoisi= new Explorateur();
+                        break;
+                        
+                        case"ingénieur":
+                            roleChoisi= new Ingenieur();
+                        break;
+                        
+                        case"messager":
+                            roleChoisi= new Messager();
+                        break;
+                        
+                        case"navigateur":
+                            roleChoisi= new Navigateur();
+                        break;
+                        
+                        case"pilote":
+                            roleChoisi= new Pilote();
+                        break;
+                        
+                        case"plongeur":
+                            roleChoisi= new Plongeur();
+                        break;
+                    }
+                    
+                    joueurs[numJoueur-1] = new Joueur(nomJoueur,roleChoisi, pionChoisi);
+                    System.out.println(joueurs[numJoueur-1].getNom()+joueurs[numJoueur-1].getAventurier()+joueurs[numJoueur-1].getPion());
+                    Message2 m = new Message2();
+                    m.type = TypesMessage.DEMARRER_PARTIE;
+                    // m.setMessages(joueurs_crees);
+                    observateur.traiterMessage(m);
+                }
+            });
+        }
+        
          if (numJoueur<nbJoueurs){
             valider.addActionListener(new ActionListener() {
             @Override
                 public void actionPerformed(ActionEvent e) {
-                    nomJoueur = nomsjoueurs.get(numJoueur);
+                    nomJoueur = nomsjoueurs.get(numJoueur-1);
                     pionChoisi = (Utils.Pion) choixPion.getSelectedItem();
                     pions.remove(pionChoisi);
                     
@@ -535,7 +647,6 @@ public class IHMileInterdite2 {
                     roles.remove(roleChoisi.getRole());
 
                     joueurs[numJoueur-1] = new Joueur(nomJoueur, roleChoisi, pionChoisi);
-                    System.out.println(joueurs[numJoueur-1].getNom()+joueurs[numJoueur-1].getAventurier().getRole()+joueurs[numJoueur-1].getPion());
                     joueurs_crees.add(joueurs[numJoueur-1]);
                     fenetreChoixJoueur(numJoueur+1,nbJoueursChoisis);
                     
@@ -545,7 +656,7 @@ public class IHMileInterdite2 {
             valider.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    nomJoueur = nomsjoueurs.get(numJoueur);
+                    nomJoueur = nomsjoueurs.get(numJoueur-1);
                     pionChoisi = (Utils.Pion) choixPion.getSelectedItem();
                     pions.remove(pionChoisi);
                     
@@ -579,7 +690,6 @@ public class IHMileInterdite2 {
 
                     joueurs[numJoueur-1] = new Joueur(nomJoueur, roleChoisi, pionChoisi);
                     joueurs_crees.add(joueurs[numJoueur-1]); 
-                    System.out.println(joueurs[numJoueur-1].getNom()+joueurs[numJoueur-1].getAventurier().getRole()+joueurs[numJoueur-1].getPion()); 
                     Message2 m = new Message2();
                     m.type=TypesMessage.DEMARRER_PARTIE;
                    // m.setMessages(joueurs_crees);

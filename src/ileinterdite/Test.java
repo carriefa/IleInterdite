@@ -22,23 +22,9 @@ public class Test {
         //System.out.println(j1.getNom());
         //av1.setJoueur_associé(j1);
         //System.out.println(av1.getJoueur().getNom());
-        Grille grille = new Grille();
-        for(Tuile tuile :grille.getTuiles()){
-            System.out.println(tuile.getNumero());
-        }
         //j1.setPostition(grille.getTuile(27));
-        grille.setEtat(14, Etat.DISPARUE);
-        grille.setEtat(20, Etat.DISPARUE);
-        grille.setEtat(26, Etat.DISPARUE);
-        grille.setEtat(19, Etat.INONDEE);
-        grille.setEtat(21, Etat.INONDEE);
-        IHMileInterdite2 ihm = new IHMileInterdite2();
-        ihm.InitFenetrePrincipale(grille);
         
         Controleur controleur = new Controleur();
-        Message2 m = new Message2(); 
-        m.type = TypesMessage.DEMARRER_PARTIE;
-        controleur.traiterMessage(m);
       
     }
 }
