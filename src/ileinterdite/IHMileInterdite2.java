@@ -885,4 +885,9 @@ public class IHMileInterdite2 {
     public String getJoueurCourant() {
     return nomJoueur; 
 }
+
+    void setJourCourant(Joueur joueur) {
+        
+        joueurCourant.setText(joueur.getNom());
+    }
 }
