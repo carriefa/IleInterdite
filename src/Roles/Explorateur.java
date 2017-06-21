@@ -31,7 +31,7 @@ public class Explorateur extends Aventurier {
         this.role = role;
     }
 
-        @Override
+    @Override
     public Tuile getPosition() {
          return super.getPosition();
     }

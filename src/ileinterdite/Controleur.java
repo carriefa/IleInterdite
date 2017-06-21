@@ -50,7 +50,7 @@ public class Controleur implements Observateur {
                         ihm.setActionCourante("assecher");
                         ihm.PopUpIngenieur();
                     }else if(jeu.getJoueurCourant().getAventurier().getControleAssechable()==2){
-                        ihm.set
+                        //ihm.set
                     }
                 }else{
                     ihm.setActionCourante("assecher");
