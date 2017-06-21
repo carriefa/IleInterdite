@@ -185,7 +185,7 @@ public class Tuile {
 
 }
 
-    void addPion(Aventurier pion) {
+    void addAventurier(Aventurier pion) {
         getJoueurspresents().add(pion); 
     }
 

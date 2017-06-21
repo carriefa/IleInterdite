@@ -9,6 +9,7 @@ public abstract class Aventurier {
     public ArrayList<Carte_Tresor_Abs> main;
     private Joueur joueur_associé;
     private Tuile position_actuelle;
+    private Tuile position_precedente;
     private Pion pion;
     
     public Aventurier (){
@@ -26,12 +27,17 @@ public abstract class Aventurier {
     }
     
     public void setPosition(Tuile tuile){
-//        if (position_actuelle != null){
-//            position_actuelle.getJoueurspresents().remove(this);   
-//        }
+        if (position_actuelle != null){
+                   this.position_precedente = this.position_actuelle; 
+        }
         this.position_actuelle=tuile;
-        tuile.addPion(this);
-        
+        tuile.addAventurier(this);
+//          for (int i = 0 ; i< this.position_precedente.getJoueurspresents().size();i++){
+//              if (this.position_precedente.getJoueurspresents().get(i) == this){
+//                   this.position_precedente.getJoueurspresents().remove(i);
+//                 }
+//          };
+    this.position_precedente.getJoueurspresents().clear();
     }
     
     public abstract ArrayList<Tuile> getTuilesAssechables(Joueur joueur);
