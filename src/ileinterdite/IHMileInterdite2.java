@@ -56,10 +56,11 @@ public class IHMileInterdite2 {
 
     //grille
 
-    private JButton[] cases;
+    private Case[] cases;
     private JPanel panelCentre = new JPanel(new GridLayout(6,6));
     
     private ArrayList<Tuile> tuilesDeplacement = new ArrayList<>();
+     Tuile tTemp;
 
       //Options
 
@@ -69,6 +70,7 @@ public class IHMileInterdite2 {
     private JLabel actionCourante = new JLabel();
     private boolean deplacementPossible = true;
     private boolean clikDeplacement;
+    private Tuile tuileDeplacementChoisi;
    
 
         
@@ -178,14 +180,14 @@ public class IHMileInterdite2 {
         
         
         
-        cases = new JButton[24];
+        cases = new Case[24];
 
         int a = 0;
         
             for(int i = 0; i<grille.getTuiles().length; i++){
               if(grille.getTuile(i).getNom() != null){
-                cases[a] = new JButton((grille.getTuile(i).getNom())+(grille.getTuile(i).getNumero()));
-                
+                cases[a] = new Case((grille.getTuile(i).getNom())+(grille.getTuile(i).getNumero()));
+                cases[a].setTuileAssocié(grille.getTuile(i));
                 
                 panelCentre.add(cases[a]);
                 a = a+1;
@@ -264,14 +266,25 @@ public class IHMileInterdite2 {
    }
    
    public void choixDeplacement(Grille grille){
-   
+
+       JButton b = new JButton();
        for (int i = 0; i< grille.getTuiles().length; i++){
                for (int j = 0; j<tuilesDeplacement.size(); j++){
                    
                    if(tuilesDeplacement.get(j).getNumero() == grille.getTuile(i).getNumero()){
                        
                        if (i<=3){
+                           
                            cases[tuilesDeplacement.get(j).getNumero()-2].setBackground(Color.green);
+                           cases[tuilesDeplacement.get(j).getNumero()-2].addActionListener(new ActionListener() {
+                               @Override
+                               public void actionPerformed(ActionEvent e) {
+                                   Case t = (Case) e.getSource();
+                                   tTemp = t.getTuileAssocie();
+                                   System.out.println(tTemp.getNom());
+                               }
+                           });
+                             
                        } else if (i>=7 && i<=10){
                            cases[tuilesDeplacement.get(j).getNumero()-5].setBackground(Color.green);
                        } else if (i>=12 && i<=23){
@@ -289,9 +302,12 @@ public class IHMileInterdite2 {
                
        }
    }
+   
+      
 
    public void setActionCourante(String action){
        actionCourante.setText(action);
+       
    }
 
     public void InitFenetreRegles() {
@@ -624,7 +640,10 @@ public class IHMileInterdite2 {
                     
                     joueurs[numJoueur-1] = new Joueur(nomJoueur,roleChoisi, pionChoisi);
                     System.out.println(joueurs[numJoueur-1].getNom()+joueurs[numJoueur-1].getAventurier()+joueurs[numJoueur-1].getPion());
+                    joueurs_crees.add(joueurs[numJoueur-1]);
+                    windowRoles.dispose();
                     fenetreChoixJoueur(numJoueur+1, nbJoueursChoisis);
+                    
                 }
             });
         }else{
@@ -665,10 +684,12 @@ public class IHMileInterdite2 {
                     }
                     
                     joueurs[numJoueur-1] = new Joueur(nomJoueur,roleChoisi, pionChoisi);
-                    System.out.println(joueurs[numJoueur-1].getNom()+joueurs[numJoueur-1].getAventurier()+joueurs[numJoueur-1].getPion());
+                    
+                    joueurs_crees.add(joueurs[numJoueur-1]);
+                    windowRoles.dispose();
                     Message2 m = new Message2();
                     m.type = TypesMessage.DEMARRER_PARTIE;
-                    // m.setMessages(joueurs_crees);
+                    m.setJoueurs(joueurs_crees);
                     observateur.traiterMessage(m);
                 }
             });
@@ -712,7 +733,9 @@ public class IHMileInterdite2 {
 
                     joueurs[numJoueur-1] = new Joueur(nomJoueur, roleChoisi, pionChoisi);
                     joueurs_crees.add(joueurs[numJoueur-1]);
+                    windowRoles.dispose();
                     fenetreChoixJoueur(numJoueur+1,nbJoueursChoisis);
+                    //windowRoles.dispose();
                     
                 }
             });
@@ -754,9 +777,11 @@ public class IHMileInterdite2 {
 
                     joueurs[numJoueur-1] = new Joueur(nomJoueur, roleChoisi, pionChoisi);
                     joueurs_crees.add(joueurs[numJoueur-1]); 
+                    windowRoles.dispose();
                     Message2 m = new Message2();
                     m.type=TypesMessage.DEMARRER_PARTIE;
-                   // m.setMessages(joueurs_crees);
+                    //windowRoles.dispose();
+                    m.setJoueurs(joueurs_crees);
                     observateur.traiterMessage(m);
                     
                  }
@@ -768,4 +793,8 @@ public class IHMileInterdite2 {
     public Joueur[] getJoueurs() {
         return joueurs;
     }
+    
+    public String getJoueurCourant() {
+    return nomJoueur; 
+}
 }

@@ -6,6 +6,7 @@ import ileinterdite.Controleur;
 import ileinterdite.Etat;
 import ileinterdite.Joueur;
 import ileinterdite.Message2;
+import ileinterdite.Observateur;
 import ileinterdite.Tuile;
 import ileinterdite.TypesMessage;
 import ileinterdite.Utils;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 
 public class Ingenieur extends Aventurier {
     private String role = "ingénieur";
-
+    private Observateur obs;
 
 
 
