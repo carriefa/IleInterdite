@@ -38,6 +38,7 @@ public class Controleur implements Observateur {
             break;
             case MOUVEMENT:
                 ihm.setActionCourante("mouvement");
+                
             majJeu();
             break;
             case ASSECHER: 
