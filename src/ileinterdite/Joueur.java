@@ -62,7 +62,18 @@ public class Joueur {
     }
     
     public void addCarteMain(Carte_Tresor_Abs cartes){
-        main.add(cartes);
+        getMain().add(cartes);
+    }
+
+    /**
+     * @return the main
+     */
+    public ArrayList<Cartes.Carte_Tresor_Abs> getMain() {
+        return main;
+    }
+    
+    public void supprimerCarte(Carte_Tresor_Abs carte){
+        main.remove(carte);
     }
         
         
