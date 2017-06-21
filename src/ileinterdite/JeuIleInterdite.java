@@ -38,7 +38,7 @@ public class JeuIleInterdite {
     private Joueur joueur_courant; 
     public JeuIleInterdite(){
         // init des tresors 
-        ArrayList<Tresor> trésors = new ArrayList<>();
+         trésors = new ArrayList<>();
         
         Tresor tresor1 = new Tresor("La Pierre Sacrée");
         Tresor tresor2 = new Tresor("La Statue Du Zéphyr");
@@ -104,6 +104,7 @@ public class JeuIleInterdite {
     
      public void setJoueurs(ArrayList<Joueur> joueurs_ihm) {
         this.joueurs = joueurs_ihm;
+         System.out.println(joueurs.size());
         for (Joueur joueur : joueurs){
             System.out.println(joueur.getPion()+" pion du joueur dans JeuIleInterdite");
             System.out.println(grille.getTuile(grille.getNumTuilePion(joueur.getPion())));
@@ -142,9 +143,9 @@ public class JeuIleInterdite {
         boolean partiecontinue = true ;
         
         //InitJoueur();
-        while (partiecontinue){
+        while (!jeuGagnee() && !jeuPerdue()){
         for (Joueur joueur : getJoueurs()) {
-            setJoueurCourant(joueur);
+           setJoueur_courant(joueur);
             TourJoueur(joueur);
         }}
     }
@@ -410,11 +411,19 @@ public class JeuIleInterdite {
     }
 
     
-    public Joueur getJoueurCourant(){
-        return joueur_courant; 
+ 
+
+    /**
+     * @return the joueur_courant
+     */
+    public Joueur getJoueur_courant() {
+        return joueur_courant;
     }
-    
-    public void setJoueurCourant(Joueur joueur) {
-        this.joueur_courant=joueur;
+
+    /**
+     * @param joueur_courant the joueur_courant to set
+     */
+    public void setJoueur_courant(Joueur joueur_courant) {
+        this.joueur_courant = joueur_courant;
     }
 }

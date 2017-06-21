@@ -64,12 +64,7 @@ import java.util.ArrayList;
             tuile.setPionAssocie();
             tuile.setGrille(this);
         }
-        setEtat(16, Etat.DISPARUE);
-        setEtat(14, Etat.DISPARUE);
-        setEtat(20, Etat.DISPARUE);
-        setEtat(26, Etat.DISPARUE);
-        setEtat(19, Etat.INONDEE);
-        setEtat(21, Etat.INONDEE);
+        
         
     }
     

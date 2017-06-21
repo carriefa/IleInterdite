@@ -135,13 +135,14 @@ public class Tuile {
         if (this.getNom()!=null){
             if ((this.getNom()).equals("La Porte De Bronze")){
                 pion_associe = Pion.ROUGE;
+                
             }else if(this.getNom().equals("La Porte De Fer")){
                 pion_associe = Pion.VIOLET;
             }else if(this.getNom().equals("La Porte d'Or")){
                 pion_associe = Pion.JAUNE;
             }else if(this.getNom().equals("La Porte d'Argent")){
                 pion_associe = Pion.ORANGE;
-            }else if(this.getNom().equals("L'héliport")){
+            }else if(this.getNom().equals("Heliport")){
                 pion_associe = Pion.BLEU;
             }else if(this.getNom().equals("La Porte De Cuivre")){
                 pion_associe = Pion.VERT;
