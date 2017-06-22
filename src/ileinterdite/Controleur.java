@@ -59,7 +59,7 @@ public class Controleur implements Observateur {
             case MOUVEMENT:
                 
                ihm.setActionCourante("mouvement");
-               ihm.choixDeplacement(jeu.getGrille().getTuilesDeplacement(jeu.getJoueurCourant()));
+               ihm.choixDeplacement(jeu.getJoueurCourant().getAventurier().getTuilesDeplacement(joueur_courant));
                 
             break;
                 
@@ -99,12 +99,14 @@ public class Controleur implements Observateur {
                 numjoueurcourant = 0 ;
                 jeu.TourJoueur(joueursTab[numjoueurcourant]);
                 ihm.setJourCourant(joueursTab[numjoueurcourant]);
+                joueur_courant = joueursTab[numjoueurcourant];
                 
             }
             else {
                 numjoueurcourant = numjoueurcourant + 1;
                 jeu.TourJoueur(joueursTab[numjoueurcourant]);
                 ihm.setJourCourant(joueursTab[numjoueurcourant]);
+                joueur_courant = joueursTab[numjoueurcourant];
             }
         
             break;
